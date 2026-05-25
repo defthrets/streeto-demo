@@ -514,6 +514,74 @@ body {
   z-index: 10;
 }
 
+/* ===== TRANSITION SCREEN (driving between suburbs) ===== */
+#transition-screen {
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: stretch;
+  background: #0a0814;
+  overflow: hidden;
+}
+#transition-bg-img {
+  position: absolute;
+  top: 35%;
+  left: 0;
+  width: 100%;
+  height: 35%;
+  image-rendering: pixelated;
+  object-fit: cover;
+  pointer-events: none;
+}
+#transition-car-img {
+  position: absolute;
+  left: 50%;
+  top: 53%;
+  width: 200px;
+  height: 100px;
+  margin-left: -100px;
+  image-rendering: pixelated;
+  pointer-events: none;
+  /* Subtle bob/vibration to feel like it's driving */
+  animation: transitionBob 0.15s steps(2) infinite;
+}
+@keyframes transitionBob {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(2px); }
+  100% { transform: translateY(0); }
+}
+#transition-label {
+  position: absolute;
+  top: 14%;
+  left: 0; right: 0;
+  text-align: center;
+  font-family: var(--font-header);
+  color: #ffaa33;
+  font-size: 16px;
+  letter-spacing: 4px;
+  text-shadow: 0 0 16px #ff6600cc;
+}
+#transition-destination {
+  position: absolute;
+  top: 22%;
+  left: 0; right: 0;
+  text-align: center;
+  font-family: var(--font-header);
+  color: #ffeeaa;
+  font-size: 34px;
+  letter-spacing: 6px;
+  text-shadow: 0 0 28px #ff8800aa;
+}
+#transition-distance {
+  position: absolute;
+  bottom: 8%;
+  left: 0; right: 0;
+  text-align: center;
+  font-family: var(--font-body);
+  color: #88ccff;
+  font-size: 14px;
+  letter-spacing: 2px;
+}
+
 /* ===== HILL CLIMB SCREEN ===== */
 #hill-screen {
   flex-direction: column;
@@ -700,6 +768,15 @@ body {
     </div>
     <div id="drag-countdown"></div>
     <div id="drag-result"></div>
+  </div>
+
+  <!-- ===== TRANSITION SCREEN (driving between suburbs) ===== -->
+  <div class="screen" id="transition-screen">
+    <div id="transition-label">TRAVELLING TO</div>
+    <div id="transition-destination">PARRAMATTA</div>
+    <img id="transition-bg-img" src="sprites/transition_drive.gif" alt="">
+    <img id="transition-car-img" src="sprites/car_player_side.png" alt="">
+    <div id="transition-distance">M4 westbound...</div>
   </div>
 
   <!-- ===== SESH SCREEN (Khoa's Cabra Carpark Stealth Deal) ===== -->
@@ -2722,11 +2799,40 @@ function populateSuburbs() {
                        : enc.suburb === 'EASTERN CREEK' ? 'bg_easterncreek'
                        : 'bg_parramatta';
       currentCharacter = enc.character || 'bazza';
-      gotoDialogue(enc.dialogueId);
+      gotoTransition(enc.suburb, () => gotoDialogue(enc.dialogueId));
     };
     list.appendChild(card);
   });
 }
+
+// =============================================
+//  TRANSITION SCREEN — driving between suburbs
+// =============================================
+// Suburb → little flavour line shown under the destination name
+const SUBURB_ROUTES = {
+  'BLACKTOWN':     "M4 west · stranded carpark calls",
+  'PARRAMATTA':    "M4 east · Wigram St mainys",
+  'CABRAMATTA':    "M5 south · John St markets",
+  'PENRITH':       "M4 west · foothills",
+  'LIVERPOOL':     "M5 south · Macquarie St kebabs",
+  'EASTERN CREEK': "Wallgrove Rd · the strip",
+};
+
+function gotoTransition(destinationName, nextFn) {
+  showScreen('transition-screen');
+  // Force GIF restart so the scroll always starts at the beginning
+  const bgImg = document.getElementById('transition-bg-img');
+  if(bgImg) {
+    const src = bgImg.src.split('?')[0];
+    bgImg.src = src + '?t=' + Date.now();
+  }
+  document.getElementById('transition-destination').textContent = destinationName;
+  document.getElementById('transition-distance').textContent =
+    SUBURB_ROUTES[destinationName] || 'driving...';
+  // ~1.8s drive, then continue
+  setTimeout(() => { if(typeof nextFn === 'function') nextFn(); }, 1800);
+}
+
 
 // =============================================
 //  DIALOGUE ENGINE
