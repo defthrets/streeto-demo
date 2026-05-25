@@ -4190,8 +4190,21 @@ let hillBrake = 0;                 // 0 or 1 from button hold
 // Procedurally generated obstacles (placed by seed once per run)
 let hillObstacles = [];
 
-// Smooth terrain height function — sums of sines at varying freqs +
-// a few hand-placed bumps. Returns world Y at given world X.
+// Each obstacle's physical profile — width and height of the bump it
+// adds to the terrain. Wheels physically climb these instead of taking
+// a kick from a fake "you hit it" event.
+const HILL_OB_BUMP = {
+  log:    { w: 0.65, h: 0.45 },  // round log — rolls over with rotation
+  rock:   { w: 1.10, h: 0.85 },  // sharp boulder — needs commitment
+  hay:    { w: 1.00, h: 0.55 },  // soft hay bale — squishes a bit
+  fridge: { w: 0.70, h: 1.10 },  // tall fridge — easy to flip on
+  fence:  { w: 0.30, h: 0.25 },  // small fence post — barely matters
+  // sheep, finish — no terrain contribution
+};
+
+// Smooth terrain height function — sums of sines + per-segment features
+// + obstacle bumps blended into the terrain so the wheels actually crawl
+// over them. Cos-shaped bumps make a smooth ramp the wheels can climb.
 function hillTerrain(x) {
   if(x < 0) x = 0;
   // Base smooth rolling hills
@@ -4205,7 +4218,6 @@ function hillTerrain(x) {
   // Segment 3 (480..720): quarry — sharper bumps + a ramp
   if(x > 480) {
     y += 2.4 * Math.sin((x - 480) * 0.32);
-    // a sharper ramp around x=560..600
     if(x > 560 && x < 600) y += (x - 560) * 0.18;
     if(x >= 600 && x < 640) y += (640 - x) * 0.10;
   }
@@ -4213,6 +4225,24 @@ function hillTerrain(x) {
   if(x > 720 && x < 760) y -= (x - 720) * 0.20;
   if(x >= 760 && x < 820) y += (x - 760) * 0.18;
   if(x >= 820 && x < 900) y += 1.5 * Math.sin((x - 820) * 0.10);
+  // Obstacle bumps — each obstacle adds a smooth raised section to the
+  // terrain so the front + rear wheels physically climb over it one at
+  // a time. Hit ones (sheep already scattered, hay flattened) skip.
+  if(typeof hillObstacles !== 'undefined' && hillObstacles) {
+    for(const ob of hillObstacles) {
+      const prof = HILL_OB_BUMP[ob.type];
+      if(!prof) continue;
+      // Hay bales squish flat once driven over; logs/rocks/fridges
+      // stay as terrain (until you've moved past, they're still there)
+      if(ob.hit && (ob.type === 'hay' || ob.type === 'fence')) continue;
+      const dx = x - ob.x;
+      if(Math.abs(dx) >= prof.w) continue;
+      // Smooth cosine bump — flat top with rounded sides
+      const tt = dx / prof.w;          // -1..+1
+      const bump = prof.h * Math.cos(tt * Math.PI/2);
+      y += bump;
+    }
+  }
   return y;
 }
 
@@ -4324,59 +4354,63 @@ function hillTick(dt) {
   hillOnGround = onGround;
 
   if(onGround) {
-    // Lift the car body so the lower wheel sits on its terrain
+    // Lift the car body so the lower wheel sits on its terrain. Front +
+    // rear wheels each independently sit on their LOCAL terrain height
+    // (which includes obstacle bumps), so the chassis tilts naturally
+    // as the truck crawls over things — front goes up the rock first,
+    // rear is still on the dirt, body pitches up. Then rear climbs and
+    // body levels off. Real rock-crawler behaviour.
     const avgPen = (Math.max(0, frontPen) + Math.max(0, rearPen)) / 2;
     hillCarY += avgPen;
     if(hillVy < 0) hillVy = 0;
-    // Target rotation: align the chassis with the line between wheel ground heights
+    // Target rotation: angle of the line between the two wheel contact pts
     const groundSlope = Math.atan2(frontGroundY - rearGroundY, HILL_WHEELBASE);
-    // SLOWER spring — chassis takes longer to align with terrain, so abrupt
-    // hills can launch the car off-axis and let momentum carry the rotation
-    const blend = Math.min(1, dt * 4);
+    // Speed-aware chassis spring — locks tight at crawl, lags at speed
+    // (so slow careful driving feels glued to terrain, fast driving
+    // launches off bumps with momentum).
+    const speedFactor = Math.min(1, Math.abs(hillVx) / 14);
+    const blendRate = 9 - speedFactor * 5;   // 9 (crawl) → 4 (fast)
+    const blend = Math.min(1, dt * blendRate);
     hillRot = hillRot * (1 - blend) + groundSlope * blend;
-    hillAv  = hillAv * (1 - blend * 0.5);
-    // Sudden bumps (steep slope changes) impart angular velocity instead
-    // of being instantly damped — keeps the car twitchy off bumps
-    hillAv += (groundSlope - hillRot) * 0.5 * dt * Math.max(0.4, Math.abs(hillVx) / 8);
+    hillAv  = hillAv * (1 - blend * 0.6);
+    // Uphill rolling resistance — climbing a steep bump drags you down
+    if(groundSlope > 0) hillVx -= groundSlope * 6 * dt;
+    // Bump-induced pitch impulse — when one wheel is up a bump and the
+    // other isn't, the wheel-height gap kicks angular velocity. Scales
+    // with speed (faster = bigger kick) so committing to a rock at full
+    // throttle launches the front end up.
+    const wheelGap = frontGroundY - rearGroundY;
+    if(Math.abs(wheelGap) > 0.5 && Math.abs(hillVx) > 3) {
+      hillAv += wheelGap * 0.4 * dt * Math.max(1, Math.abs(hillVx) / 5);
+    }
+    // Soft obstacles flatten once the wheels have driven over them
+    for(const ob of hillObstacles) {
+      if(ob.hit) continue;
+      if((ob.type === 'hay' || ob.type === 'fence') && Math.abs(hillCarX - ob.x) < 0.5) {
+        ob.hit = true;
+      }
+    }
   } else {
-    // Airborne — STRONGER input torque from gas/brake (wheelie / nose-dive)
+    // Airborne — input torque from gas/brake (wheelie / nose-dive)
     if(hillGas)   hillAv += 3.5 * dt;
     if(hillBrake) hillAv -= 3.5 * dt;
-    // Less air damping — angular velocity persists through the jump
     hillAv *= (1 - 0.15 * dt);
     hillRot += hillAv * dt;
   }
 
-  // ---- OBSTACLE COLLISIONS ----
-  // Approximate the car as a 3m wide hitbox at the wheel line. If we cross
-  // an obstacle x while on the ground, take a hit — bump rotation + slow.
-  // Hits are HARDER now — easier to flip the Ranger right over.
+  // ---- OBSTACLE EVENT TRIGGERS ----
+  // Solid obstacles (log/rock/fridge) are part of the terrain bump profile —
+  // wheels physically climb them. Only sheep (scatter) and finish line
+  // (win condition) need explicit event triggers here.
   for(const ob of hillObstacles) {
     if(ob.hit) continue;
-    if(Math.abs(hillCarX - ob.x) < 1.6 && onGround) {
-      if(ob.type === 'sheep') {
-        ob.hit = true;  // sheep scatter — comedy, no collision
-      } else if(ob.type === 'finish') {
-        ob.hit = true;
-        hillFinished = true;
-        hillResult = 'win';
-        showHillResult('win');
-      } else {
-        ob.hit = true;
-        // Speed-scaled kick — hitting at full throttle launches the car
-        const speedFactor = Math.min(1.4, Math.abs(hillVx) / 14);
-        hillVx *= 0.4;
-        // Big upward bounce so you get airtime where you can over-rotate
-        hillVy = 8 + speedFactor * 4;
-        // Backward rotation kick scaled by obstacle severity AND speed
-        const baseKick = (ob.type === 'fridge') ? 6.5
-                       : (ob.type === 'rock')   ? 5.5
-                       : (ob.type === 'log')    ? 4.5
-                       : (ob.type === 'hay')    ? 3.5
-                       : (ob.type === 'fence')  ? 3.0
-                       : 3.0;
-        hillAv += baseKick * (0.6 + speedFactor);
-      }
+    if(ob.type === 'sheep' && Math.abs(hillCarX - ob.x) < 2.5) {
+      ob.hit = true;  // bleat + scatter (visual only)
+    } else if(ob.type === 'finish' && hillCarX >= ob.x) {
+      ob.hit = true;
+      hillFinished = true;
+      hillResult = 'win';
+      showHillResult('win');
     }
   }
 
@@ -4747,7 +4781,13 @@ const SESH_PF_H = 380;
 const SESH_PLAYER_CAR = { cx: 150, cy: 350, w: 60, h: 100 };
 const SESH_KHOA_CAR   = { cx: 220, cy: 350, w: 60, h: 100 };
 // Cop loop timing — speeds up after each QTE completes
-const SESH_LOOP_SECS = [12, 10, 8];  // index = current QTE step
+const SESH_LOOP_SECS = [8, 6.5, 5];  // index = current QTE step — tighter loops
+// Cone tuning. Wider + reaches further now, with a scan wobble that
+// sweeps the beam back and forth while the cop drives.
+const SESH_BEAM_LEN          = 290;          // base beam reach (was 220)
+const SESH_BEAM_HALF_ANG     = Math.PI * 0.42; // ≈75° half (cone 150°, was 70°)
+const SESH_BEAM_SWEEP_AMP    = Math.PI * 0.12; // ±22° wobble
+const SESH_BEAM_SWEEP_SECS   = 1.6;          // full sweep period
 const SESH_QTE_LABELS = ['PEEK BAG', 'SNIFF TEST', 'HAND CASH'];
 
 // State
@@ -4855,22 +4895,28 @@ function seshCopPose() {
   return { cx, cy, heading };
 }
 
-// Cop side-spotlight points 90° to the RIGHT of heading (into the
-// carpark interior). Returns true if the player's car is within the cone.
+// Beam direction = perpendicular-to-heading (right-mounted spotlight) +
+// a slow back-and-forth scan wobble so the cone visibly sweeps even when
+// the cop is driving straight. Returned in radians.
+function seshBeamAngle() {
+  const pose = seshCopPose();
+  const t = (performance.now() / 1000) / SESH_BEAM_SWEEP_SECS;
+  const sweep = Math.sin(t * Math.PI * 2) * SESH_BEAM_SWEEP_AMP;
+  return pose.heading + Math.PI/2 + sweep;
+}
+
+// Cop side-spotlight — wider + reaches further now, with a sweep wobble.
 function seshCopLightOnPlayer() {
   const pose = seshCopPose();
-  // Spotlight direction = heading + 90° (right-side mount)
-  const beamAng = pose.heading + Math.PI/2;
+  const beamAng = seshBeamAngle();
   const beamX = Math.cos(beamAng), beamY = Math.sin(beamAng);
-  // Vector from cop to player
   const dx = SESH_PLAYER_CAR.cx - pose.cx;
   const dy = SESH_PLAYER_CAR.cy - pose.cy;
   const dist = Math.hypot(dx, dy);
-  if(dist > 220) return false;  // too far for the beam to reach
-  // Angle between beam direction and player direction
-  const cos = (dx * beamX + dy * beamY) / Math.max(0.01, dist);
-  // Cone half-angle: 35° → cos threshold ≈ 0.82
-  return cos > 0.82;
+  if(dist > SESH_BEAM_LEN) return false;
+  const cosAng = (dx * beamX + dy * beamY) / Math.max(0.01, dist);
+  // Cone half-angle threshold
+  return cosAng > Math.cos(SESH_BEAM_HALF_ANG);
 }
 
 function onSeshTap() {
@@ -5025,16 +5071,15 @@ function drawSesh(time) {
   }
   ctx.restore();
 
-  // ---- SPOTLIGHT CONE ----
-  const beamAng = pose.heading + Math.PI/2;
-  const beamLen = 220;
-  const beamHalfAng = Math.PI * 35/180;  // 70° cone
+  // ---- SPOTLIGHT CONE — wider, longer reach, sweeps back and forth ----
+  const beamAng = seshBeamAngle();
+  const beamLen = SESH_BEAM_LEN;
+  const beamHalfAng = SESH_BEAM_HALF_ANG;
   const onPlayer = seshCopLightOnPlayer();
   const beamColor = onPlayer ? 'rgba(255,80,60,' : 'rgba(255,220,120,';
-  // Outer glow
   const grad = ctx.createRadialGradient(pose.cx, pose.cy, 10, pose.cx, pose.cy, beamLen);
-  grad.addColorStop(0,    beamColor + (onPlayer ? '0.55' : '0.42') + ')');
-  grad.addColorStop(0.7,  beamColor + (onPlayer ? '0.30' : '0.18') + ')');
+  grad.addColorStop(0,    beamColor + (onPlayer ? '0.65' : '0.50') + ')');
+  grad.addColorStop(0.7,  beamColor + (onPlayer ? '0.35' : '0.20') + ')');
   grad.addColorStop(1,    beamColor + '0)');
   ctx.fillStyle = grad;
   ctx.beginPath();
@@ -5042,7 +5087,7 @@ function drawSesh(time) {
   ctx.arc(pose.cx, pose.cy, beamLen, beamAng - beamHalfAng, beamAng + beamHalfAng);
   ctx.closePath();
   ctx.fill();
-  // Bright core stripe
+  // Bright core stripe in the centre of the sweep
   ctx.strokeStyle = beamColor + '0.85)';
   ctx.lineWidth = 2;
   ctx.beginPath();
