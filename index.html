@@ -1907,83 +1907,90 @@ const DIALOGUES = {
     nodes:[
       {
         id:"start", speakerId:"narrator", portrait:null,
-        text:"Penrith. A normal Westfield carpark with a Bunnings next door, but the bloke standing in front of you is dressed like he just walked out of an outback station — flannie, Akubra, work boots, the lot. He's leaning on a jacked ForrdRanjer with mud tyres so big they barely fit under the guards.",
+        text:"Penrith. A normal Westfield carpark with a Bunnings next door, but the bloke leaning on a jacked Wildtrak Ranger in front of you is dressed like he just walked off an outback station — flannie, Akubra, work boots, mud tyres bigger than your bonnet. The Blue Mountains glow pink on the horizon.",
         next:"mitcho_penrith_quip1"
       },
       {
         id:"mitcho_penrith_quip1", speakerId:"eshay", portrait:"eshay_excited",
-        text:"BRA. Bra. We're in PENRITH adlay. There's a Coles right there. He's wearin' a HAT lad. What is this man doin'.",
+        text:"Bra. Bra. We're in PENRITH adlay. There's a Coles right there. He's wearin' a HAT lad.",
         next:"macca_greet"
       },
       {
         id:"macca_greet", speakerId:"macca", portrait:"macca_default",
-        text:"Gday mate! You must be the bloke from out east. Heard you been pingin' it through west syd. Pull up a chair, grab a beer. Macca's the name. That there's the Ranjer. We don't get many city cars out here.",
+        text:"Gday mate! You must be the bloke from out east. Heard you been pingin' it through west syd. Pull up, grab a beer. The name's Brett — but everyone round here calls me Macca. That there's the Ranjer.",
         choices:[
-          {text:"Sweet rig, mate.", next:"macca_truck"},
-          {text:"Who told you about me?", next:"macca_news"},
-          {text:"Big country boy, big car. Race me.", next:"macca_race_offer"},
-          {text:"You know Penrith isn't actually the bush, right?", next:"macca_country"}
+          {text:"Macca like the McDonald's?", next:"macca_name_joke"},
+          {text:"Who told you we were comin', Brett?", next:"macca_news"},
+          {text:"Nice rig, Brett.", next:"macca_truck"},
+          {text:"Penrith isn't really the bush though.", next:"macca_country"}
         ]
       },
       {
-        id:"macca_country", speakerId:"macca", portrait:"macca_happy",
-        text:"Aw mate listen, Penrith's the gateway to the bush yeah. You can SEE the Blue Mountains from here. Half my mates are out in Lithgow, Bathurst, even Dubbo. Spiritually I'm a bushie. Geographically... we're in Sydney metro.",
-        next:"mitcho_penrith_quip2"
+        id:"macca_name_joke", speakerId:"macca", portrait:"macca_happy",
+        text:"HA! You're not the first mate. Yeah look — name's Brett, mum named me, can't help it. But me and the boys live at the Maccas Drive-Thru on Castlereagh Road, so the nickname stuck about fifteen years ago and it's never gettin' off me yeah.",
+        next:"macca_truck"
       },
       {
-        id:"mitcho_penrith_quip2", speakerId:"eshay", portrait:"eshay_default",
-        text:"Spiritually a bushie. SPIRITUALLY a bushie bra. Lad you live next to a Bunnings. Your roo bar's never seen a roo. The closest you've been to droving is herdin' Coles trolleys.",
+        id:"macca_country", speakerId:"macca", portrait:"macca_happy",
+        text:"Aw mate, Penrith's the gateway to the bush. You can SEE the Blue Mountains from here. Half me mates are out in Lithgow, Bathurst, Dubbo. Spiritually I'm a bushie. Geographically I'm next to a JB Hi-Fi. Splits the difference yeah.",
         next:"macca_truck"
       },
       {
         id:"macca_news", speakerId:"macca", portrait:"macca_default",
-        text:"Khoa from Cabra rang me actually, said you'd be rollin' through. Said Brenno left his glass in the AU and now he needs me spare double perc. Look mate I've had that ongbay since me eighteenth — you've gotta earn it.",
+        text:"Khoa from Cabra rang me, said you'd be rollin' through. Said Brenno left his glass in the Beemer and now he's chasin' me spare double perc. Look mate — I've had that bong since me eighteenth. You've gotta earn it.",
         next:"macca_truck"
       },
       {
         id:"macca_truck", speakerId:"macca", portrait:"macca_proud",
-        text:"She's a 2018 Wildtrak, 3.2 litre turbo diesel, 3 inch lift, 35s, snorkel, dual battery, light bar, the lot. Tows me boat, tows me caravan, tows me mate's broken-down Hilux every other weekend. Tough as nails mate.",
-        next:"macca_truck_2"
-      },
-      {
-        id:"macca_truck_2", speakerId:"macca", portrait:"macca_default",
-        text:"She ain't fast in a straight line, that's what everyone says when they see her. But out here on these country roads, with the dips and the kangaroos and the bull dust? She'll see your little tuner off mate.",
-        next:"mitcho_penrith_quip3"
-      },
-      {
-        id:"mitcho_penrith_quip3", speakerId:"eshay", portrait:"eshay_excited",
-        text:"Bull dust?! BULL DUST?! Bra the only dust on the Northern Rd is from the new estates. There's a Maccas every two kays. Last roo seen out here was in 2003 lad, I LOOKED IT UP.",
+        text:"She's a 2018 Wildtrak Ranger. 3.2 litre turbo diesel, 3 inch lift, 35 inch muddies, snorkel, dual battery, light bar, ARB winch. Tows me boat, tows me caravan, tows me mate's broken-down Hilux every other weekend.",
         choices:[
-          {text:"Let's race then.", next:"macca_race_offer"},
-          {text:"You're gonna race me in a 4WD?", next:"macca_doubt"}
+          {text:"That thing's not built for speed though.", next:"macca_doubt"},
+          {text:"So what's the actual deal?", next:"macca_deal_setup"},
+          {text:"How are we settling this then, Brett?", next:"macca_deal_setup"}
         ]
       },
       {
         id:"macca_doubt", speakerId:"macca", portrait:"macca_excited",
-        text:"Hahaha mate I get that all the time! Listen, she's got 4.5 metres of width and 2.5 tonnes of weight. You're not getting past me on a single lane, and these roads are all single lane. That's the trick yeah.",
-        next:"macca_race_offer"
+        text:"Hahaha that's exactly what city blokes always reckon mate. She doesn't NEED top speed. Out the back of Penrith it's all dips, dirt, paddock fences and dry creek beds. The Ranjer eats that for breakfast. You'll see.",
+        next:"macca_deal_setup"
       },
       {
-        id:"macca_race_offer", speakerId:"macca", portrait:"macca_default",
-        text:"Run's simple. The Northern Rd, from the carpark up to the lookout. Win and I hand Brenno me spare double perc, no questions. Lose and you owe me a slab. Sound fair?",
+        id:"macca_deal_setup", speakerId:"macca", portrait:"macca_default",
+        text:"Here's how it goes mate. We hop in our rigs right now and we tear down Castlereagh Road, straight shot off the back of the carpark, past the paddocks, over the quarry track, finish line is the McDonald's drive-thru on the corner of Andrews Rd. Maccas to Maccas. Beautiful.",
+        next:"macca_deal_stakes"
+      },
+      {
+        id:"macca_deal_stakes", speakerId:"macca", portrait:"macca_proud",
+        text:"You roll in there upright first, I hand Brenno the spare double perc, no questions. You don't make it — bog the rig, roll it, give up — you owe me a slab of VB AND you shout the McChickens. Sound fair?",
         choices:[
-          {text:"Fair enough. Deal.", next:"macca_lets_go"},
-          {text:"What if I dodge you?", next:"macca_dodge"}
+          {text:"Castlereagh's not made for that. Doesn't matter — deal.", next:"macca_player_confident"},
+          {text:"Maccas to Maccas, I love it. Deal.", next:"macca_player_loose"},
+          {text:"Brett — there'll be obstacles, won't there.", next:"macca_player_warned"}
         ]
       },
       {
-        id:"macca_dodge", speakerId:"macca", portrait:"macca_excited",
-        text:"You can try mate, but she's about to fill the whole bloody road. Best of luck threading the needle.",
+        id:"macca_player_warned", speakerId:"macca", portrait:"macca_excited",
+        text:"Course there will mate! Logs the council never cleared, hay bales me uncle dropped, a fridge that someone dumped outside the panel-beater, couple of sheep that wander on at dusk. Standard Castlereagh stuff. Watch the rocks past the quarry, they'll send ya proper sideways.",
         next:"macca_lets_go"
       },
       {
-        id:"macca_lets_go", speakerId:"macca", portrait:"macca_happy",
-        text:"Beauty. Let's go for a punt then. Mind the roos.",
+        id:"macca_player_confident", speakerId:"macca", portrait:"macca_happy",
+        text:"Beauty mate! Confidence I like. Just remember — out there it's not about top speed, it's about not endin' up on ya roof in a paddock. Hop in, gas pedal on the right, brake on the left, don't flip.",
+        next:"macca_lets_go"
+      },
+      {
+        id:"macca_player_loose", speakerId:"macca", portrait:"macca_happy",
+        text:"Hahaha now we're talkin'! Maccas to Maccas down Castlereagh. The boys at the Drive-Thru are gonna lose it. Sharon's workin' the window tonight, she'll have a chocolate sundae waitin' for the winner. Hop in mate.",
+        next:"macca_lets_go"
+      },
+      {
+        id:"macca_lets_go", speakerId:"macca", portrait:"macca_default",
+        text:"One thing though — and I'm serious about this one mate — if you flip the rig, just hit retry and have another crack. The Ranjer's tough, you'll be right. See ya at the Drive-Thru.",
         next:"mitcho_penrith_quip_final"
       },
       {
-        id:"mitcho_penrith_quip_final", speakerId:"eshay", portrait:"eshay_default",
-        text:"Mate I just looked at the radar. There are no roos. There's a Westfield. There's a uni. There's a JB Hi-Fi. Smoke this bushie adlay.",
+        id:"mitcho_penrith_quip_final", speakerId:"eshay", portrait:"eshay_excited",
+        text:"YEEEEW. Maccas to MACCAS. Aux cord's mine. Engine on. Let's go bra.",
         triggerEvent:"start_race_penrith"
       }
     ]
@@ -1994,25 +2001,31 @@ const DIALOGUES = {
     nodes:[
       {
         id:"start", speakerId:"macca", portrait:"macca_happy",
-        text:"Well shit me mate, ya got around the Ranjer! Didn't think that was possible. Fair dinkum impressive drivin' that. Feed's on me, head on into the Workers, tell Sharon Macca sent ya.",
+        text:"Well shit me mate, ya got the rig to the Drive-Thru upright! Fair dinkum impressive drivin' that, especially past the quarry rocks. Sharon's already got the McChickens goin', she saw the headlights round the bend.",
         choices:[
-          {text:"GG, Macca.", next:"macca_respect"},
-          {text:"Maybe time for some power upgrades?", next:"macca_upgrade"}
+          {text:"GG, Brett.", next:"macca_respect"},
+          {text:"That Ranger's got way more flex than I expected.", next:"macca_upgrade"},
+          {text:"Hand over the bong then mate.", next:"macca_handover"}
         ]
       },
       {
         id:"macca_respect", speakerId:"macca", portrait:"macca_default",
-        text:"Real respect mate. You're a proper driver, no two ways about it. Drive safe gettin' home. And come back any time, the boys here'd love to meet ya.",
-        next:"macca_credits"
+        text:"Real respect mate. You're a proper driver, no two ways about it. Drive safe gettin' home — and the double perc's yours, Brenno can stop whingein' about it.",
+        next:"macca_handover"
       },
       {
         id:"macca_upgrade", speakerId:"macca", portrait:"macca_excited",
-        text:"Mate she's a Ranjer, she doesn't need power, she needs respect. But yeah... I might look at a bigger turbo just to keep up with you next time. Cheeky.",
+        text:"Yeah she rolls a bit doesn't she, when the angles get steep. That's the lift kit yeah, taller centre of gravity. Trade off. She climbs anythin' though. Wouldn't swap her.",
+        next:"macca_handover"
+      },
+      {
+        id:"macca_handover", speakerId:"macca", portrait:"macca_proud",
+        text:"Right, here she is. Genuine 2-piece double perc, eighteenth birthday present off me old man. Looked after her like a daughter. Look after her like one yeah?",
         next:"macca_credits"
       },
       {
         id:"macca_credits", speakerId:"eshay", portrait:"eshay_excited",
-        text:"BRA. ESHAYS. Got the ongbay. Got the gear. Now the coil pack. There's a bloke in Liverpool, Moey, runs the kebab strip and a black AGM. Knows every Beemer wrecker in NSW. Will only deal if you beat him in a race adlay. ESHAYS we're so close to gettin' me Beemer runnin'.",
+        text:"BRA. ESHAYS. Got the ongbay. Got the gear. Now the coil pack. Moey runs the kebab strip in Liverpool, knows every Beemer wrecker in NSW. We're so close to gettin' me Beemer runnin' adlay.",
         next:"macca_credits_2"
       },
       {
@@ -2028,25 +2041,25 @@ const DIALOGUES = {
     nodes:[
       {
         id:"start", speakerId:"macca", portrait:"macca_happy",
-        text:"Hahaha mate, what'd I tell ya! Couldn't squeeze past the old girl could ya. Don't feel bad, no one ever does on these roads. Pull up, get a beer in ya. You owe me a slab too don't forget.",
+        text:"Aw mate, on ya roof are ya. Don't feel bad, half the boys end up there their first crack at Castlereagh. The Ranjer's tough, you'll be right. Pull up, get a beer in ya. Have another go whenever you're ready yeah.",
         choices:[
-          {text:"Best of three?", next:"macca_rematch"},
-          {text:"Fair go mate.", next:"macca_humble"}
+          {text:"That was on me. Run it back, Brett.", next:"macca_rematch"},
+          {text:"Need a minute. I'll be back.", next:"macca_humble"}
         ]
       },
       {
         id:"macca_rematch", speakerId:"macca", portrait:"macca_excited",
-        text:"Yeah righto, but bring a better car next time eh. Somethin' that fits past me. Or come back with a 4WD yourself, we'll do it proper bush style.",
+        text:"That's the spirit mate. Same deal — Castlereagh to the Drive-Thru. Sharon will keep the McChickens warm. See ya at the start line.",
         next:"macca_retry"
       },
       {
         id:"macca_humble", speakerId:"macca", portrait:"macca_default",
-        text:"Good attitude mate. Come back whenever. We'll be here. So will the roos.",
+        text:"Good attitude mate. Come back whenever. We'll be here. Maccas is open 24/7 anyway. So's the Bunnings sausage sizzle on Saturdays.",
         next:"macca_retry"
       },
       {
         id:"macca_retry", speakerId:"narrator", portrait:null,
-        text:"Penrith belongs to Macca and the Ranjer. The 'bush' wins again.",
+        text:"The Drive-Thru lights flicker in the distance. Castlereagh Road stays Brett's for tonight. Come back when you're ready.",
         triggerEvent:"return_to_map"
       }
     ]
@@ -4662,29 +4675,44 @@ function drawHillObstacle(ctx, ob, sx, sy) {
 function showHillResult(kind) {
   const el = document.getElementById('hill-result');
   el.style.display = 'flex';
-  const title  = (kind === 'win')    ? "GOT THE BONG"
-               : (kind === 'flip')   ? "FLIPPED THE RANGER"
+  const title  = (kind === 'win')    ? "MADE IT TO MACCAS"
+               : (kind === 'flip')   ? "ON YA ROOF"
                : (kind === 'bogged') ? "BOGGED!"
                : "FAILED";
-  const sub    = (kind === 'win')    ? "Macca tips his Akubra. The double perc is yours."
-               : (kind === 'flip')   ? "Roof down. Try again, lad."
-               : (kind === 'bogged') ? "Too slow off the line. Roll back."
+  const sub    = (kind === 'win')    ? "Sharon's got the McChickens. Brett hands over the double perc."
+               : (kind === 'flip')   ? "Wheels up in a paddock. Have another crack — the Ranjer's tough."
+               : (kind === 'bogged') ? "Stuck in the dry creek bed. Hit retry and gun it harder."
                : "";
   const colour = (kind === 'win') ? '#ffaa33' : '#ff5544';
+  // Losing screens show both RETRY (re-launch the hill climb) and GIVE UP
+  // (back to Macca dialogue). Winning shows only CONTINUE.
+  const buttonsHtml = (kind === 'win')
+    ? `<button class="restart-btn" id="hill-continue-btn">[ CONTINUE ]</button>`
+    : `<div style="display:flex; gap:14px;">
+         <button class="restart-btn" id="hill-retry-btn">[ RETRY ]</button>
+         <button class="restart-btn" id="hill-quit-btn" style="background:rgba(80,80,90,0.15); border-color:#555; color:#aaa;">[ GIVE UP ]</button>
+       </div>`;
   el.innerHTML = `
-    <div style="font-size:48px; color:${colour}; text-shadow:0 0 24px ${colour}88; margin-bottom:18px;">${title}</div>
-    <div style="font-size:18px; color:#ffd17a; margin-bottom:34px; text-align:center; padding:0 30px;">${sub}</div>
-    <button class="restart-btn" id="hill-continue-btn">[ CONTINUE ]</button>
+    <div style="font-size:42px; color:${colour}; text-shadow:0 0 24px ${colour}88; margin-bottom:18px;">${title}</div>
+    <div style="font-size:16px; color:#ffd17a; margin-bottom:34px; text-align:center; padding:0 30px;">${sub}</div>
+    ${buttonsHtml}
   `;
   setTimeout(() => {
-    const btn = document.getElementById('hill-continue-btn');
-    if(btn) btn.onclick = () => {
-      const dialogue = (kind === 'win') ? 'macca_post_win' : 'macca_post_lose';
-      gotoDialogue(dialogue);
-      if(kind === 'win') {
-        gameProgress.penrithBeaten = true;
-      }
+    const cont = document.getElementById('hill-continue-btn');
+    if(cont) cont.onclick = () => {
+      gotoDialogue('macca_post_win');
+      gameProgress.penrithBeaten = true;
     };
+    const retry = document.getElementById('hill-retry-btn');
+    if(retry) retry.onclick = () => {
+      // Hide the result overlay and re-launch the hill climb in place
+      el.style.display = 'none';
+      // Stop any pending animation frame from the previous run
+      if(hillRAF) { cancelAnimationFrame(hillRAF); hillRAF = null; }
+      gotoHill();
+    };
+    const quit = document.getElementById('hill-quit-btn');
+    if(quit) quit.onclick = () => gotoDialogue('macca_post_lose');
   }, 0);
 }
 
