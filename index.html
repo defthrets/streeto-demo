@@ -2,8 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>STREETO</title>
+<!-- PWA — installable from phone home screen -->
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#ff6600">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Streeto">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="icon-192.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&family=VT323&display=swap" rel="stylesheet">
 <style>
@@ -5730,6 +5739,15 @@ loadAllSprites(() => {
   if(currentScreen === 'title-screen')    drawBgScene();
   if(currentScreen === 'dialogue-screen') drawDialogueScene();
 });
+
+// Register the PWA service worker so the demo is installable on the
+// phone home screen and works offline once cached. No-op when served
+// from file:// or non-secure contexts.
+if('serviceWorker' in navigator && location.protocol !== 'file:') {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(()=>{});
+  });
+}
 </script>
 </body>
 </html>
