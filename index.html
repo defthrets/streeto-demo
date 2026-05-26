@@ -1846,7 +1846,7 @@ const DIALOGUES = {
       },
       {
         id:"brenno_ongbay_realize_2", speakerId:"eshay", portrait:"eshay_nervous",
-        text:"Alright alright don't panic. Macca up in Penrith has a spare. Lives next door to his old man's tyre shop. We HAVE to go bra. ESHAYS, he won't just hand it over, you know how Macca is — wants a race for it.",
+        text:"Alright alright don't panic. Brett up in Penrith has a spare. Lives next door to his old man's tyre shop. We HAVE to go bra. ESHAYS, he won't just hand it over, you know how Brett is — wants to make us earn it.",
         next:"khoa_geton_done"
       },
       {
@@ -1933,7 +1933,7 @@ const DIALOGUES = {
       },
       {
         id:"khoa_credits", speakerId:"eshay", portrait:"eshay_excited",
-        text:"YEEEEW ESHAYS. We got the ongbay bra, we GOT IT. Right — now Penrith. There's a country bloke called Brett, everyone calls him Macca. Got a jacked 4x4 Ranjer. He's the only bloke I know with a spare double perc — gunna make us EARN it though adlay. Castlereagh Road, off-road bash from his carpark to the Maccas Drive-Thru. First one upright wins. ESHAYS.",
+        text:"YEEEEW ESHAYS. We got the ongbay bra, we GOT IT. Right — now Penrith. There's a country bloke called Brett. Jacked 4x4 Ranjer. He's the only bloke I know with a spare double perc — gunna make us EARN it though adlay. Castlereagh Road, off-road bash from his carpark to the Maccas Drive-Thru. First one upright wins. ESHAYS.",
         next:"khoa_credits_2"
       },
       {
@@ -1988,18 +1988,12 @@ const DIALOGUES = {
       },
       {
         id:"macca_greet", speakerId:"macca", portrait:"macca_default",
-        text:"Gday mate! You must be the bloke from out east. Heard you been pingin' it through west syd. Pull up, grab a beer. The name's Brett — but everyone round here calls me Macca. That there's the Ranjer.",
+        text:"Gday mate! You must be the bloke from out east. Heard you been pingin' it through west syd. Pull up, grab a beer. The name's Brett. That there's the Ranjer.",
         choices:[
-          {text:"Macca like the McDonald's?", next:"macca_name_joke"},
           {text:"Who told you we were comin', Brett?", next:"macca_news"},
           {text:"Nice rig, Brett.", next:"macca_truck"},
           {text:"Penrith isn't really the bush though.", next:"macca_country"}
         ]
-      },
-      {
-        id:"macca_name_joke", speakerId:"macca", portrait:"macca_happy",
-        text:"HA! You're not the first mate. Yeah look — name's Brett, mum named me, can't help it. But me and the boys live at the Maccas Drive-Thru on Castlereagh Road, so the nickname stuck about fifteen years ago and it's never gettin' off me yeah.",
-        next:"macca_truck"
       },
       {
         id:"macca_country", speakerId:"macca", portrait:"macca_happy",
@@ -2401,9 +2395,9 @@ function getEncounters() {
     {
       suburb: "PENRITH",
       desc: gameProgress.penrithBeaten
-        ? "Smashed Macca's hill climb. Got his spare double-perc."
+        ? "Smashed Brett's hill climb. Got his spare double-perc."
         : gameProgress.penrithUnlocked
-            ? "Macca's challenging you to a 4x4 hill run for his spare bong. Don't flip."
+            ? "Brett's challenging you to a 4x4 hill run for his spare bong. Don't flip."
             : "Country country. Panthers turf. Locked until you've earned it.",
       rep: gameProgress.penrithBeaten ? "DONE ★"
          : gameProgress.penrithUnlocked ? "NEW TURF" : "LOCKED",
@@ -2449,7 +2443,7 @@ const NAMES = {
   eshay:  "BRENNO",
   preet:  "RAHUL",
   khoa:   "KHOA",
-  macca:  "MACCA",
+  macca:  "BRETT",
   player: "YOU",
   narrator: "..."
 };
@@ -3681,7 +3675,7 @@ function drawRaceScene() {
       camry:       'CATCHING RAHUL!',
       silvia:      'CATCHING KHOA!',
       wrx:         'CATCHING THE WRX!',
-      ranger: 'CATCHING MACCA!',
+      ranger: 'CATCHING BRETT!',
     };
     const catchMsg = catchMsgByRival[currentRival] || 'CATCHING UP!';
     ctx.fillText(catchMsg, RC_CX, 65);
@@ -3835,7 +3829,7 @@ function finishRace(playerWon) {
     camry:       'RAHUL WINS!',
     silvia:      'KHOA WINS!',
     wrx:         'WRX WINS!',
-    ranger: 'MACCA WINS!',
+    ranger: 'BRETT WINS!',
   };
   res.textContent = playerWon ? 'YOU WIN!' : (loseMsgByRival[currentRival] || 'YOU LOSE');
   res.style.color   = playerWon ? '#44ff88' : '#ff4444';
@@ -4362,7 +4356,7 @@ function gotoHill() {
   document.getElementById('hill-result').style.display = 'none';
   const cd = document.getElementById('hill-countdown');
   cd.style.display = 'flex';
-  cd.textContent = "MACCA'S PENRITH RUN";
+  cd.textContent = "BRETT'S PENRITH RUN";
   setTimeout(() => { cd.textContent = '3'; }, 800);
   setTimeout(() => { cd.textContent = '2'; }, 1500);
   setTimeout(() => { cd.textContent = '1'; }, 2200);
