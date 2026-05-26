@@ -229,6 +229,98 @@ body {
 .trophy-btn:hover, .trophy-btn:active {
   background: rgba(255,170,40,0.20); border-color:#ffaa33; color:#ffe19a;
 }
+/* ===== REWARD UNLOCK CELEBRATION OVERLAY ===== */
+#reward-unlock-screen {
+  flex-direction:column; align-items:center; justify-content:center;
+  background: radial-gradient(ellipse at 50% 45%, rgba(255,160,40,0.18) 0%, rgba(6,7,13,0.96) 60%);
+  overflow:hidden;
+}
+.reward-unlock-card {
+  display:flex; flex-direction:column; align-items:center;
+  padding:30px 26px 22px; gap:12px;
+  border:3px solid #ffaa33;
+  background:linear-gradient(180deg, #16100a 0%, #08060d 100%);
+  box-shadow: 0 0 50px rgba(255,170,40,0.45), 0 0 90px rgba(255,80,0,0.25) inset;
+  animation: rewardCardEntry 0.5s cubic-bezier(0.18, 1.6, 0.45, 1.0) both;
+}
+@keyframes rewardCardEntry {
+  0%   { transform: scale(0.6) rotate(-3deg); opacity:0; }
+  60%  { transform: scale(1.05) rotate(1deg); opacity:1; }
+  100% { transform: scale(1) rotate(0); opacity:1; }
+}
+.reward-unlock-label {
+  font-family:var(--font-header); color:#ffe19a; font-size:22px;
+  letter-spacing:6px; text-shadow:0 0 18px #ffaa33aa;
+  animation: rewardLabelPulse 1.4s ease-in-out infinite;
+}
+@keyframes rewardLabelPulse {
+  0%, 100% { text-shadow:0 0 14px #ffaa3380; transform:scale(1); }
+  50%      { text-shadow:0 0 28px #ffee99cc; transform:scale(1.06); }
+}
+.reward-unlock-icon-wrap {
+  position:relative;
+  width:200px; height:200px;
+  display:flex; align-items:center; justify-content:center;
+  margin:6px 0 10px;
+}
+.reward-unlock-halo {
+  position:absolute; inset:0;
+  background: radial-gradient(circle at center, rgba(255,200,80,0.55) 0%, rgba(255,140,40,0.30) 30%, rgba(255,80,0,0) 70%);
+  animation: rewardHaloPulse 1.6s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes rewardHaloPulse {
+  0%, 100% { transform: scale(0.85); opacity:0.7; }
+  50%      { transform: scale(1.15); opacity:1.0; }
+}
+.reward-unlock-icon {
+  width:140px; height:140px; image-rendering:pixelated;
+  position:relative; z-index:2;
+  animation: rewardIconEntry 0.85s cubic-bezier(0.18, 1.7, 0.4, 1.0) both,
+             rewardIconBob 2.4s ease-in-out infinite 0.85s;
+  filter: drop-shadow(0 0 14px rgba(255,200,80,0.7));
+}
+@keyframes rewardIconEntry {
+  0%   { transform: scale(0); opacity:0; }
+  55%  { transform: scale(1.35); opacity:1; }
+  75%  { transform: scale(0.92); }
+  100% { transform: scale(1); }
+}
+@keyframes rewardIconBob {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%      { transform: translateY(-6px) scale(1.04); }
+}
+.reward-unlock-spark {
+  position:absolute; width:14px; height:14px;
+  background: radial-gradient(circle, #ffffff 0%, #ffeb88 40%, transparent 70%);
+  pointer-events:none;
+  animation: rewardSparkOrbit 2.0s linear infinite;
+  --o: 0deg;
+  --r: 90px;
+  transform: rotate(var(--o)) translateX(var(--r)) rotate(calc(-1 * var(--o)));
+}
+.reward-unlock-spark.s1 { --o:   0deg; animation-delay: 0s;   }
+.reward-unlock-spark.s2 { --o:  60deg; animation-delay: 0.18s; }
+.reward-unlock-spark.s3 { --o: 120deg; animation-delay: 0.36s; }
+.reward-unlock-spark.s4 { --o: 180deg; animation-delay: 0.54s; }
+.reward-unlock-spark.s5 { --o: 240deg; animation-delay: 0.72s; }
+.reward-unlock-spark.s6 { --o: 300deg; animation-delay: 0.90s; }
+@keyframes rewardSparkOrbit {
+  0%   { transform: rotate(var(--o)) translateX(var(--r)) rotate(calc(-1 * var(--o))) scale(0); opacity:0; }
+  20%  { opacity:1; }
+  100% { transform: rotate(calc(var(--o) + 360deg)) translateX(var(--r)) rotate(calc(-1 * (var(--o) + 360deg))) scale(1.2); opacity:0; }
+}
+.reward-unlock-name {
+  font-family:var(--font-header); color:#ffcc66; font-size:32px;
+  letter-spacing:4px; text-align:center;
+  text-shadow:0 0 16px #ff880088;
+}
+.reward-unlock-from {
+  font-family:var(--font-body); color:#88aacc; font-size:12px;
+  letter-spacing:2px; text-align:center; margin-bottom:14px;
+}
+#reward-unlock-btn { margin-top:6px; }
+
 /* Tiny floating trophies icon on the dialogue screen so the player can
    peek their inventory mid-run without breaking the linear flow */
 #trophy-peek-btn {
@@ -843,6 +935,26 @@ body {
     <div class="select-header">CHOOSE YOUR NEXT MOVE</div>
     <div class="suburb-list" id="suburb-list"></div>
     <button class="trophy-btn" id="trophy-open-btn">[ TROPHY ROOM ]</button>
+  </div>
+
+  <!-- ===== REWARD UNLOCK CELEBRATION OVERLAY ===== -->
+  <div class="screen" id="reward-unlock-screen">
+    <div class="reward-unlock-card">
+      <div class="reward-unlock-label">★ UNLOCKED ★</div>
+      <div class="reward-unlock-icon-wrap">
+        <div class="reward-unlock-halo"></div>
+        <img class="reward-unlock-icon" id="reward-unlock-img" alt="">
+        <div class="reward-unlock-spark s1"></div>
+        <div class="reward-unlock-spark s2"></div>
+        <div class="reward-unlock-spark s3"></div>
+        <div class="reward-unlock-spark s4"></div>
+        <div class="reward-unlock-spark s5"></div>
+        <div class="reward-unlock-spark s6"></div>
+      </div>
+      <div class="reward-unlock-name" id="reward-unlock-name">ITEM</div>
+      <div class="reward-unlock-from" id="reward-unlock-from">FROM</div>
+      <button class="restart-btn" id="reward-unlock-btn">[ CONTINUE ]</button>
+    </div>
   </div>
 
   <!-- ===== TROPHY / INVENTORY MODAL ===== -->
@@ -3093,6 +3205,28 @@ function gotoFirstSuburb() {
 //   end-of-run    → back to the title screen for a new playthrough
 let _trophyReturnScreen = 'dialogue-screen';
 
+// Pop up a celebration overlay for a newly unlocked reward item, then
+// invoke the continuation (post-win dialogue, next suburb, etc.) when
+// the player taps CONTINUE. Idempotent — if the item is already earned
+// (e.g. the player retried a beaten suburb) we skip straight to onDone.
+function showRewardUnlock(itemId, onDone) {
+  const info = REWARD_INFO.find(r => r.id === itemId);
+  if(!info) { if(onDone) onDone(); return; }
+  // Mark the reward earned NOW so the trophy room reflects it
+  if(gameProgress && gameProgress.rewards) gameProgress.rewards[itemId] = true;
+  document.getElementById('reward-unlock-img').src = 'sprites/reward_' + itemId + '.png';
+  document.getElementById('reward-unlock-name').textContent = info.name;
+  document.getElementById('reward-unlock-from').textContent = info.from;
+  showScreen('reward-unlock-screen');
+  const btn = document.getElementById('reward-unlock-btn');
+  if(btn) {
+    btn.onclick = () => {
+      // Stop the loop and continue
+      if(typeof onDone === 'function') onDone();
+    };
+  }
+}
+
 function gotoTrophyRoom() {
   syncRewards();
   // Detect if this is the post-EC ending — all 6 trophies earned
@@ -3428,7 +3562,9 @@ function handleEvent(eventName) {
   // Each unlock_X event marks the matching beaten flag, syncs rewards,
   // then fires a transition to the next stop. No suburb-select menu.
   } else if(eventName === 'unlock_parramatta_brenno') {
-    // Brenno scene completes without a race — engine inspect + lift offer
+    // Brenno scene completes without a race — engine inspect + lift offer.
+    // No reward celebration here (curry powder is just the errand, not a
+    // mini-game prize). syncRewards quietly unlocks it in the trophy room.
     gameProgress.blacktownBeaten    = true;
     gameProgress.parramattaUnlocked = true;
     syncRewards();
@@ -4175,6 +4311,20 @@ function finishRace(playerWon) {
   };
   const route   = postRaceMap[currentSuburb] || postRaceMap.BLACKTOWN;
   const dialogue = playerWon ? route.win : route.lose;
+  // On WIN, show the reward unlock celebration first, THEN drop into the
+  // post-win dialogue. On loss, skip the celebration and go straight to
+  // the post-lose dialogue.
+  if(playerWon) {
+    const rewardBySuburb = {
+      PARRAMATTA: 'samosa',    // Rahul shouts you the thali
+      LIVERPOOL:  'coil_pack', // Moey hands over the BMW M52 coil pack
+    };
+    const rewardId = rewardBySuburb[currentSuburb];
+    if(rewardId) {
+      setTimeout(() => showRewardUnlock(rewardId, () => gotoDialogue(dialogue)), 2200);
+      return;
+    }
+  }
   setTimeout(() => gotoDialogue(dialogue), 2200);
 }
 
@@ -4516,8 +4666,13 @@ function finishDrag(playerWon) {
   }
 
   setTimeout(() => {
-    const dialogue = (playerWon && !dragRedlight) ? 'snout_post_win' : 'snout_post_lose';
-    gotoDialogue(dialogue);
+    const won = playerWon && !dragRedlight;
+    if(won) {
+      // Eastern Creek drag trophy unlock celebration
+      showRewardUnlock('trophy', () => gotoDialogue('snout_post_win'));
+    } else {
+      gotoDialogue('snout_post_lose');
+    }
   }, 2400);
 }
 
@@ -5335,14 +5490,13 @@ function showHillResult(kind) {
   setTimeout(() => {
     const cont = document.getElementById('hill-continue-btn');
     if(cont) cont.onclick = () => {
-      gotoDialogue('macca_post_win');
       gameProgress.penrithBeaten = true;
+      // Celebrate the bong unlock before dropping into Brett's post-win
+      showRewardUnlock('bong', () => gotoDialogue('macca_post_win'));
     };
     const retry = document.getElementById('hill-retry-btn');
     if(retry) retry.onclick = () => {
-      // Hide the result overlay and re-launch the hill climb in place
       el.style.display = 'none';
-      // Stop any pending animation frame from the previous run
       if(hillRAF) { cancelAnimationFrame(hillRAF); hillRAF = null; }
       gotoHill();
     };
@@ -5750,9 +5904,13 @@ function showSeshResult(kind) {
   setTimeout(() => {
     const btn = document.getElementById('sesh-continue-btn');
     if(btn) btn.onclick = () => {
-      const dialogue = (kind === 'win') ? 'khoa_post_win' : 'khoa_post_lose';
-      if(kind === 'win') gameProgress.cabramattaBeaten = true;
-      gotoDialogue(dialogue);
+      if(kind === 'win') {
+        gameProgress.cabramattaBeaten = true;
+        // Celebrate the ongbay bag unlock before Khoa's post-win
+        showRewardUnlock('ongbay', () => gotoDialogue('khoa_post_win'));
+      } else {
+        gotoDialogue('khoa_post_lose');
+      }
     };
   }, 0);
 }
