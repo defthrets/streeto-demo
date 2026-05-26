@@ -2059,28 +2059,18 @@ const DIALOGUES = {
       },
       {
         id:"khoa_geton_q", speakerId:"eshay", portrait:"eshay_excited",
-        text:"YEEEEEEEEW! Q the boys up adlay! ESHAYS. That'll do us til Liverpool. Real ones get on at Cabra, NOT the city. Bra you're an icon. ...wait. WAIT. Adlay no. NO.",
-        next:"brenno_ongbay_realize"
+        text:"YEEEEEEEEW! Q the boys up adlay! ESHAYS. That'll do us til Liverpool. Real ones get on at Cabra, NOT the city. Bra you're an icon.",
+        next:"khoa_geton_done"
       },
       {
         id:"khoa_geton_g", speakerId:"khoa", portrait:"khoa_happy",
         text:"All good bro. Pop the boot — bag's in the brown paper from the dosa place. Anyone asks, ya bought a samosa.",
-        next:"brenno_ongbay_realize"
-      },
-      {
-        id:"brenno_ongbay_realize", speakerId:"eshay", portrait:"eshay_sad",
-        text:"BRA. BRAAAAAAA. ME PIECE. SHITTT, ME GLASS. I LEFT THE ONGBAY IN THE BIMMER. The good one. The double perc. I've got all this gear and NOTHIN' to smoke it through. this is a disaster brah not very eshays at all",
-        next:"brenno_ongbay_realize_2"
-      },
-      {
-        id:"brenno_ongbay_realize_2", speakerId:"eshay", portrait:"eshay_nervous",
-        text:"Alright alright don't panic big Benno THINK.... AHA Brett up in Penrith has a spare. Lives next door to his old man's tyre shop. that cunt owes me. We HAVE to go bra. Please bruh I need a smoke before I get home lad, PLEEEASSE.",
         next:"khoa_geton_done"
       },
       {
         id:"khoa_geton_decline", speakerId:"khoa", portrait:"khoa_default",
         text:"Fair enough bro. Listen — Brenno NEEDS the ongbay though, you saw him. He's gonna lose it if he doesn't get on. Let me at least sort him out, you don't even have to touch it.",
-        next:"brenno_ongbay_realize"
+        next:"khoa_geton_done"
       },
       {
         id:"khoa_geton_done", speakerId:"khoa", portrait:"khoa_serious",
@@ -2152,16 +2142,23 @@ const DIALOGUES = {
       {
         id:"khoa_respect_back", speakerId:"khoa", portrait:"khoa_default",
         text:"Real respect bro. Ongbay's in the brown paper, exactly like I said. Stash it deep til you're home. I'm gettin' the phở — two bowls, extra coriander. Anytime Brenno needs a re-up, ya know the carpark.",
-        next:"khoa_credits"
+        next:"brenno_ongbay_realize"
       },
       {
         id:"khoa_humble", speakerId:"khoa", portrait:"khoa_serious",
         text:"Tell me about it bro. Sgt Snout's been doin' this loop every Friday. We just gotta read the spotlight — once ya see the rhythm, easy. You did good.",
-        next:"khoa_credits"
+        next:"brenno_ongbay_realize"
       },
       {
-        id:"khoa_credits", speakerId:"eshay", portrait:"eshay_excited",
-        text:"YEEEEW ESHAYS. We got the ongbay bra! Bag's in the brown paper. Now we need the piece — the bong. Country bloke up Penrith called Brett, jacked Ranger, got a spare double perc. Won't just hand it over though. Wants to make us earn it adlay.",
+        // Triggered AFTER the Cabra stealth deal — Brenno's just put the
+        // ongbay in hand and immediately realises he has nowhere to smoke it.
+        id:"brenno_ongbay_realize", speakerId:"eshay", portrait:"eshay_sad",
+        text:"BRA. BRAAAAAAA. ME PIECE. SHITTT, ME GLASS. I LEFT THE ONGBAY IN THE BIMMER. The good one. The double perc. I've got all this gear and NOTHIN' to smoke it through. this is a disaster brah not very eshays at all",
+        next:"brenno_ongbay_realize_2"
+      },
+      {
+        id:"brenno_ongbay_realize_2", speakerId:"eshay", portrait:"eshay_nervous",
+        text:"Alright alright don't panic big Benno THINK.... AHA Brett up in Penrith has a spare. Lives next door to his old man's tyre shop. that cunt owes me. We HAVE to go bra. Please bruh I need a smoke before I get home lad, PLEEEASSE.",
         next:"player_brett_plan"
       },
       {
