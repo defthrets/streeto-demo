@@ -1440,7 +1440,7 @@ const DIALOGUES = {
         text:"Or they USED to lad. Until Tony Tooks Two and his Honda Type R started runnin' the streets and postin' it everywhere bra. Now everyone's askin' 'where's the AMG'. I'M RIGHT HERE CUZ. RIGHT HERE.",
         choices:[
           {text:"Never heard of Tony.", next:"habibi_tony"},
-          {text:"Sounds like you've got a Tony problem.", next:"habibi_tony"},
+          {text:"Show me the video then.", next:"habibi_show_vid"},
           {text:"Skip the drama, race me.", next:"habibi_race_offer"}
         ]
       },
@@ -1696,11 +1696,11 @@ const DIALOGUES = {
       },
       {
         id:"player_offer", speakerId:"player", portrait:"player_default",
-        text:"Hop in. We'll go to Harris Park. Coles is on the way if you wanna stop there man?",
+        text:"Alright. Hop in. ... Coles is closer though, that'd do, yeah?",
         choices:[
-          {text:"…actually, we'll do Harris Park properly.", next:"player_harris_commit"},
-          {text:"Why's Harris Park the move?", next:"mitcho_curry_coles"},
-          {text:"You sure your old lady can't wait?", next:"mitcho_curry_uber"}
+          {text:"Harris Park it is — Wigram St, full thing.", next:"player_harris_commit"},
+          {text:"Seriously though — Coles is on the way.", next:"mitcho_curry_coles"},
+          {text:"How urgent is this actually?", next:"mitcho_curry_uber"}
         ]
       },
       {
@@ -1955,6 +1955,7 @@ const DIALOGUES = {
         choices:[
           {text:"Tell me about Khoa.", next:"preet_credits_mitcho2"},
           {text:"What's 'get on' actually mean?", next:"preet_credits_geton_explain"},
+          {text:"Hold up — I just smoked THE Rahul, didn't I?", next:"preet_credits_mitcho1"},
           {text:"Does your mum's curry hold? We're stacking errands.", next:"preet_credits_priority"}
         ]
       },
@@ -2255,8 +2256,7 @@ const DIALOGUES = {
         text:"She's a 2018 Wildtrak Ranger. 3.2 litre turbo diesel, 3 inch lift, 35 inch muddies, snorkel, dual battery, light bar, ARB winch. Tows me boat, tows me caravan, tows me mate's broken-down Hilux every other weekend.",
         choices:[
           {text:"That thing's not built for speed though.", next:"macca_doubt"},
-          {text:"So what's the actual deal?", next:"macca_deal_setup"},
-          {text:"How are we settling this then, Brett?", next:"macca_deal_setup"}
+          {text:"Alright Brett — what's the actual race?", next:"macca_deal_setup"}
         ]
       },
       {
