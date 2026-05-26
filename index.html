@@ -2882,10 +2882,11 @@ function drawDialogueScene() {
     // animation loop (sceneAnimRAF) drives the per-frame redraw.
     if(currentSuburb === 'BLACKTOWN') {
       const smokeT = Date.now() * 0.001;
-      // Bonnet centre — the E36 sprite has bonnet roughly at the LEFT third
-      // of the side view; smoke rises from above where the bonnet meets the
-      // windscreen. Adjust the x-bias if it doesn't line up perfectly.
-      const bonnetX = carX + carW * 0.32;
+      // Bonnet centre — anchored over the FRONT of the E36 (right side of
+      // the sprite since the car faces right). Tune the multiplier here
+      // if the plume drifts off the actual bonnet on different aspect
+      // ratios.
+      const bonnetX = carX + carW * 0.72;
       const bonnetY = carY + carH * 0.30;
       // Three offset streams with different speeds + base x positions
       const streams = [
