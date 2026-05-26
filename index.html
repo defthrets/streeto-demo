@@ -4555,15 +4555,17 @@ function gotoDrag() {
 const HILL_W = 390;
 const HILL_H = 724;
 const HILL_LEN          = 950;           // total course length in metres
-const HILL_TOP_SPEED    = 26;            // m/s (~94 km/h)
-const HILL_ACCEL        = 14;            // m/s^2 when GAS held (snappier)
-const HILL_BRAKE_DECEL  = 22;            // m/s^2 when BRAKE held (firmer)
-const HILL_GRAVITY      = 45;            // m/s^2 — heavier gravity = more dramatic air
-const HILL_FLIP_ANGLE   = Math.PI * 0.55; // ≈100° from upright = busted (tighter)
-const HILL_WHEELBASE    = 3.0;           // metres between front & rear axle
-const HILL_RIDE_HEIGHT  = 0.7;           // metres from axle to body centre
-const HILL_PIX_PER_M    = 18;            // world->screen scale (bumped — bigger Ranger)
-const HILL_CAM_FWD_BIAS = 6;             // metres of look-ahead
+const HILL_TOP_SPEED       = 22;          // m/s (~80 km/h) — committed Ranger
+const HILL_ACCEL_PEAK      = 9;           // m/s^2 PEAK power (at mid revs)
+const HILL_BRAKE_DECEL     = 14;          // m/s^2 — heavy 2.5t truck doesn't stop fast
+const HILL_THROTTLE_RAMP   = 3.2;         // 1/s — throttle ramps in over ~0.3s (turbo lag)
+const HILL_THROTTLE_DECAY  = 6.0;         // 1/s — throttle bleeds off faster when released
+const HILL_GRAVITY         = 48;          // m/s^2
+const HILL_FLIP_ANGLE      = Math.PI * 0.55;
+const HILL_WHEELBASE       = 3.0;
+const HILL_RIDE_HEIGHT     = 0.7;
+const HILL_PIX_PER_M       = 18;
+const HILL_CAM_FWD_BIAS    = 6;
 
 // Hill state
 let hillActive = false, hillFinished = false, hillRAF = null;
@@ -4583,6 +4585,8 @@ let hillOnGround = true;
 // Input
 let hillGas = 0;                   // 0 or 1 from button hold
 let hillBrake = 0;                 // 0 or 1 from button hold
+let hillThrottle = 0;              // 0..1 smoothed engine power (turbo lag)
+let hillSuspension = 0;            // 0..1 momentary chassis squash on hard landings
 
 // Procedurally generated obstacles (placed by seed once per run)
 let hillObstacles = [];
@@ -4599,43 +4603,146 @@ const HILL_OB_BUMP = {
   // sheep, finish — no terrain contribution
 };
 
-// Smooth terrain height function — sums of sines + per-segment features
-// + obstacle bumps blended into the terrain so the wheels actually crawl
-// over them. Cos-shaped bumps make a smooth ramp the wheels can climb.
+// =============================================
+//  HILL CLIMB TRACK — varied terrain across 9 named segments
+// =============================================
+// Track segments (in world metres):
+//   0-80    EASY_PADDOCK   gentle warm-up rolling hills
+//   80-160  MUD_BOG        deep ruts, sticky surface
+//   160-280 ROCKY_OUTCROP  jagged uneven bumps, hard surface
+//   280-360 BIG_RAMP       launch ramp into airtime + landing zone
+//   360-440 SAND_PIT       soft sandy whoops, drains speed
+//   440-560 STEEP_CLIMB    long uphill grade, needs commitment
+//   560-680 DROP_OFF       steep descent + rocky bumps
+//   680-820 WHOOPS         rapid small bumps (washboard)
+//   820-950 FINAL_DIRT     smoother dirt track to the finish
+const HILL_SEG = [
+  { name:'EASY_PADDOCK',   x0:  0, x1: 80,  surface:'paddock' },
+  { name:'MUD_BOG',        x0: 80, x1:160,  surface:'mud'     },
+  { name:'ROCKY_OUTCROP',  x0:160, x1:280,  surface:'rock'    },
+  { name:'BIG_RAMP',       x0:280, x1:360,  surface:'dirt'    },
+  { name:'SAND_PIT',       x0:360, x1:440,  surface:'sand'    },
+  { name:'STEEP_CLIMB',    x0:440, x1:560,  surface:'dirt'    },
+  { name:'DROP_OFF',       x0:560, x1:680,  surface:'rock'    },
+  { name:'WHOOPS',         x0:680, x1:820,  surface:'dirt'    },
+  { name:'FINAL_DIRT',     x0:820, x1:950,  surface:'dirt'    },
+];
+
+// Surface properties — applied to physics each frame based on car X
+const HILL_SURFACE = {
+  paddock: { friction:0.7, accelMult:1.00, bounce:0.40, colour:'#3a3018', grassColour:'#5a7020' },
+  mud:     { friction:1.6, accelMult:0.55, bounce:0.20, colour:'#2a1d0e', grassColour:'#3a2e18' },
+  rock:    { friction:0.5, accelMult:0.85, bounce:0.85, colour:'#3e3a36', grassColour:'#4a4640' },
+  dirt:    { friction:0.6, accelMult:1.00, bounce:0.50, colour:'#3a2818', grassColour:'#4a6018' },
+  sand:    { friction:1.3, accelMult:0.70, bounce:0.30, colour:'#7a6238', grassColour:'#a0884e' },
+  asphalt: { friction:0.3, accelMult:1.10, bounce:0.20, colour:'#2a2a30', grassColour:'#3a3a40' },
+};
+
+function hillSurfaceAt(x) {
+  for(const seg of HILL_SEG) if(x >= seg.x0 && x < seg.x1) return seg.surface;
+  return 'dirt';
+}
+
+// Smooth terrain height function — combines base rolling hills + dramatic
+// per-segment features + obstacle bumps. Cos-shaped bumps so the wheels
+// can physically crawl over them.
 function hillTerrain(x) {
   if(x < 0) x = 0;
-  // Base smooth rolling hills
+  // Base gentle rolling foundation for all segments
   let y = 6
-        + 3.2 * Math.sin(x * 0.045)
-        + 2.0 * Math.sin(x * 0.12 + 1.3)
-        + 1.2 * Math.sin(x * 0.27 + 0.7);
-  // Segment 1 (0..240): mellow paddock
-  // Segment 2 (240..480): bumpier dirt track
-  if(x > 240) y += 1.8 * Math.sin((x - 240) * 0.20 + 2.1);
-  // Segment 3 (480..720): quarry — sharper bumps + a ramp
-  if(x > 480) {
-    y += 2.4 * Math.sin((x - 480) * 0.32);
-    if(x > 560 && x < 600) y += (x - 560) * 0.18;
-    if(x >= 600 && x < 640) y += (640 - x) * 0.10;
+        + 2.2 * Math.sin(x * 0.045)
+        + 1.4 * Math.sin(x * 0.12 + 1.3)
+        + 0.9 * Math.sin(x * 0.27 + 0.7);
+
+  // SEG 1: EASY_PADDOCK (0-80) — just the base hills, mellow warmup
+
+  // SEG 2: MUD_BOG (80-160) — wide soft ruts that sag the car down
+  if(x > 80 && x < 160) {
+    // Three deep ruts
+    for(const cx of [100, 125, 148]) {
+      const dx = Math.abs(x - cx);
+      if(dx < 9) y -= 1.4 * Math.cos((dx/9) * Math.PI/2);
+    }
   }
-  // Segment 4 (720..900): canal — big drop then ramp up to finish
-  if(x > 720 && x < 760) y -= (x - 720) * 0.20;
-  if(x >= 760 && x < 820) y += (x - 760) * 0.18;
-  if(x >= 820 && x < 900) y += 1.5 * Math.sin((x - 820) * 0.10);
+
+  // SEG 3: ROCKY_OUTCROP (160-280) — sharp irregular bumps
+  if(x > 160 && x < 280) {
+    y += 1.8 * Math.sin((x - 160) * 0.55);   // tight wavelength = jagged
+    y += 0.9 * Math.sin((x - 160) * 1.10 + 1.7);
+    // Two larger boulder-like crests
+    for(const cx of [195, 240]) {
+      const dx = Math.abs(x - cx);
+      if(dx < 8) y += 2.0 * Math.cos((dx/8) * Math.PI/2);
+    }
+  }
+
+  // SEG 4: BIG_RAMP (280-360) — proper jump ramp ascending then a drop
+  if(x > 290 && x < 320) {
+    // Steeply rising ramp
+    const t = (x - 290) / 30;
+    y += 6.5 * t * t;   // quadratic ramp up
+  } else if(x >= 320 && x < 332) {
+    // Lip / takeoff
+    y += 6.5 + (x - 320) * 0.2;
+  } else if(x >= 332 && x < 360) {
+    // Landing zone — much lower than the lip = airtime
+    y -= 0.5;
+  }
+
+  // SEG 5: SAND_PIT (360-440) — soft whoops, gentle dips
+  if(x > 360 && x < 440) {
+    y += 1.2 * Math.sin((x - 360) * 0.38);    // rolling whoops
+    y -= 0.4 * Math.sin((x - 360) * 0.17);    // overall sag
+  }
+
+  // SEG 6: STEEP_CLIMB (440-560) — long uphill grade, commits needed
+  if(x > 440 && x < 560) {
+    const t = (x - 440) / 120;     // 0..1 across the climb
+    y += 8.0 * t;                  // 8m rise over 120m
+    y += 0.7 * Math.sin((x - 440) * 0.25);  // mild surface variation
+  } else if(x >= 560) {
+    // Carry the elevation gain past the climb
+    y += 8.0;
+  }
+
+  // SEG 7: DROP_OFF (560-680) — steep descent with rocky bumps
+  if(x > 560 && x < 680) {
+    const t = (x - 560) / 120;
+    y -= 12.0 * t;                 // 12m drop over 120m (net -4m from climb top)
+    y += 1.3 * Math.sin((x - 560) * 0.42);   // rocky chatter
+    // A small mid-drop ledge
+    if(x > 605 && x < 615) y -= 0.6;
+  } else if(x >= 680) {
+    y -= 12.0;                     // carry the net drop
+  }
+
+  // SEG 8: WHOOPS (680-820) — rapid washboard bumps
+  if(x > 680 && x < 820) {
+    y += 1.1 * Math.sin((x - 680) * 0.70);
+    y += 0.5 * Math.sin((x - 680) * 1.40 + 0.8);
+  }
+
+  // SEG 9: FINAL_DIRT (820-950) — smoother runup to the finish
+  if(x > 820 && x < 950) {
+    y += 0.6 * Math.sin((x - 820) * 0.15);
+    // Small finish-line speed bump
+    if(x > 930 && x < 945) {
+      const dx = Math.abs(x - 937.5);
+      if(dx < 7.5) y += 0.8 * Math.cos((dx/7.5) * Math.PI/2);
+    }
+  }
+
   // Obstacle bumps — each obstacle adds a smooth raised section to the
   // terrain so the front + rear wheels physically climb over it one at
-  // a time. Hit ones (sheep already scattered, hay flattened) skip.
+  // a time. Soft obstacles (hay/fence) flatten once hit.
   if(typeof hillObstacles !== 'undefined' && hillObstacles) {
     for(const ob of hillObstacles) {
       const prof = HILL_OB_BUMP[ob.type];
       if(!prof) continue;
-      // Hay bales squish flat once driven over; logs/rocks/fridges
-      // stay as terrain (until you've moved past, they're still there)
       if(ob.hit && (ob.type === 'hay' || ob.type === 'fence')) continue;
       const dx = x - ob.x;
       if(Math.abs(dx) >= prof.w) continue;
-      // Smooth cosine bump — flat top with rounded sides
-      const tt = dx / prof.w;          // -1..+1
+      const tt = dx / prof.w;
       const bump = prof.h * Math.cos(tt * Math.PI/2);
       y += bump;
     }
@@ -4643,25 +4750,38 @@ function hillTerrain(x) {
   return y;
 }
 
-// Deterministic obstacle placement
+// Deterministic obstacle placement — aligned with the new track segments
 function hillBuildCourse() {
   hillObstacles = [];
-  // Segment 1 — paddock (sheep + fence post)
-  hillObstacles.push({x:  80, type:'sheep'});
-  hillObstacles.push({x: 130, type:'fence'});
-  hillObstacles.push({x: 190, type:'sheep'});
-  // Segment 2 — dirt track (logs + hay bales)
-  hillObstacles.push({x: 270, type:'log'});
-  hillObstacles.push({x: 320, type:'hay'});
-  hillObstacles.push({x: 370, type:'log'});
-  hillObstacles.push({x: 430, type:'hay'});
-  // Segment 3 — quarry (rocks + fridge)
-  hillObstacles.push({x: 500, type:'rock'});
-  hillObstacles.push({x: 540, type:'fridge'});
-  hillObstacles.push({x: 620, type:'rock'});
-  hillObstacles.push({x: 680, type:'rock'});
-  // Segment 4 — canal jump (no obstacles, just the gap)
-  hillObstacles.push({x: 900, type:'finish'});
+  // SEG 1 EASY_PADDOCK (0-80): scatter of sheep + a fence post to clip
+  hillObstacles.push({x:  35, type:'sheep'});
+  hillObstacles.push({x:  55, type:'fence'});
+  hillObstacles.push({x:  72, type:'sheep'});
+  // SEG 2 MUD_BOG (80-160): no obstacles, the bog itself is the hazard
+  // SEG 3 ROCKY_OUTCROP (160-280): boulders that match the terrain feel
+  hillObstacles.push({x: 175, type:'rock'});
+  hillObstacles.push({x: 215, type:'rock'});
+  hillObstacles.push({x: 255, type:'rock'});
+  // SEG 4 BIG_RAMP (280-360): a log right before the ramp + a hay bale
+  // landing pad cushion past the jump
+  hillObstacles.push({x: 285, type:'log'});
+  hillObstacles.push({x: 350, type:'hay'});
+  // SEG 5 SAND_PIT (360-440): scattered logs sticking out of the sand
+  hillObstacles.push({x: 385, type:'log'});
+  hillObstacles.push({x: 415, type:'log'});
+  // SEG 6 STEEP_CLIMB (440-560): one fridge halfway up (dumped fly-tipping)
+  hillObstacles.push({x: 500, type:'fridge'});
+  // SEG 7 DROP_OFF (560-680): boulders littering the descent
+  hillObstacles.push({x: 590, type:'rock'});
+  hillObstacles.push({x: 635, type:'rock'});
+  hillObstacles.push({x: 665, type:'rock'});
+  // SEG 8 WHOOPS (680-820): a sheep that got lost + a fence
+  hillObstacles.push({x: 720, type:'sheep'});
+  hillObstacles.push({x: 770, type:'fence'});
+  // SEG 9 FINAL_DIRT (820-950): hay bales lining the home straight + finish
+  hillObstacles.push({x: 870, type:'hay'});
+  hillObstacles.push({x: 905, type:'hay'});
+  hillObstacles.push({x: 940, type:'finish'});
 }
 
 function gotoHill() {
@@ -4671,7 +4791,7 @@ function gotoHill() {
   hillVx = 0; hillVy = 0;
   hillRot = 0; hillAv = 0;
   hillOnGround = true;
-  hillGas = 0; hillBrake = 0;
+  hillGas = 0; hillBrake = 0; hillThrottle = 0; hillSuspension = 0;
   hillLastTs = null;
   hillBuildCourse();
 
@@ -4714,11 +4834,35 @@ function hillLoop(ts) {
 }
 
 function hillTick(dt) {
+  // ---- ENGINE: throttle ramps in (turbo lag) and decays when released ----
+  if(hillGas) {
+    hillThrottle += (1 - hillThrottle) * HILL_THROTTLE_RAMP * dt;
+  } else {
+    hillThrottle -= hillThrottle * HILL_THROTTLE_DECAY * dt;
+  }
+  if(hillThrottle < 0) hillThrottle = 0;
+  if(hillThrottle > 1) hillThrottle = 1;
+
+  // ---- SURFACE: friction + accel mult depend on what we're driving on ----
+  const surfId  = hillSurfaceAt(hillCarX);
+  const surf    = HILL_SURFACE[surfId] || HILL_SURFACE.dirt;
+
   // ---- INPUT → driving forces ----
-  if(hillGas)   hillVx += HILL_ACCEL * dt;
+  // Engine power curve: peaks at mid speed (around 0.4-0.7 of top speed),
+  // weaker at standstill (need to roll the truck into it) and at top.
+  const speedFrac   = Math.max(0, Math.min(1, Math.abs(hillVx) / HILL_TOP_SPEED));
+  const powerCurve  = 0.55 + 1.1 * Math.sin(Math.min(1, speedFrac * 1.4) * Math.PI);
+  const effectiveAccel = HILL_ACCEL_PEAK * powerCurve * surf.accelMult * hillThrottle;
+  hillVx += effectiveAccel * dt;
   if(hillBrake) hillVx -= HILL_BRAKE_DECEL * dt;
-  // Idle drag (small)
-  hillVx -= 0.4 * hillVx * dt;
+
+  // ---- DRAG: surface-dependent rolling resistance ----
+  // Mud + sand have heavy drag; rock + asphalt are slick
+  const rollingDrag = surf.friction;
+  hillVx -= rollingDrag * 0.7 * Math.sign(hillVx) * dt;
+  // Aerodynamic drag (proportional to v^2 at high speed only)
+  if(Math.abs(hillVx) > 8) hillVx -= 0.012 * hillVx * Math.abs(hillVx) * dt;
+
   // Clamp
   if(hillVx < -6)  hillVx = -6;
   if(hillVx > HILL_TOP_SPEED) hillVx = HILL_TOP_SPEED;
@@ -4751,35 +4895,55 @@ function hillTick(dt) {
   hillOnGround = onGround;
 
   if(onGround) {
+    // ---- LANDING IMPACT — surface determines how hard the truck hits ----
+    // If we came in fast on vy, the chassis absorbs (loses some downward
+    // speed) AND the suspension compresses for visual feedback. Heavy
+    // landings on rock bounce, mud absorbs them, sand cushions softly.
+    const landingVy = hillVy < -8 ? -hillVy : 0;     // m/s of downward impact
+    if(landingVy > 0) {
+      // Surface bounce: rock kicks back hardest, mud just soaks it up
+      hillVy = landingVy * surf.bounce * 0.4;
+      // Suspension compression spike — visualised in render
+      hillSuspension = Math.min(1, landingVy * 0.08);
+      // Hard landing on rock pitches the rear if you came in nose-down
+      if(surfId === 'rock' && landingVy > 12 && hillRot < -0.2) {
+        hillAv -= 1.5;
+      }
+    }
     // Lift the car body so the lower wheel sits on its terrain. Front +
-    // rear wheels each independently sit on their LOCAL terrain height
-    // (which includes obstacle bumps), so the chassis tilts naturally
-    // as the truck crawls over things — front goes up the rock first,
-    // rear is still on the dirt, body pitches up. Then rear climbs and
-    // body levels off. Real rock-crawler behaviour.
+    // rear wheels each independently sit on their LOCAL terrain height,
+    // so the chassis tilts naturally as the truck crawls over things.
     const avgPen = (Math.max(0, frontPen) + Math.max(0, rearPen)) / 2;
     hillCarY += avgPen;
     if(hillVy < 0) hillVy = 0;
-    // Target rotation: angle of the line between the two wheel contact pts
+    // Target rotation: angle between the two wheel contact points
     const groundSlope = Math.atan2(frontGroundY - rearGroundY, HILL_WHEELBASE);
     // Speed-aware chassis spring — locks tight at crawl, lags at speed
-    // (so slow careful driving feels glued to terrain, fast driving
-    // launches off bumps with momentum).
+    // (slow driving feels glued, fast driving launches off bumps)
     const speedFactor = Math.min(1, Math.abs(hillVx) / 14);
-    const blendRate = 9 - speedFactor * 5;   // 9 (crawl) → 4 (fast)
+    const blendRate = 9 - speedFactor * 5;
     const blend = Math.min(1, dt * blendRate);
     hillRot = hillRot * (1 - blend) + groundSlope * blend;
     hillAv  = hillAv * (1 - blend * 0.6);
+    // Decay suspension compression back to neutral over ~0.6s
+    hillSuspension = Math.max(0, hillSuspension - dt * 1.8);
     // Uphill rolling resistance — climbing a steep bump drags you down
-    if(groundSlope > 0) hillVx -= groundSlope * 6 * dt;
+    // (and a steep climb on mud is brutal)
+    if(groundSlope > 0) {
+      hillVx -= groundSlope * (6 + surf.friction * 3) * dt;
+    }
     // Bump-induced pitch impulse — when one wheel is up a bump and the
-    // other isn't, the wheel-height gap kicks angular velocity. Scales
-    // with speed (faster = bigger kick) so committing to a rock at full
-    // throttle launches the front end up.
+    // other isn't, the height gap kicks angular velocity. Scales with
+    // speed (faster = bigger kick) so hitting a rock fast launches the
+    // front end up. Surface bounce modifies — rock kicks harder.
     const wheelGap = frontGroundY - rearGroundY;
     if(Math.abs(wheelGap) > 0.5 && Math.abs(hillVx) > 3) {
-      hillAv += wheelGap * 0.4 * dt * Math.max(1, Math.abs(hillVx) / 5);
+      const bumpKick = 0.4 + surf.bounce * 0.5;
+      hillAv += wheelGap * bumpKick * dt * Math.max(1, Math.abs(hillVx) / 5);
     }
+    // Sticky low-grip surfaces (mud, sand) can also nibble the lateral
+    // grip — the car can't pull itself out as easily if you don't
+    // commit. Already handled by surf.accelMult above; nothing extra.
     // Soft obstacles flatten once the wheels have driven over them
     for(const ob of hillObstacles) {
       if(ob.hit) continue;
@@ -4793,6 +4957,8 @@ function hillTick(dt) {
     if(hillBrake) hillAv -= 3.5 * dt;
     hillAv *= (1 - 0.15 * dt);
     hillRot += hillAv * dt;
+    // Suspension extends while flying
+    hillSuspension = Math.max(0, hillSuspension - dt * 1.2);
   }
 
   // ---- OBSTACLE EVENT TRIGGERS ----
@@ -4905,31 +5071,42 @@ function drawHill(time) {
     }
   }
 
-  // ---- TERRAIN (foreground polyline) ----
-  // Sample world x from cam - 14m to cam + 14m at 0.5m increments
-  ctx.fillStyle = '#3a2818';  // dirt brown
-  ctx.beginPath();
+  // ---- TERRAIN (foreground polyline, tinted per surface segment) ----
+  // Sample world x from cam - 14m to cam + 14m. Draw the dirt fill in
+  // narrow vertical strips coloured by the surface at each x so the
+  // mud bog looks brown-black, the sand pit looks sandy, the rocky
+  // outcrop reads grey-stone, etc.
   const xStart = camWorldX - 14;
   const xEnd   = camWorldX + 14;
-  ctx.moveTo(w2sX(xStart), HILL_H + 10);
-  for(let wx = xStart; wx <= xEnd; wx += 0.3) {
+  // First the body fill — narrow per-x strips
+  for(let wx = xStart; wx < xEnd; wx += 0.3) {
+    const surf = HILL_SURFACE[hillSurfaceAt(wx)] || HILL_SURFACE.dirt;
+    ctx.fillStyle = surf.colour;
     const wy = hillTerrain(wx);
-    ctx.lineTo(w2sX(wx), w2sY(wy));
+    const sx0 = w2sX(wx);
+    const sx1 = w2sX(wx + 0.3);
+    const sy0 = w2sY(wy);
+    const sy1 = w2sY(hillTerrain(wx + 0.3));
+    ctx.beginPath();
+    ctx.moveTo(sx0, sy0);
+    ctx.lineTo(sx1, sy1);
+    ctx.lineTo(sx1, HILL_H + 10);
+    ctx.lineTo(sx0, HILL_H + 10);
+    ctx.closePath();
+    ctx.fill();
   }
-  ctx.lineTo(w2sX(xEnd), HILL_H + 10);
-  ctx.closePath();
-  ctx.fill();
-
-  // Grass top stripe
-  ctx.strokeStyle = '#4a6018';
+  // Then the grass-top stripe with per-surface colour
   ctx.lineWidth = 4;
-  ctx.beginPath();
-  for(let wx = xStart; wx <= xEnd; wx += 0.3) {
-    const wy = hillTerrain(wx);
-    const sx = w2sX(wx), sy = w2sY(wy);
-    if(wx === xStart) ctx.moveTo(sx, sy); else ctx.lineTo(sx, sy);
+  for(let wx = xStart; wx < xEnd; wx += 0.3) {
+    const surf = HILL_SURFACE[hillSurfaceAt(wx)] || HILL_SURFACE.dirt;
+    ctx.strokeStyle = surf.grassColour;
+    const wy0 = hillTerrain(wx);
+    const wy1 = hillTerrain(wx + 0.3);
+    ctx.beginPath();
+    ctx.moveTo(w2sX(wx), w2sY(wy0));
+    ctx.lineTo(w2sX(wx + 0.3), w2sY(wy1));
+    ctx.stroke();
   }
-  ctx.stroke();
 
   // Distance markers (every 100m)
   ctx.fillStyle = 'rgba(255,200,80,0.55)';
@@ -4959,9 +5136,13 @@ function drawHill(time) {
   // LEFT (nose pointing west) but the car drives RIGHT (east) — so flip the
   // x-axis after the rotate so the nose points in direction of travel.
   const carPxW = HILL_WHEELBASE * HILL_PIX_PER_M * 2.2;
-  const carPxH = carPxW * 0.55;
+  // Suspension squash visualisation — hard landings briefly compress the
+  // chassis vertically + push it slightly downward (springs absorbing
+  // impact). Decays in ~0.6s.
+  const susPx = hillSuspension * carPxW * 0.05;
+  const carPxH = (carPxW * 0.55) - susPx;
   ctx.save();
-  ctx.translate(carScreenX, carScreenY);
+  ctx.translate(carScreenX, carScreenY + susPx);
   ctx.rotate(-hillRot);   // canvas Y is flipped, so invert sign
   ctx.scale(-1, 1);       // flip horizontally so the Ranger's nose faces east
   if(rangerImg) {
@@ -5006,6 +5187,17 @@ function drawHill(time) {
   ctx.fillText(`${kmh} km/h`, HILL_W - 20, 42);
   ctx.textAlign = 'left';
   ctx.fillText(`${Math.round(hillCarX)}m / ${HILL_LEN}m`, 20, 42);
+  // Current segment + surface label (centre top)
+  let curSeg = null;
+  for(const seg of HILL_SEG) if(hillCarX >= seg.x0 && hillCarX < seg.x1) { curSeg = seg; break; }
+  if(curSeg) {
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#88ccff';
+    ctx.font = '12px "VT323", monospace';
+    ctx.fillText(curSeg.name.replace(/_/g, ' ') + ' · ' + curSeg.surface.toUpperCase(),
+                 HILL_W / 2, 42);
+    ctx.textAlign = 'left';
+  }
 }
 
 function drawHillObstacle(ctx, ob, sx, sy) {
