@@ -872,14 +872,13 @@ body {
   from { background-position: 0 0; }
   to   { background-position: -6px 0; }
 }
-/* After the scaleX(-1) flip on the img, what was on the LEFT of the sprite
-   shows on the RIGHT of the screen and vice versa. The native sprite has
-   the rear wheel at ~x=80/400 and the front wheel at ~x=320/400, so the
-   visible-LEFT wheel on screen is the FRONT wheel (sprite x=320 -> screen
-   x=40) and the visible-RIGHT wheel is the REAR (sprite x=80 -> screen
-   x=160). Y is ~64 in the 100-tall displayed wrapper. */
-.wheel-blur.wheel-front { left: 26px;  top: 50px; }
-.wheel-blur.wheel-rear  { left: 146px; top: 50px; }
+/* Measured from the actual sprite: wheels sit at native (112, 151) and
+   (279, 151) in the 400x200 source. After 50% display scale that's
+   (56, 75) and (139, 75); after scaleX(-1) flip those become visible-
+   right (144, 75) and visible-left (61, 75) respectively. Centred 28x28
+   blur masks → top-left at (47, 61) and (130, 61). */
+.wheel-blur.wheel-front { left: 47px;  top: 61px; }
+.wheel-blur.wheel-rear  { left: 130px; top: 61px; }
 #transition-label {
   position: absolute;
   top: 14%;
@@ -3248,7 +3247,7 @@ function drawDialogueScene() {
   const CAR_PROPS = {
     car_amg_side:        { w: 240, h: 104 },  // sedan
     car_camry_side:      { w: 310, h: 150 },  // sedan — bigger focal car at Parramatta
-    car_silvia_side:     { w: 295, h: 108 },  // low coupe — focal car at Cabra
+    car_silvia_side:     { w: 295, h: 120 },  // low coupe — focal car at Cabra
     car_wrx_side:        { w: 225, h: 105 },  // rally hatch
     car_ranger_side:     { w: 260, h: 145 },  // jacked-up ute (taller than person)
     car_e36_side:  { w: 270, h: 110 },  // sedan
