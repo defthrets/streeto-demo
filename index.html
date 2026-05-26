@@ -229,10 +229,17 @@ body {
 .trophy-btn:hover, .trophy-btn:active {
   background: rgba(255,170,40,0.20); border-color:#ffaa33; color:#ffe19a;
 }
-/* ===== REWARD UNLOCK CELEBRATION OVERLAY ===== */
+/* ===== REWARD UNLOCK CELEBRATION OVERLAY =====
+   All glows / sparkles use hard-edged stops + offsets instead of blur
+   so the look stays chunky pixel art (no smooth vector haze). */
 #reward-unlock-screen {
   flex-direction:column; align-items:center; justify-content:center;
-  background: radial-gradient(ellipse at 50% 45%, rgba(255,160,40,0.18) 0%, rgba(6,7,13,0.96) 60%);
+  /* Stepped radial = banded rings instead of smooth gradient */
+  background: radial-gradient(ellipse at 50% 45%,
+    rgba(255,160,40,0.18) 0%,   rgba(255,160,40,0.18) 18%,
+    rgba(255,120,30,0.12) 18%,  rgba(255,120,30,0.12) 36%,
+    rgba(60,30,10,0.85) 36%,    rgba(60,30,10,0.85) 60%,
+    rgba(6,7,13,0.97) 60%);
   overflow:hidden;
 }
 .reward-unlock-card {
@@ -240,7 +247,12 @@ body {
   padding:30px 26px 22px; gap:12px;
   border:3px solid #ffaa33;
   background:linear-gradient(180deg, #16100a 0%, #08060d 100%);
-  box-shadow: 0 0 50px rgba(255,170,40,0.45), 0 0 90px rgba(255,80,0,0.25) inset;
+  /* Nested solid outlines instead of blurred glow */
+  box-shadow:
+    0 0 0 3px #08060d,
+    0 0 0 6px #ff8800,
+    0 0 0 9px rgba(255,170,40,0.30),
+    0 0 0 12px rgba(255,80,0,0.18);
   animation: rewardCardEntry 0.5s cubic-bezier(0.18, 1.6, 0.45, 1.0) both;
 }
 @keyframes rewardCardEntry {
@@ -250,12 +262,28 @@ body {
 }
 .reward-unlock-label {
   font-family:var(--font-header); color:#ffe19a; font-size:22px;
-  letter-spacing:6px; text-shadow:0 0 18px #ffaa33aa;
-  animation: rewardLabelPulse 1.4s ease-in-out infinite;
+  letter-spacing:6px;
+  /* Hard pixel outline — no blur */
+  text-shadow:
+    2px 0 0 #ff8800, -2px 0 0 #ff8800,
+    0 2px 0 #ff8800, 0 -2px 0 #ff8800;
+  animation: rewardLabelPulse 1.4s steps(2,end) infinite;
 }
 @keyframes rewardLabelPulse {
-  0%, 100% { text-shadow:0 0 14px #ffaa3380; transform:scale(1); }
-  50%      { text-shadow:0 0 28px #ffee99cc; transform:scale(1.06); }
+  0%, 100% {
+    transform:scale(1);
+    text-shadow:
+      2px 0 0 #ff8800, -2px 0 0 #ff8800,
+      0 2px 0 #ff8800, 0 -2px 0 #ff8800;
+  }
+  50% {
+    transform:scale(1.06);
+    text-shadow:
+      3px 0 0 #ffaa33, -3px 0 0 #ffaa33,
+      0 3px 0 #ffaa33, 0 -3px 0 #ffaa33,
+      3px 3px 0 #ff6600, -3px -3px 0 #ff6600,
+      3px -3px 0 #ff6600, -3px 3px 0 #ff6600;
+  }
 }
 .reward-unlock-icon-wrap {
   position:relative;
@@ -265,20 +293,29 @@ body {
 }
 .reward-unlock-halo {
   position:absolute; inset:0;
-  background: radial-gradient(circle at center, rgba(255,200,80,0.55) 0%, rgba(255,140,40,0.30) 30%, rgba(255,80,0,0) 70%);
-  animation: rewardHaloPulse 1.6s ease-in-out infinite;
+  /* Concentric hard rings — looks like a chunky pixel halo */
+  background: radial-gradient(circle at center,
+    rgba(255,220,120,0.60) 0%,   rgba(255,220,120,0.60) 18%,
+    rgba(255,160,50,0.45) 18%,   rgba(255,160,50,0.45) 36%,
+    rgba(255,110,30,0.28) 36%,   rgba(255,110,30,0.28) 54%,
+    rgba(255,80,0,0.12) 54%,     rgba(255,80,0,0.12) 72%,
+    rgba(255,80,0,0) 72%);
+  animation: rewardHaloPulse 1.6s steps(3,end) infinite;
   pointer-events:none;
 }
 @keyframes rewardHaloPulse {
-  0%, 100% { transform: scale(0.85); opacity:0.7; }
-  50%      { transform: scale(1.15); opacity:1.0; }
+  0%, 100% { transform: scale(0.88); opacity:0.75; }
+  50%      { transform: scale(1.18); opacity:1.0; }
 }
 .reward-unlock-icon {
   width:140px; height:140px; image-rendering:pixelated;
   position:relative; z-index:2;
   animation: rewardIconEntry 0.85s cubic-bezier(0.18, 1.7, 0.4, 1.0) both,
              rewardIconBob 2.4s ease-in-out infinite 0.85s;
-  filter: drop-shadow(0 0 14px rgba(255,200,80,0.7));
+  /* Hard pixel drop-shadow — chunky 3px offset, no blur */
+  filter:
+    drop-shadow(3px 3px 0 rgba(255,80,0,0.65))
+    drop-shadow(-3px -3px 0 rgba(255,170,40,0.40));
 }
 @keyframes rewardIconEntry {
   0%   { transform: scale(0); opacity:0; }
@@ -290,9 +327,17 @@ body {
   0%, 100% { transform: translateY(0) scale(1); }
   50%      { transform: translateY(-6px) scale(1.04); }
 }
+/* Chunky pixel "plus" sparkle: 4px white core, 4px white arms, 8px-out
+   warm-yellow tips. Built from box-shadow stacks — no blur, no smooth
+   gradient, pure pixel rectangles. */
 .reward-unlock-spark {
-  position:absolute; width:14px; height:14px;
-  background: radial-gradient(circle, #ffffff 0%, #ffeb88 40%, transparent 70%);
+  position:absolute; width:4px; height:4px;
+  background:#ffffff;
+  box-shadow:
+    -4px 0 0 #ffffff,  4px 0 0 #ffffff,
+    0 -4px 0 #ffffff,  0 4px 0 #ffffff,
+    -8px 0 0 #ffeb88,  8px 0 0 #ffeb88,
+    0 -8px 0 #ffeb88,  0 8px 0 #ffeb88;
   pointer-events:none;
   animation: rewardSparkOrbit 2.0s linear infinite;
   --o: 0deg;
@@ -305,15 +350,20 @@ body {
 .reward-unlock-spark.s4 { --o: 180deg; animation-delay: 0.54s; }
 .reward-unlock-spark.s5 { --o: 240deg; animation-delay: 0.72s; }
 .reward-unlock-spark.s6 { --o: 300deg; animation-delay: 0.90s; }
+/* steps() makes the orbit jump position-to-position like an old game */
 @keyframes rewardSparkOrbit {
   0%   { transform: rotate(var(--o)) translateX(var(--r)) rotate(calc(-1 * var(--o))) scale(0); opacity:0; }
-  20%  { opacity:1; }
+  15%  { opacity:1; }
   100% { transform: rotate(calc(var(--o) + 360deg)) translateX(var(--r)) rotate(calc(-1 * (var(--o) + 360deg))) scale(1.2); opacity:0; }
 }
 .reward-unlock-name {
   font-family:var(--font-header); color:#ffcc66; font-size:32px;
   letter-spacing:4px; text-align:center;
-  text-shadow:0 0 16px #ff880088;
+  /* Hard pixel outline + diagonal pixel shadow */
+  text-shadow:
+    2px 0 0 #ff6600, -2px 0 0 #ff6600,
+    0 2px 0 #ff6600, 0 -2px 0 #ff6600,
+    3px 3px 0 #5a2200;
 }
 .reward-unlock-from {
   font-family:var(--font-body); color:#88aacc; font-size:12px;
