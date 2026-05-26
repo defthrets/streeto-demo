@@ -436,18 +436,18 @@ body {
 .scene-canvas {
   position:absolute; inset:0;
 }
-/* Full-bleed per-suburb scene GIF. Sits over the canvas (so it
-   visually replaces the canvas backdrop) but below the dialogue
-   panel + portrait + scene-overlay-img (which both sit on z:5/20).
-   The dialogue panel's near-opaque dark background covers the bottom
-   third of the GIF, framing the visible scene above it. */
+/* Per-suburb scene GIF. Sits in the visible area ABOVE the dialogue
+   panel — doesn't extend behind it. 400x400 square sources display at
+   390x390 (width:100% on a 390-wide screen, height:auto preserves the
+   aspect), pinned to the top of the dialogue-screen. The dialogue
+   panel's own background covers the bottom 320px+ of the screen
+   separately. */
 #scene-bg-img {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center top;
+  height: auto;
   image-rendering: pixelated;
   z-index: 1;
   pointer-events: none;
