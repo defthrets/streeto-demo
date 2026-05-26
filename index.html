@@ -757,18 +757,18 @@ body {
   background: #0a0814;
   overflow: hidden;
 }
-/* Full-bleed cinematic travel GIF — 390x600 native, fills most of the
-   screen between the destination label up top and the distance flavor
-   at the bottom. Aspect ratio matched (71% of 844 = 599 ≈ 600) so the
-   GIF displays at its natural pixel scale with no cropping. */
+/* Cinematic travel GIF — 400x400 native (square). Displayed centered
+   between the destination label up top and the distance flavor at the
+   bottom. Width 100% scales to 390 wide; height matched at 390 for
+   square aspect. */
 #transition-travel-gif {
   position: absolute;
-  top: 22%;
+  top: 28%;
   left: 0;
   width: 100%;
-  height: 71%;
+  height: 46%;
   object-fit: cover;
-  object-position: center top;
+  object-position: center center;
   image-rendering: pixelated;
   pointer-events: none;
 }
