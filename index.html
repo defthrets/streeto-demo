@@ -1512,18 +1512,21 @@ const DIALOGUES = {
       {
         id:"start", speakerId:"narrator", portrait:null,
         stage:{hideCar:true, hideChar:true},
-        text:"Saturday night. Western Sydney. You're 23, you've got a fast car you can't really afford, half a tank of fuel, and an itch in your right foot that only goes away at three in the morning on an empty road.",
+        sceneImage:"opening",
+        text:"Saturday night. Western Sydney. You're 22, you've got a fast car you can't really afford, half a tank of fuel, and an itch in your right foot that only goes away at three in the morning on an empty road.",
         next:"opening_2"
       },
       {
         id:"opening_2", speakerId:"narrator", portrait:null,
         stage:{hideCar:true, hideChar:true},
+        sceneImage:"opening",
         text:"Tonight you went out hunting. Mainys, drags, off-the-books meets, side-of-the-road dust-ups — whatever the group chat's lit up about. The west's a long suburb. It owes you a story before sunrise.",
         next:"opening_3"
       },
       {
         id:"opening_3", speakerId:"narrator", portrait:null,
         stage:{hideCar:true, hideChar:true},
+        sceneImage:"opening",
         text:"Around eight, a ping comes in. Skinny eshay kid in Blacktown called Brenno — Beemer's cooked, sittin' on a Maccas kerb. Says he needs a hand, and that he knows everyone west of the M4. Could be a race in it. Could be nothing. You point the wheel west.",
         triggerEvent:"open_blacktown"
       }
@@ -4114,6 +4117,7 @@ const SPRITES = {};
 // Used for full-scene takeover backdrops like the dodgy M52 engine bay.
 const SCENE_IMAGE_SRCS = {
   engine_bay: 'sprites/engine_bay.gif',
+  opening:    'sprites/bg_opening.png',  // 400x400 dusk driveway — used only by opening_intro
 };
 const SCENE_IMAGES = {};
 function loadSceneImages() {
