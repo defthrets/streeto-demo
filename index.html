@@ -218,6 +218,45 @@ body {
 .suburb-desc { font-family: var(--font-body);   font-size:13px; color:#8899aa; line-height:1.6; }
 .suburb-rep  { font-family: var(--font-body);   font-size:13px; color:#ff6600; margin-top:2px; }
 
+/* Trophy Room button on suburb-select + close button on trophy modal */
+.trophy-btn {
+  z-index:10; margin:8px 16px 16px; padding:12px 14px;
+  background: rgba(255,170,40,0.08); border:2px solid #ffaa3399;
+  color:#ffcc66; font-family:var(--font-header); font-size:18px;
+  letter-spacing:3px; cursor:pointer; text-align:center;
+  transition: background 0.1s, border-color 0.1s, color 0.1s;
+}
+.trophy-btn:hover, .trophy-btn:active {
+  background: rgba(255,170,40,0.20); border-color:#ffaa33; color:#ffe19a;
+}
+#trophy-screen { flex-direction:column; background:#06070d; }
+.trophy-grid {
+  z-index:10; flex:1; overflow-y:auto; padding:18px;
+  display:grid; grid-template-columns: 1fr 1fr; gap:14px;
+  align-content:start;
+}
+.trophy-slot {
+  background:#0d1020; border:2px solid #1f2840;
+  padding:10px; display:flex; flex-direction:column;
+  align-items:center; gap:6px;
+}
+.trophy-slot.earned { border-color:#ffaa33; background:#1a1108; box-shadow:0 0 18px rgba(255,170,40,0.18) inset; }
+.trophy-slot img {
+  width:96px; height:96px; image-rendering:pixelated;
+  background:rgba(0,0,0,0.35); border-radius:2px;
+}
+.trophy-slot.locked img { filter: brightness(0.10) saturate(0); opacity:0.7; }
+.trophy-slot-name {
+  font-family:var(--font-header); font-size:14px;
+  color:#ffcc66; letter-spacing:2px; text-align:center;
+}
+.trophy-slot.locked .trophy-slot-name { color:#3a4555; }
+.trophy-slot-from {
+  font-family:var(--font-body); font-size:10px;
+  color:#88aacc; letter-spacing:1px; text-align:center;
+}
+.trophy-slot.locked .trophy-slot-from { color:#2a3548; }
+
 /* ===== DIALOGUE SCREEN ===== */
 #dialogue-screen {
   justify-content: flex-end;
@@ -787,6 +826,14 @@ body {
   <div class="screen" id="char-select">
     <div class="select-header">CHOOSE YOUR NEXT MOVE</div>
     <div class="suburb-list" id="suburb-list"></div>
+    <button class="trophy-btn" id="trophy-open-btn">[ TROPHY ROOM ]</button>
+  </div>
+
+  <!-- ===== TROPHY / INVENTORY MODAL ===== -->
+  <div class="screen" id="trophy-screen">
+    <div class="select-header">TROPHY ROOM</div>
+    <div class="trophy-grid" id="trophy-grid"></div>
+    <button class="trophy-btn trophy-close" id="trophy-close-btn">[ BACK TO MAP ]</button>
   </div>
 
   <!-- ===== DIALOGUE SCREEN ===== -->
@@ -2400,8 +2447,43 @@ const gameProgress = {
   cabramattaUnlocked: false, cabramattaBeaten:  false,  // Khoa @ Cabra
   penrithUnlocked:    false, penrithBeaten:     false,  // Macca @ country edge
   liverpoolUnlocked:  false, liverpoolBeaten:   false,  // Moey @ Liverpool
-  easterncreekUnlocked: false, easterncreekBeaten: false // Sgt Snout @ Eastern Creek drags
+  easterncreekUnlocked: false, easterncreekBeaten: false, // Sgt Snout @ Eastern Creek drags
+  // Reward / trophy items the player has earned. Synced from beaten flags
+  // in syncRewards() (called from showSuburbSelect and trophy modal open).
+  rewards: {
+    curry_powder: false,   // Brenno gets it from Apna Dera grocer in Harris Park
+    samosa:       false,   // Rahul shouts you thali at Sweet Punjab after the race
+    ongbay:       false,   // Khoa hands over the brown paper bag at Cabra Maccas
+    bong:         false,   // Brett's spare double-perc after Castlereagh hill climb
+    coil_pack:    false,   // Moey's BMW M52 coil pack after the Liverpool race
+    trophy:       false    // Eastern Creek drag winner trophy
+  }
 };
+
+// Reward metadata for the trophy modal. Order = chronological gain.
+const REWARD_INFO = [
+  { id:'curry_powder', name:'CURRY POWDER',  from:'APNA DERA, HARRIS PARK' },
+  { id:'samosa',       name:'HOT SAMOSA',    from:'RAHUL · SWEET PUNJAB' },
+  { id:'ongbay',       name:'ONGBAY BAG',    from:'KHOA · CABRA MACCAS' },
+  { id:'bong',         name:'DOUBLE PERC',   from:'BRETT · CASTLEREAGH RD' },
+  { id:'coil_pack',    name:'M52 COIL PACK', from:'MOEY · LIVERPOOL' },
+  { id:'trophy',       name:'DRAGS TROPHY',  from:'BEAT SGT SNOUT · EASTERN CREEK' },
+];
+
+// Sync the rewards inventory from the beaten flags. Called whenever the
+// player visits suburb-select or opens the trophy modal so any newly
+// completed encounter immediately shows up as earned.
+function syncRewards() {
+  const r = gameProgress.rewards;
+  // curry_powder is earned the moment Brenno's intro completes (he goes
+  // into Apna Dera and comes back with it) — tied to blacktownBeaten
+  if(gameProgress.blacktownBeaten)    r.curry_powder = true;
+  if(gameProgress.parramattaBeaten)   r.samosa       = true;
+  if(gameProgress.cabramattaBeaten)   r.ongbay       = true;
+  if(gameProgress.penrithBeaten)      r.bong         = true;
+  if(gameProgress.liverpoolBeaten)    r.coil_pack    = true;
+  if(gameProgress.easterncreekBeaten) r.trophy       = true;
+}
 
 function getEncounters() {
   return [
@@ -2865,6 +2947,8 @@ function gotoTitle() {
   gameProgress.penrithUnlocked    = false; gameProgress.penrithBeaten    = false;
   gameProgress.liverpoolUnlocked  = false; gameProgress.liverpoolBeaten  = false;
   gameProgress.easterncreekUnlocked = false; gameProgress.easterncreekBeaten = false;
+  // Clear the rewards inventory too
+  for(const k of Object.keys(gameProgress.rewards)) gameProgress.rewards[k] = false;
   currentSuburb    = 'BLACKTOWN';
   currentSuburbBg  = 'bg_blacktown';
   currentCharacter = 'bazza';
@@ -2875,8 +2959,34 @@ function gotoTitle() {
 }
 
 function gotoSuburbSelect() {
+  syncRewards();
   populateSuburbs();
   showScreen('char-select');
+  // Wire (or re-wire) the Trophy Room button each visit so its handler
+  // is fresh even after a full game reset
+  const btn = document.getElementById('trophy-open-btn');
+  if(btn) btn.onclick = gotoTrophyRoom;
+}
+
+function gotoTrophyRoom() {
+  syncRewards();
+  const grid = document.getElementById('trophy-grid');
+  grid.innerHTML = '';
+  for(const info of REWARD_INFO) {
+    const earned = !!gameProgress.rewards[info.id];
+    const slot = document.createElement('div');
+    slot.className = 'trophy-slot ' + (earned ? 'earned' : 'locked');
+    const imgPath = 'sprites/reward_' + info.id + '.png';
+    slot.innerHTML = `
+      <img src="${imgPath}" alt="">
+      <div class="trophy-slot-name">${earned ? info.name : '???'}</div>
+      <div class="trophy-slot-from">${earned ? info.from : 'LOCKED'}</div>
+    `;
+    grid.appendChild(slot);
+  }
+  showScreen('trophy-screen');
+  const closeBtn = document.getElementById('trophy-close-btn');
+  if(closeBtn) closeBtn.onclick = gotoSuburbSelect;
 }
 
 function gotoDialogue(dialogueId) {
@@ -3297,6 +3407,13 @@ const SPRITE_SRCS = {
   portrait_player_default: 'sprites/portrait_player_default.png',
   portrait_narrator_default: 'sprites/portrait_narrator_default.png',
   bg_penrith_hill:           'sprites/bg_penrith_hill.png',
+  // Reward items shown in the Trophy Room
+  reward_curry_powder: 'sprites/reward_curry_powder.png',
+  reward_samosa:       'sprites/reward_samosa.png',
+  reward_ongbay:       'sprites/reward_ongbay.png',
+  reward_bong:         'sprites/reward_bong.png',
+  reward_coil_pack:    'sprites/reward_coil_pack.png',
+  reward_trophy:       'sprites/reward_trophy.png',
   car_player_side:         'sprites/car_player_side.png',
   // New top-down race assets
   side_parra:       'sprites/side_parra.png',
