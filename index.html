@@ -741,144 +741,21 @@ body {
   background: #0a0814;
   overflow: hidden;
 }
-/* Cityscape sits in the TOP HALF — scrolls LEFT via CSS at a slow
-   parallax pace (background tier). The foreground road below scrolls
-   faster, giving the eye proper depth perception. */
-#transition-bg-img {
+/* Single composite GIF — covers the same vertical range the old layered
+   cityscape + road + car covered. Animation (parallax scroll, road
+   dashes, wheel blur, gentle bob) is all baked into the GIF. */
+#transition-travel-gif {
   position: absolute;
   top: 30%;
   left: 0;
   width: 100%;
-  height: 28%;
-  background-image: url('sprites/transition_drive_src.png');
-  background-repeat: repeat-x;
-  background-size: auto 100%;
+  height: 50%;             /* 28% cityscape + 22% road = 50% combined */
+  object-fit: cover;
   image-rendering: pixelated;
   pointer-events: none;
-  animation: cityScroll 28s linear infinite;
 }
-@keyframes cityScroll {
-  0%   { background-position-x: 0; }
-  100% { background-position-x: -400px; }
-}
-/* Asphalt road in the BOTTOM HALF — gives the car an actual surface to
-   drive on instead of floating past buildings. Animated dashed yellow
-   centre line + solid white edge lines scroll left to match the cityscape
-   motion. */
-#transition-road {
-  position: absolute;
-  left: 0; right: 0;
-  top: 58%;
-  height: 22%;
-  background: linear-gradient(to bottom,
-    #1a1d24 0%,        /* dark kerb shadow line */
-    #1a1d24 6%,
-    #2c2e36 8%,        /* asphalt body */
-    #38393f 50%,
-    #2c2e36 92%,
-    #1a1d24 94%,
-    #1a1d24 100%);
-  overflow: hidden;
-  pointer-events: none;
-}
-/* Dashed yellow centre line scrolling LEFT */
-#transition-road::before {
-  content: '';
-  position: absolute;
-  left: -120%;
-  top: 50%;
-  margin-top: -3px;
-  width: 340%;
-  height: 6px;
-  background: repeating-linear-gradient(
-    to right,
-    #ffcc44 0px, #ffcc44 36px,
-    transparent 36px, transparent 72px);
-  animation: roadDashes 0.5s linear infinite;
-  box-shadow: 0 0 10px rgba(255,200,80,0.40);
-}
-/* Solid edge stripes at top + bottom of the road */
-#transition-road::after {
-  content: '';
-  position: absolute;
-  left: 0; right: 0;
-  top: 18%;
-  height: 2px;
-  background: rgba(220,220,220,0.55);
-  box-shadow: 0 calc(64% + 0px) 0 rgba(220,220,220,0.55);
-}
-@keyframes roadDashes {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-72px); }
-}
-/* Car sits ON the road surface. The PixelLab tuner sprite came out
-   facing left (nose pointing west) — we flip it horizontally so it
-   reads as driving RIGHT, matching the leftward-scrolling cityscape +
-   road. Gentle rise-and-fall float (~2.6s cycle, ~6px travel) sells
-   "cruising along" without the strobing engine-vibration buzz. */
-/* Wrapper handles position + bob. The img inside handles the flip, and the
-   wheel-blur overlays sit on top — both bob with the wrapper. */
-#transition-car-wrap {
-  position: absolute;
-  left: 50%;
-  top: 62%;
-  width: 200px;
-  height: 100px;
-  margin-left: -100px;
-  pointer-events: none;
-  z-index: 2;
-  animation: transitionBob 2.6s ease-in-out infinite;
-}
-#transition-car-img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  image-rendering: pixelated;
-  /* Sprite is generated facing right natively; flip so the car reads as
-     nose-left, matching the leftward-scrolling cityscape direction. */
-  transform: scaleX(-1);
-}
-@keyframes transitionBob {
-  0%   { transform: translateY(0); }
-  50%  { transform: translateY(-6px); }
-  100% { transform: translateY(0); }
-}
-/* Spinning-wheel blur: two circular masks over each wheel that backdrop-
-   blur whatever's behind them (the wheel pixels of the car sprite). A
-   subtle horizontal-streak overlay slides rapidly underneath to sell the
-   spinning rim motion. Positions are in #transition-car-wrap coordinates,
-   so they bob along with the wrapper automatically. */
-.wheel-blur {
-  position: absolute;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  pointer-events: none;
-  /* Native blur over the wheel pixels behind */
-  backdrop-filter: blur(1.4px);
-  -webkit-backdrop-filter: blur(1.4px);
-  /* Plus a streak overlay that animates left -> right (sells rotation) */
-  background: repeating-linear-gradient(
-    90deg,
-    rgba(255,255,255,0.20) 0px,
-    rgba(255,255,255,0.20) 1px,
-    rgba(255,255,255,0) 1px,
-    rgba(255,255,255,0) 3px);
-  mix-blend-mode: screen;
-  animation: wheelStreak 0.08s linear infinite;
-}
-@keyframes wheelStreak {
-  from { background-position: 0 0; }
-  to   { background-position: -6px 0; }
-}
-/* Measured from the actual sprite: wheels sit at native (112, 151) and
-   (279, 151) in the 400x200 source. After 50% display scale that's
-   (56, 75) and (139, 75); after scaleX(-1) flip those become visible-
-   right (144, 75) and visible-left (61, 75) respectively. Centred 28x28
-   blur masks → top-left at (47, 61) and (130, 61). */
-.wheel-blur.wheel-front { left: 47px;  top: 61px; }
-.wheel-blur.wheel-rear  { left: 130px; top: 61px; }
+/* (The old CSS-animated cityscape/road/car/wheel-blur stack lived here
+   — replaced by a single baked travel.gif. ~95 lines removed.) */
 #transition-label {
   position: absolute;
   top: 14%;
@@ -1168,17 +1045,14 @@ body {
     <div id="drag-result"></div>
   </div>
 
-  <!-- ===== TRANSITION SCREEN (driving between suburbs) ===== -->
+  <!-- ===== TRANSITION SCREEN (driving between suburbs) =====
+       One composite GIF replaces the previous layered DOM (scrolling
+       cityscape div + procedural road + car img + wheel-blur overlays).
+       All animation is baked into travel.gif. -->
   <div class="screen" id="transition-screen">
     <div id="transition-label">TRAVELLING TO</div>
     <div id="transition-destination">PARRAMATTA</div>
-    <div id="transition-bg-img"></div>
-    <div id="transition-road"></div>
-    <div id="transition-car-wrap">
-      <img id="transition-car-img" src="sprites/car_player_side.png" alt="">
-      <div class="wheel-blur wheel-front"></div>
-      <div class="wheel-blur wheel-rear"></div>
-    </div>
+    <img id="transition-travel-gif" src="sprites/travel.gif" alt="">
     <div id="transition-distance">M4 westbound...</div>
   </div>
 
