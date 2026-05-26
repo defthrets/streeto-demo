@@ -975,10 +975,48 @@ body {
   letter-spacing:2px;
 }
 .restart-btn:hover { background:#ff8800; }
+
+/* ============================================================
+   DEBUG NAV BAR — TEMPORARY (remove this block + the matching
+   HTML at top of #game + the JS section labelled DEBUG NAV)
+   when shipping. Lets the dev jump straight to any scene.
+   ============================================================ */
+#debug-nav {
+  position:absolute; top:0; left:0; right:0; z-index:9999;
+  display:flex; align-items:center; gap:4px;
+  padding:3px 4px;
+  background:rgba(0,0,0,0.82);
+  border-bottom:1px solid #ff6600;
+  font-family:monospace; font-size:11px;
+}
+#debug-nav button {
+  background:#2a1a0a; color:#ffcc66; border:1px solid #ff6600;
+  width:28px; height:22px; font-size:13px; line-height:1;
+  cursor:pointer; padding:0; font-family:monospace;
+}
+#debug-nav button:hover { background:#ff6600; color:#0a0a0a; }
+#debug-nav select {
+  flex:1; min-width:0;
+  background:#1a0a05; color:#ffcc66; border:1px solid #ff6600;
+  height:22px; font-family:monospace; font-size:11px;
+  padding:0 4px;
+}
+#debug-nav #debug-hide {
+  width:22px; color:#aaa; border-color:#444;
+}
+.debug-hidden #debug-nav { display:none; }
 </style>
 </head>
 <body>
 <div id="game">
+
+  <!-- ===== DEBUG NAV BAR — TEMPORARY (remove later) ===== -->
+  <div id="debug-nav">
+    <button id="debug-prev" type="button" title="Previous scene">&#9664;</button>
+    <select id="debug-scene"></select>
+    <button id="debug-next" type="button" title="Next scene">&#9654;</button>
+    <button id="debug-hide" type="button" title="Hide debug bar (press D to show)">x</button>
+  </div>
 
   <!-- ===== STREET BACKGROUND (shared) ===== -->
   <div id="street-bg">
@@ -3917,6 +3955,89 @@ function renderPortrait(key) {
 // =============================================
 document.getElementById('title-screen').addEventListener('click', gotoFirstSuburb);
 document.getElementById('dialogue-screen').addEventListener('click', onDialogueTap);
+
+// =============================================
+//  DEBUG NAV BAR — TEMPORARY (remove later)
+// =============================================
+// Lets the dev jump straight to any scene without playing through.
+// Remove the matching <style> block, the <div id="debug-nav"> markup,
+// and this entire section when shipping.
+const DEBUG_SCENES = [
+  { name: 'TITLE',                go: () => gotoTitle() },
+  { name: '0. OPENING',           go: () => _dbgDialogue('opening_intro') },
+  { name: '1. BLACKTOWN: BRENNO', go: () => _dbgSuburb('BLACKTOWN',     'eshay_intro') },
+  { name: '2. PARRA: RAHUL',      go: () => _dbgSuburb('PARRAMATTA',    'preet_intro') },
+  { name: '2. PARRA: RACE',       go: () => { _dbgSuburb('PARRAMATTA'); gotoRace('camry'); } },
+  { name: '2. PARRA: WIN',        go: () => _dbgSuburb('PARRAMATTA',    'preet_post_win') },
+  { name: '2. PARRA: LOSE',       go: () => _dbgSuburb('PARRAMATTA',    'preet_post_lose') },
+  { name: '3. CABRA: KHOA',       go: () => _dbgSuburb('CABRAMATTA',    'khoa_intro') },
+  { name: '3. CABRA: DEAL',       go: () => { _dbgSuburb('CABRAMATTA'); gotoSesh(); } },
+  { name: '3. CABRA: WIN',        go: () => _dbgSuburb('CABRAMATTA',    'khoa_post_win') },
+  { name: '3. CABRA: LOSE',       go: () => _dbgSuburb('CABRAMATTA',    'khoa_post_lose') },
+  { name: '4. PENRITH: BRETT',    go: () => _dbgSuburb('PENRITH',       'macca_intro') },
+  { name: '4. PENRITH: HILL',     go: () => { _dbgSuburb('PENRITH'); gotoHill(); } },
+  { name: '4. PENRITH: WIN',      go: () => _dbgSuburb('PENRITH',       'macca_post_win') },
+  { name: '4. PENRITH: LOSE',     go: () => _dbgSuburb('PENRITH',       'macca_post_lose') },
+  { name: '5. LIVERPOOL: MOEY',   go: () => _dbgSuburb('LIVERPOOL',     'habibi_intro') },
+  { name: '5. LIVERPOOL: RACE',   go: () => { _dbgSuburb('LIVERPOOL'); gotoRace('amg'); } },
+  { name: '5. LIVERPOOL: WIN',    go: () => _dbgSuburb('LIVERPOOL',     'habibi_post_win') },
+  { name: '5. LIVERPOOL: LOSE',   go: () => _dbgSuburb('LIVERPOOL',     'habibi_post_lose') },
+  { name: '6. WESTFIELD DETOUR',  go: () => _dbgDialogue('westfield_detour') },
+  { name: '7. EC: SGT SNOUT',     go: () => _dbgSuburb('EASTERN CREEK', 'snout_intro') },
+  { name: '7. EC: DRAG',          go: () => { _dbgSuburb('EASTERN CREEK'); gotoDrag(); } },
+  { name: '7. EC: WIN',           go: () => _dbgSuburb('EASTERN CREEK', 'snout_post_win') },
+  { name: '7. EC: LOSE',          go: () => _dbgSuburb('EASTERN CREEK', 'snout_post_lose') },
+  { name: 'TROPHY ROOM (all)',    go: () => {
+      // Fake-unlock every reward so the trophy room renders fully populated
+      if(gameProgress && gameProgress.rewards) {
+        for(const k of Object.keys(gameProgress.rewards)) gameProgress.rewards[k] = true;
+      }
+      gotoTrophyRoom();
+    } },
+];
+let _dbgIdx = 0;
+function _dbgSuburb(name, dialogueId) {
+  const d = STORY_SUBURB_DATA[name];
+  if(d) {
+    currentSuburb    = name;
+    currentSuburbBg  = d.bg;
+    currentCharacter = d.character;
+    syncRewards();
+  }
+  if(dialogueId) gotoDialogue(dialogueId);
+}
+function _dbgDialogue(id) {
+  if(!currentSuburbBg)  currentSuburbBg  = 'bg_blacktown';
+  if(!currentCharacter) currentCharacter = 'bazza';
+  gotoDialogue(id);
+}
+function _dbgGo(idx) {
+  _dbgIdx = Math.max(0, Math.min(DEBUG_SCENES.length - 1, idx));
+  const sel = document.getElementById('debug-scene');
+  if(sel) sel.selectedIndex = _dbgIdx;
+  DEBUG_SCENES[_dbgIdx].go();
+}
+(function _initDebugNav() {
+  const sel = document.getElementById('debug-scene');
+  if(!sel) return;
+  DEBUG_SCENES.forEach((s, i) => {
+    const opt = document.createElement('option');
+    opt.value = i; opt.textContent = s.name;
+    sel.appendChild(opt);
+  });
+  sel.addEventListener('change', () => _dbgGo(parseInt(sel.value, 10)));
+  document.getElementById('debug-prev').addEventListener('click', () => _dbgGo(_dbgIdx - 1));
+  document.getElementById('debug-next').addEventListener('click', () => _dbgGo(_dbgIdx + 1));
+  document.getElementById('debug-hide').addEventListener('click', () => {
+    document.body.classList.add('debug-hidden');
+  });
+  // Press 'd' to bring the debug bar back if hidden
+  document.addEventListener('keydown', e => {
+    if(e.key === 'd' || e.key === 'D') {
+      document.body.classList.toggle('debug-hidden');
+    }
+  });
+})();
 
 // =============================================
 //  SPRITE LOADER  (loads PNGs from sprites/ dir)
