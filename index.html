@@ -4189,9 +4189,12 @@ function gotoRace(rival) {
   // sprint at thick-Lebo-accent speed — 1.45x everything.
   const cfg = {
     wrx:    { gap: 520, speed: 280, speedMult: 1.0  }, // Blacktown — first race, medium
-    camry:  { gap: 460, speed: 295, speedMult: 1.05 }, // Parramatta — Preet's sleeper, harder
-    silvia: { gap: 420, speed: 305, speedMult: 1.10 }, // Cabramatta — drift S14
-    ranger: { gap: 360, speed: 290, speedMult: 1.05 }, // Penrith — slow but wide
+    // Parramatta — Rahul's "Chamkili" supercharged Camry sleeper, faster
+    // AND longer than a typical first race; the bigger gap + higher
+    // rival speed = ~13-15s of committed driving to close
+    camry:  { gap: 720, speed: 380, speedMult: 1.30 },
+    silvia: { gap: 420, speed: 305, speedMult: 1.10 }, // Cabramatta — drift S14 (unused now, Cabra is sesh)
+    ranger: { gap: 360, speed: 290, speedMult: 1.05 }, // Penrith — Brett's slow but wide (unused, Penrith is hill)
     amg:    { gap: 300, speed: 460, speedMult: 1.45 }, // Liverpool — Moey AMG, REALLY fast
   }[rival] || { gap: 520, speed: 280, speedMult: 1.0 };
   raceSpeedMult = cfg.speedMult || 1.0;
