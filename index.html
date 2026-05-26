@@ -816,26 +816,70 @@ body {
    reads as driving RIGHT, matching the leftward-scrolling cityscape +
    road. Gentle rise-and-fall float (~2.6s cycle, ~6px travel) sells
    "cruising along" without the strobing engine-vibration buzz. */
-#transition-car-img {
+/* Wrapper handles position + bob. The img inside handles the flip, and the
+   wheel-blur overlays sit on top — both bob with the wrapper. */
+#transition-car-wrap {
   position: absolute;
   left: 50%;
   top: 62%;
   width: 200px;
   height: 100px;
   margin-left: -100px;
-  image-rendering: pixelated;
   pointer-events: none;
   z-index: 2;
-  /* Sprite is generated facing right natively; flip horizontally so the car
-     reads as nose-left, matching the leftward-scrolling cityscape direction. */
-  transform: scaleX(-1);
   animation: transitionBob 2.6s ease-in-out infinite;
 }
-@keyframes transitionBob {
-  0%   { transform: scaleX(-1) translateY(0); }
-  50%  { transform: scaleX(-1) translateY(-6px); }
-  100% { transform: scaleX(-1) translateY(0); }
+#transition-car-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  /* Sprite is generated facing right natively; flip so the car reads as
+     nose-left, matching the leftward-scrolling cityscape direction. */
+  transform: scaleX(-1);
 }
+@keyframes transitionBob {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+/* Spinning-wheel blur: two circular masks over each wheel that backdrop-
+   blur whatever's behind them (the wheel pixels of the car sprite). A
+   subtle horizontal-streak overlay slides rapidly underneath to sell the
+   spinning rim motion. Positions are in #transition-car-wrap coordinates,
+   so they bob along with the wrapper automatically. */
+.wheel-blur {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  pointer-events: none;
+  /* Native blur over the wheel pixels behind */
+  backdrop-filter: blur(1.4px);
+  -webkit-backdrop-filter: blur(1.4px);
+  /* Plus a streak overlay that animates left -> right (sells rotation) */
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255,255,255,0.20) 0px,
+    rgba(255,255,255,0.20) 1px,
+    rgba(255,255,255,0) 1px,
+    rgba(255,255,255,0) 3px);
+  mix-blend-mode: screen;
+  animation: wheelStreak 0.08s linear infinite;
+}
+@keyframes wheelStreak {
+  from { background-position: 0 0; }
+  to   { background-position: -6px 0; }
+}
+/* After the scaleX(-1) flip on the img, what was on the LEFT of the sprite
+   shows on the RIGHT of the screen and vice versa. The native sprite has
+   the rear wheel at ~x=80/400 and the front wheel at ~x=320/400, so the
+   visible-LEFT wheel on screen is the FRONT wheel (sprite x=320 -> screen
+   x=40) and the visible-RIGHT wheel is the REAR (sprite x=80 -> screen
+   x=160). Y is ~64 in the 100-tall displayed wrapper. */
+.wheel-blur.wheel-front { left: 26px;  top: 50px; }
+.wheel-blur.wheel-rear  { left: 146px; top: 50px; }
 #transition-label {
   position: absolute;
   top: 14%;
@@ -1131,7 +1175,11 @@ body {
     <div id="transition-destination">PARRAMATTA</div>
     <div id="transition-bg-img"></div>
     <div id="transition-road"></div>
-    <img id="transition-car-img" src="sprites/car_player_side.png" alt="">
+    <div id="transition-car-wrap">
+      <img id="transition-car-img" src="sprites/car_player_side.png" alt="">
+      <div class="wheel-blur wheel-front"></div>
+      <div class="wheel-blur wheel-rear"></div>
+    </div>
     <div id="transition-distance">M4 westbound...</div>
   </div>
 
