@@ -436,18 +436,20 @@ body {
 .scene-canvas {
   position:absolute; inset:0;
 }
-/* Per-suburb scene GIF. Sits in the visible area ABOVE the dialogue
-   panel — doesn't extend behind it. 400x400 square sources display at
-   390x390 (width:100% on a 390-wide screen, height:auto preserves the
-   aspect), pinned to the top of the dialogue-screen. The dialogue
-   panel's own background covers the bottom 320px+ of the screen
-   separately. */
+/* Per-suburb scene GIF. Fills the area above the dialogue panel — sized
+   to roughly reach the panel's top edge (65% of the 844-tall screen
+   ≈ 549px). object-fit:cover scales the 400x400 source up by ~1.37x
+   so the height fills 549px; the central content stays visible while
+   ~80px crops off each side. Characters + cars are centred in the
+   source so they survive the side crop. */
 #scene-bg-img {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: auto;
+  height: 65%;
+  object-fit: cover;
+  object-position: center;
   image-rendering: pixelated;
   z-index: 1;
   pointer-events: none;
