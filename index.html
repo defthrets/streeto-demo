@@ -218,7 +218,7 @@ body {
 .suburb-desc { font-family: var(--font-body);   font-size:13px; color:#8899aa; line-height:1.6; }
 .suburb-rep  { font-family: var(--font-body);   font-size:13px; color:#ff6600; margin-top:2px; }
 
-/* Trophy Room button on suburb-select + close button on trophy modal */
+/* Trophy Room button — close on the modal, play-again at end */
 .trophy-btn {
   z-index:10; margin:8px 16px 16px; padding:12px 14px;
   background: rgba(255,170,40,0.08); border:2px solid #ffaa3399;
@@ -228,6 +228,22 @@ body {
 }
 .trophy-btn:hover, .trophy-btn:active {
   background: rgba(255,170,40,0.20); border-color:#ffaa33; color:#ffe19a;
+}
+/* Tiny floating trophies icon on the dialogue screen so the player can
+   peek their inventory mid-run without breaking the linear flow */
+#trophy-peek-btn {
+  position:absolute; top:8px; right:8px; z-index:50;
+  width:36px; height:36px;
+  background: rgba(10,12,20,0.75);
+  border:2px solid #ffaa3388;
+  color:#ffcc66;
+  font-family:var(--font-header); font-size:18px;
+  cursor:pointer; padding:0;
+  display:flex; align-items:center; justify-content:center;
+  text-shadow: 0 0 6px #ff880088;
+}
+#trophy-peek-btn:hover, #trophy-peek-btn:active {
+  background: rgba(255,170,40,0.30); border-color:#ffaa33;
 }
 #trophy-screen { flex-direction:column; background:#06070d; }
 .trophy-grid {
@@ -833,11 +849,12 @@ body {
   <div class="screen" id="trophy-screen">
     <div class="select-header">TROPHY ROOM</div>
     <div class="trophy-grid" id="trophy-grid"></div>
-    <button class="trophy-btn trophy-close" id="trophy-close-btn">[ BACK TO MAP ]</button>
+    <button class="trophy-btn trophy-close" id="trophy-close-btn">[ BACK ]</button>
   </div>
 
   <!-- ===== DIALOGUE SCREEN ===== -->
   <div class="screen" id="dialogue-screen">
+    <button id="trophy-peek-btn" type="button" title="View trophies">★</button>
     <canvas class="scene-canvas" id="scene-canvas" width="390" height="844"></canvas>
     <!-- Animated full-scene takeover (e.g. engine bay diagnostic). Hidden by default. -->
     <img id="scene-overlay-img" alt="" style="display:none;" />
@@ -2396,8 +2413,8 @@ const DIALOGUES = {
       },
       {
         id:"snout_credits", speakerId:"narrator", portrait:null,
-        text:"You pull out of the Maccas carpark. In the rear view, Brenno's already sliding into the driver's seat of the E36 Beemer, windows down, stereo up. From a cooked coil pack to the cops at Eastern Creek. From a stranger at a kerb to a mate for life. The streets remember. To be continued.",
-        triggerEvent:"return_to_map"
+        text:"You pull out of the Maccas carpark. In the rear view, Brenno's already sliding into the driver's seat of the E36 Beemer, windows down, stereo up. From a cooked coil pack to the cops at Eastern Creek. From a stranger at a kerb to a mate for life. The streets remember.",
+        triggerEvent:"show_trophy_room"
       }
     ]
   },
@@ -2959,17 +2976,60 @@ function gotoTitle() {
 }
 
 function gotoSuburbSelect() {
-  syncRewards();
-  populateSuburbs();
-  showScreen('char-select');
-  // Wire (or re-wire) the Trophy Room button each visit so its handler
-  // is fresh even after a full game reset
-  const btn = document.getElementById('trophy-open-btn');
-  if(btn) btn.onclick = gotoTrophyRoom;
+  // Legacy entry point — story is now linear, this is kept only as a
+  // safety net. If anything still calls it, route to the current
+  // suburb's correct dialogue based on progression.
+  gotoSuburb(currentSuburb || 'BLACKTOWN');
 }
+
+// =============================================
+//  LINEAR STORY FLOW
+// =============================================
+// Each suburb's encounter data — background, main character, dialogue ids
+const STORY_SUBURB_DATA = {
+  BLACKTOWN:       { bg:'bg_blacktown',    character:'bazza',  intro:'eshay_intro',   post_win:'bazza_post_win',   post_lose:'bazza_post_lose',   beatenKey:'blacktownBeaten' },
+  PARRAMATTA:      { bg:'bg_parramatta',   character:'preet',  intro:'preet_intro',   post_win:'preet_post_win',   post_lose:'preet_post_lose',   beatenKey:'parramattaBeaten' },
+  CABRAMATTA:      { bg:'bg_cabramatta',   character:'khoa',   intro:'khoa_intro',    post_win:'khoa_post_win',    post_lose:'khoa_post_lose',    beatenKey:'cabramattaBeaten' },
+  PENRITH:         { bg:'bg_penrith',      character:'macca',  intro:'macca_intro',   post_win:'macca_post_win',   post_lose:'macca_post_lose',   beatenKey:'penrithBeaten' },
+  LIVERPOOL:       { bg:'bg_liverpool',    character:'habibi', intro:'habibi_intro',  post_win:'habibi_post_win',  post_lose:'habibi_post_lose',  beatenKey:'liverpoolBeaten' },
+  'EASTERN CREEK': { bg:'bg_easterncreek', character:'pigcop', intro:'snout_intro',   post_win:'snout_post_win',   post_lose:'snout_post_lose',   beatenKey:'easterncreekBeaten' },
+};
+
+// Linear story order — used after Eastern Creek to know the run is over
+const STORY_ORDER = ['BLACKTOWN','PARRAMATTA','CABRAMATTA','PENRITH','LIVERPOOL','EASTERN CREEK'];
+
+// Enter a suburb's encounter — play the transition then drop into the
+// correct dialogue (intro if unbeaten, post_win on a retry-visit). Used
+// by every unlock_X event in the handler instead of returning to a map.
+function gotoSuburb(suburbName, opts) {
+  const d = STORY_SUBURB_DATA[suburbName];
+  if(!d) return;
+  opts = opts || {};
+  currentSuburb    = suburbName;
+  currentSuburbBg  = d.bg;
+  currentCharacter = d.character;
+  syncRewards();
+  // Pick intro by default; if we're rewinding/retrying a beaten suburb
+  // (shouldn't happen in pure linear flow) show post_win.
+  let dlgId = (gameProgress[d.beatenKey] && !opts.forceIntro) ? d.post_win : d.intro;
+  gotoTransition(suburbName, () => gotoDialogue(dlgId));
+}
+
+// First suburb of the run — drops the player directly into Blacktown
+// after the title screen with no map in between.
+function gotoFirstSuburb() {
+  gotoSuburb('BLACKTOWN');
+}
+
+// Where to go when the player closes the trophy modal:
+//   peek mid-run  → back to the dialogue
+//   end-of-run    → back to the title screen for a new playthrough
+let _trophyReturnScreen = 'dialogue-screen';
 
 function gotoTrophyRoom() {
   syncRewards();
+  // Detect if this is the post-EC ending — all 6 trophies earned
+  const allEarned = REWARD_INFO.every(r => gameProgress.rewards[r.id]);
   const grid = document.getElementById('trophy-grid');
   grid.innerHTML = '';
   for(const info of REWARD_INFO) {
@@ -2986,8 +3046,28 @@ function gotoTrophyRoom() {
   }
   showScreen('trophy-screen');
   const closeBtn = document.getElementById('trophy-close-btn');
-  if(closeBtn) closeBtn.onclick = gotoSuburbSelect;
+  if(closeBtn) {
+    if(allEarned) {
+      closeBtn.textContent = '[ PLAY AGAIN ]';
+      closeBtn.onclick = gotoTitle;
+    } else {
+      closeBtn.textContent = '[ BACK ]';
+      closeBtn.onclick = () => showScreen(_trophyReturnScreen);
+    }
+  }
 }
+
+// Hook the small floating ★ button on the dialogue screen
+function bindTrophyPeek() {
+  const btn = document.getElementById('trophy-peek-btn');
+  if(!btn) return;
+  btn.onclick = (e) => {
+    e.stopPropagation();  // don't trigger onDialogueTap
+    _trophyReturnScreen = 'dialogue-screen';
+    gotoTrophyRoom();
+  };
+}
+bindTrophyPeek();
 
 function gotoDialogue(dialogueId) {
   currentGraph = DIALOGUES[dialogueId];
@@ -3277,33 +3357,46 @@ function handleEvent(eventName) {
   } else if(eventName === 'start_race_liverpool') {
     gotoRace('amg');          // Habibi's AGM (the final boss)
 
-  // ---- Unlock chain: Blacktown -> Parramatta -> Cabramatta -> Penrith -> Liverpool ----
+  // ---- Linear story progression — auto-advance to the next suburb ----
+  // Each unlock_X event marks the matching beaten flag, syncs rewards,
+  // then fires a transition to the next stop. No suburb-select menu.
   } else if(eventName === 'unlock_parramatta_brenno') {
-    // Brenno scene completes without a race — engine inspect + lift offer.
-    // Mark Blacktown beaten so the next visit shows post-state, and open Parramatta.
+    // Brenno scene completes without a race — engine inspect + lift offer
     gameProgress.blacktownBeaten    = true;
     gameProgress.parramattaUnlocked = true;
-    setTimeout(gotoSuburbSelect, 1200);
+    syncRewards();
+    setTimeout(() => gotoSuburb('PARRAMATTA'), 1200);
   } else if(eventName === 'unlock_parramatta') {
     gameProgress.parramattaUnlocked = true;
-    setTimeout(gotoSuburbSelect, 1200);
+    syncRewards();
+    setTimeout(() => gotoSuburb('PARRAMATTA'), 1200);
   } else if(eventName === 'unlock_cabramatta') {
     gameProgress.cabramattaUnlocked = true;
-    setTimeout(gotoSuburbSelect, 1200);
+    syncRewards();
+    setTimeout(() => gotoSuburb('CABRAMATTA'), 1200);
   } else if(eventName === 'unlock_penrith') {
     gameProgress.penrithUnlocked = true;
-    setTimeout(gotoSuburbSelect, 1200);
+    syncRewards();
+    setTimeout(() => gotoSuburb('PENRITH'), 1200);
   } else if(eventName === 'unlock_liverpool') {
     gameProgress.liverpoolUnlocked = true;
-    setTimeout(gotoSuburbSelect, 1200);
+    syncRewards();
+    setTimeout(() => gotoSuburb('LIVERPOOL'), 1200);
   } else if(eventName === 'unlock_easterncreek') {
     gameProgress.easterncreekUnlocked = true;
-    setTimeout(gotoSuburbSelect, 1200);
+    syncRewards();
+    setTimeout(() => gotoSuburb('EASTERN CREEK'), 1200);
   } else if(eventName === 'start_drag_easterncreek') {
-    gotoDrag();   // see the new drag-race engine below
+    gotoDrag();
 
   } else if(eventName === 'return_to_map') {
-    setTimeout(gotoSuburbSelect, 1000);
+    // Player lost/failed/quit — retry the current suburb's intro
+    syncRewards();
+    setTimeout(() => gotoSuburb(currentSuburb || 'BLACKTOWN', {forceIntro:true}), 1000);
+  } else if(eventName === 'show_trophy_room') {
+    // End-of-game trophy reveal after beating Sgt Snout
+    syncRewards();
+    setTimeout(gotoTrophyRoom, 1200);
   }
 }
 
@@ -3356,7 +3449,7 @@ function renderPortrait(key) {
 // =============================================
 //  INPUT
 // =============================================
-document.getElementById('title-screen').addEventListener('click', gotoSuburbSelect);
+document.getElementById('title-screen').addEventListener('click', gotoFirstSuburb);
 document.getElementById('dialogue-screen').addEventListener('click', onDialogueTap);
 
 // =============================================
