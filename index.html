@@ -2876,16 +2876,53 @@ function drawDialogueScene() {
       ctx.beginPath();
       ctx.arc(carX + carW*0.78, carY + carH*0.9, carH*0.16, 0, Math.PI*2); ctx.fill();
     }
-    // If Blacktown -> add smoke plume to imply broken-down Beemer
+    // If Blacktown -> animated smoke / steam plume rising from the propped-
+    // open bonnet. Three layered streams of soft wisps at different speeds
+    // and drift offsets so it never looks repetitive. The dialogue-scene
+    // animation loop (sceneAnimRAF) drives the per-frame redraw.
     if(currentSuburb === 'BLACKTOWN') {
       const smokeT = Date.now() * 0.001;
-      for(let s=0; s<5; s++) {
-        const sy = carY - 10 - s*14 - (smokeT*8 % 14);
-        const sx = carX + carW*0.5 + Math.sin(smokeT + s) * 12;
-        const sr = 14 + s*4;
-        ctx.fillStyle = `rgba(180,180,180,${0.35 - s*0.06})`;
-        ctx.beginPath(); ctx.arc(sx, sy, sr, 0, Math.PI*2); ctx.fill();
+      // Bonnet centre — the E36 sprite has bonnet roughly at the LEFT third
+      // of the side view; smoke rises from above where the bonnet meets the
+      // windscreen. Adjust the x-bias if it doesn't line up perfectly.
+      const bonnetX = carX + carW * 0.32;
+      const bonnetY = carY + carH * 0.30;
+      // Three offset streams with different speeds + base x positions
+      const streams = [
+        { ox: -10, speed: 22, period: 22, hue: 0.40 },   // grey-white smoke
+        { ox:  4,  speed: 17, period: 26, hue: 0.55 },   // hot steam wisp
+        { ox: 18,  speed: 26, period: 18, hue: 0.32 },   // dark exhaust puff
+      ];
+      for(const st of streams) {
+        for(let s = 0; s < 7; s++) {
+          // Wrap each puff through its rise cycle
+          const phase = (smokeT * st.speed - s * 8 + st.period * 9) % st.period;
+          const lifeT = phase / st.period;          // 0 = born, 1 = faded
+          if(lifeT < 0 || lifeT > 1) continue;
+          // Rise vertically + lateral drift (sine wave)
+          const sy = bonnetY - lifeT * 110;
+          const sx = bonnetX + st.ox + Math.sin(smokeT * 2 + s * 0.9 + st.ox) * (8 + lifeT * 16);
+          const sr = 6 + lifeT * 18;
+          const alpha = (1 - lifeT) * st.hue;
+          // Wisp colour: mostly grey-white with subtle warm tinge near base
+          const warmth = Math.max(0, 1 - lifeT * 2);   // strongest at birth
+          const r = 200 + warmth * 30;
+          const g = 200 + warmth * 10;
+          const b = 200 - warmth * 20;
+          ctx.fillStyle = `rgba(${r|0},${g|0},${b|0},${alpha})`;
+          ctx.beginPath();
+          ctx.arc(sx, sy, sr, 0, Math.PI * 2);
+          ctx.fill();
+        }
       }
+      // Hot orange glow at the very base (visible heat from the engine bay)
+      const glowGrad = ctx.createRadialGradient(bonnetX, bonnetY, 2, bonnetX, bonnetY, 30);
+      glowGrad.addColorStop(0, 'rgba(255,140,40,0.30)');
+      glowGrad.addColorStop(1, 'rgba(255,140,40,0)');
+      ctx.fillStyle = glowGrad;
+      ctx.beginPath();
+      ctx.arc(bonnetX, bonnetY, 30, 0, Math.PI * 2);
+      ctx.fill();
     }
     // Subtle ground shadow under car
     ctx.fillStyle = 'rgba(0,0,0,0.35)';
@@ -2953,6 +2990,35 @@ function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   currentScreen = id;
+  // Per-frame animation loop for the dialogue scene — needed so visual
+  // effects like Blacktown's smoke plume actually animate frame-by-frame
+  // instead of freezing on the still drawn at node-render time.
+  if(id === 'dialogue-screen') startDialogueAnim();
+  else                         stopDialogueAnim();
+}
+
+// Dialogue-scene animation loop. Cheap: only re-runs drawDialogueScene
+// when there's something animated to show (currently just the Blacktown
+// engine smoke). Other suburbs skip the redraw to save battery.
+let _dialogueAnimRAF = null;
+function startDialogueAnim() {
+  if(_dialogueAnimRAF != null) return;
+  const tick = () => {
+    if(currentScreen !== 'dialogue-screen') { _dialogueAnimRAF = null; return; }
+    // Only redraw if the scene actually has motion right now AND no full-
+    // scene image overlay is taking over (engine_bay GIF etc.)
+    const hasOverlay = currentNode && currentNode.sceneImage;
+    const animatedScene = (currentSuburb === 'BLACKTOWN');
+    if(animatedScene && !hasOverlay) drawDialogueScene();
+    _dialogueAnimRAF = requestAnimationFrame(tick);
+  };
+  _dialogueAnimRAF = requestAnimationFrame(tick);
+}
+function stopDialogueAnim() {
+  if(_dialogueAnimRAF != null) {
+    cancelAnimationFrame(_dialogueAnimRAF);
+    _dialogueAnimRAF = null;
+  }
 }
 
 function gotoTitle() {
