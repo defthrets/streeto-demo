@@ -6006,9 +6006,10 @@ const TC_WINDOWS = (() => {
             // building base sits at TC_H, so window y is TC_H - building height + offset
             wy: TC_H - b.h + 4 + r * winRowH + winRowH * 0.2,
             wSize: 2,
-            // twinkle: a few flicker, most are static
-            flicker: seed(bi*200 + r*7 + c) < 0.18,
-            flickerSpeed: 1 + seed(bi*201 + r*11 + c) * 3,
+            // Very few flicker (~10%) and at a slow ambient pace so the
+            // city reads as occupied, not strobing
+            flicker: seed(bi*200 + r*7 + c) < 0.10,
+            flickerSpeed: 0.08 + seed(bi*201 + r*11 + c) * 0.20,
             flickerPhase: seed(bi*203 + r*5 + c) * Math.PI * 2,
             // warm yellow/orange variance
             hue: seed(bi*205 + r*3 + c),
@@ -6077,17 +6078,19 @@ function drawTitleCity(time) {
     }
   });
 
-  // ---- BUILDING WINDOWS (with sparse twinkle) ----
+  // ---- BUILDING WINDOWS (gentle ambient flicker — fixed positions) ----
+  // Positions never change — only the brightness has a narrow swing so the
+  // city reads as 'occupied at night' without jittering.
   TC_WINDOWS.forEach(w => {
     const base = w.hue;
-    // Warm orange yellow window light
     const r = 255;
     const g = 160 + Math.floor(base * 70);
     const bb = 40 + Math.floor(base * 50);
-    let bright = 0.75;
+    let bright = 0.78;
     if(w.flicker) {
       const f = 0.5 + 0.5 * Math.sin(tSec * w.flickerSpeed + w.flickerPhase);
-      bright = 0.4 + f * 0.55;
+      // Narrow swing 0.78 → 0.92 — barely perceptible
+      bright = 0.78 + f * 0.14;
     }
     ctx.fillStyle = `rgba(${r},${g},${bb},${bright.toFixed(2)})`;
     ctx.fillRect(Math.floor(w.wx), Math.floor(w.wy), w.wSize, w.wSize);
@@ -6099,8 +6102,8 @@ function drawTitleCity(time) {
     const ny = TC_H - b.h - 11;
     const nx = b.x + 4;
     const nw = b.w - 8;
-    // Neon "sign" — pulse with time
-    const pulse = 0.7 + 0.3 * Math.sin(tSec * 1.2 + bi);
+    // Neon "sign" — slow ambient pulse (was tSec * 1.2 which strobed)
+    const pulse = 0.82 + 0.18 * Math.sin(tSec * 0.4 + bi);
     if(b.neonColor === 'pink') {
       ctx.fillStyle = `rgba(255,80,180,${pulse.toFixed(2)})`;
     } else {
