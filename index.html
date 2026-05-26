@@ -531,25 +531,78 @@ body {
   background: #0a0814;
   overflow: hidden;
 }
+/* Cityscape sits in the TOP HALF of the transition area */
 #transition-bg-img {
   position: absolute;
-  top: 35%;
+  top: 30%;
   left: 0;
   width: 100%;
-  height: 35%;
+  height: 28%;
   image-rendering: pixelated;
   object-fit: cover;
   pointer-events: none;
 }
+/* Asphalt road in the BOTTOM HALF — gives the car an actual surface to
+   drive on instead of floating past buildings. Animated dashed yellow
+   centre line + solid white edge lines scroll left to match the cityscape
+   motion. */
+#transition-road {
+  position: absolute;
+  left: 0; right: 0;
+  top: 58%;
+  height: 22%;
+  background: linear-gradient(to bottom,
+    #1a1d24 0%,        /* dark kerb shadow line */
+    #1a1d24 6%,
+    #2c2e36 8%,        /* asphalt body */
+    #38393f 50%,
+    #2c2e36 92%,
+    #1a1d24 94%,
+    #1a1d24 100%);
+  overflow: hidden;
+  pointer-events: none;
+}
+/* Dashed yellow centre line scrolling LEFT */
+#transition-road::before {
+  content: '';
+  position: absolute;
+  left: -120%;
+  top: 50%;
+  margin-top: -3px;
+  width: 340%;
+  height: 6px;
+  background: repeating-linear-gradient(
+    to right,
+    #ffcc44 0px, #ffcc44 36px,
+    transparent 36px, transparent 72px);
+  animation: roadDashes 0.5s linear infinite;
+  box-shadow: 0 0 10px rgba(255,200,80,0.40);
+}
+/* Solid edge stripes at top + bottom of the road */
+#transition-road::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  top: 18%;
+  height: 2px;
+  background: rgba(220,220,220,0.55);
+  box-shadow: 0 calc(64% + 0px) 0 rgba(220,220,220,0.55);
+}
+@keyframes roadDashes {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-72px); }
+}
+/* Car sits ON the road surface */
 #transition-car-img {
   position: absolute;
   left: 50%;
-  top: 53%;
+  top: 62%;
   width: 200px;
   height: 100px;
   margin-left: -100px;
   image-rendering: pixelated;
   pointer-events: none;
+  z-index: 2;
   /* Subtle bob/vibration to feel like it's driving */
   animation: transitionBob 0.15s steps(2) infinite;
 }
@@ -784,6 +837,7 @@ body {
     <div id="transition-label">TRAVELLING TO</div>
     <div id="transition-destination">PARRAMATTA</div>
     <img id="transition-bg-img" src="sprites/transition_drive.gif" alt="">
+    <div id="transition-road"></div>
     <img id="transition-car-img" src="sprites/car_player_side.png" alt="">
     <div id="transition-distance">M4 westbound...</div>
   </div>
@@ -3404,8 +3458,10 @@ function drawPlayerCar(ctx, cx, by) {
 //   rotate     — radians of CCW rotation around the car centre at draw time
 const RIVAL_INFO = {
   amg:         { sheet:'car_amg',         w:70, h:100, body:'#0a0a14', accent:'#1a1a30', light:'#ff8800', northFrame:1, rotate:0 },
-  // Camry frames all came out horizontal — rotate -90° so it faces north
-  camry:       { sheet:'car_camry',       w:50, h:90,  body:'#3a3a40', accent:'#54545c', light:'#ff8800', northFrame:0, rotate:-Math.PI/2 },
+  // Camry frame 0 is horizontal with headlights LEFT, taillights RIGHT.
+  // Rotate +π/2 (90° CW) so headlights end up at the TOP (facing north)
+  // and taillights at the BOTTOM facing the player.
+  camry:       { sheet:'car_camry',       w:50, h:90,  body:'#3a3a40', accent:'#54545c', light:'#ff8800', northFrame:0, rotate:Math.PI/2 },
   silvia:      { sheet:'car_silvia',      w:65, h:100, body:'#f0f0f4', accent:'#e0e0e8', light:'#ff8800', northFrame:1, rotate:0 },
   wrx:         { sheet:'car_wrx',         w:65, h:95,  body:'#1d4aa8', accent:'#2860c0', light:'#ff8800', northFrame:1, rotate:0 },
   ranger:      { sheet:'car_ranger',      w:80, h:115, body:'#5a4f30', accent:'#7a6840', light:'#ffaa44', northFrame:0, rotate:0 },
