@@ -826,13 +826,12 @@ body {
   image-rendering: pixelated;
   pointer-events: none;
   z-index: 2;
-  transform: scaleX(-1);
   animation: transitionBob 2.6s ease-in-out infinite;
 }
 @keyframes transitionBob {
-  0%   { transform: scaleX(-1) translateY(0); }
-  50%  { transform: scaleX(-1) translateY(-6px); }
-  100% { transform: scaleX(-1) translateY(0); }
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
 }
 #transition-label {
   position: absolute;
