@@ -51,8 +51,8 @@ body {
 }
 
 .stars { position:absolute; top:0; left:0; right:0; height:45%; }
-.star { position:absolute; background:#fff; border-radius:50%; animation: twinkle 7s infinite ease-in-out; }
-@keyframes twinkle { 0%,100%{opacity:0.4} 50%{opacity:1} }
+.star { position:absolute; background:#fff; border-radius:50%; animation: twinkle 14s infinite ease-in-out; }
+@keyframes twinkle { 0%,100%{opacity:0.5} 50%{opacity:1} }
 
 .horizon {
   position:absolute; top:44%; left:0; right:0; height:2px;
@@ -752,7 +752,9 @@ body {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-72px); }
 }
-/* Car sits ON the road surface */
+/* Car sits ON the road surface. The PixelLab tuner sprite came out
+   facing left (nose pointing west) — we flip it horizontally so it
+   reads as driving RIGHT, matching the leftward-scrolling cityscape. */
 #transition-car-img {
   position: absolute;
   left: 50%;
@@ -763,13 +765,14 @@ body {
   image-rendering: pixelated;
   pointer-events: none;
   z-index: 2;
+  transform: scaleX(-1);
   /* Subtle bob/vibration to feel like it's driving */
   animation: transitionBob 0.15s steps(2) infinite;
 }
 @keyframes transitionBob {
-  0%   { transform: translateY(0); }
-  50%  { transform: translateY(2px); }
-  100% { transform: translateY(0); }
+  0%   { transform: scaleX(-1) translateY(0); }
+  50%  { transform: scaleX(-1) translateY(2px); }
+  100% { transform: scaleX(-1) translateY(0); }
 }
 #transition-label {
   position: absolute;
@@ -1588,7 +1591,7 @@ const DIALOGUES = {
     nodes: [
       {
         id:"start", speakerId:"narrator", portrait:null,
-        text:"Blacktown Maccas carpark. Some skinny kid in a TN cap and popped polo is sittin' on the kerb next to a smoking Cosmos Black E36 Beemer, bonnet popped open and the iconic kidney grille looking sorry for itself. He flicks his durry as you pull in.",
+        text:"Blacktown Maccas carpark. Some skinny kid in a TN cap and popped polo is sittin' on the kerb next to a smoking black E36 Beemer, bonnet popped open and the iconic kidney grille looking sorry for itself. He flicks his durry as you pull in.",
         next:"mitcho_greet"
       },
       {
@@ -2746,8 +2749,8 @@ function initStars() {
       top:${Math.random()*100}%;
       width:${Math.random()*2+1}px;
       height:${s.style.width};
-      animation-delay:${Math.random()*8}s;
-      animation-duration:${5+Math.random()*5}s;
+      animation-delay:${Math.random()*14}s;
+      animation-duration:${10+Math.random()*8}s;
       opacity:${0.3+Math.random()*0.7};
     `;
     stars.appendChild(s);
@@ -5979,9 +5982,9 @@ const TC_STARS = (() => {
       x: Math.floor(seed(i*2) * TC_W),
       y: Math.floor(seed(i*2+1) * TC_H * 0.55),
       baseBright: 0.4 + seed(i*3) * 0.5,
-      // Calm gentle twinkle — 0.15 to 0.5 cycles/sec (one shimmer every
-      // 2-7 seconds), down from the old jittery 0.5-2.5 range
-      twinkleSpeed: 0.15 + seed(i*5) * 0.35,
+      // Very calm twinkle — 0.05 to 0.15 cycles/sec (one shimmer every
+      // 6-20 seconds) so the night sky reads as still + ambient
+      twinkleSpeed: 0.05 + seed(i*5) * 0.10,
       twinklePhase: seed(i*7) * Math.PI * 2,
     });
   }
