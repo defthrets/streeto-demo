@@ -1338,11 +1338,21 @@ const DIALOGUES = {
       {
         id:"narrator_unlock", speakerId:"eshay", portrait:"eshay_excited",
         text:"BRA BRA BRA. ESHAYS. He's giving it up. The M52 coil pack. FINALLY. The Beemer's gonna run again adlay. We did it.",
+        next:"player_we_did_it"
+      },
+      {
+        id:"player_we_did_it", speakerId:"player", portrait:"player_default",
+        text:"We did it. Five suburbs, one cooked Beemer, one missing bong. Couldn't have driven a stranger route.",
         next:"narrator_unlock_2"
       },
       {
         id:"narrator_unlock_2", speakerId:"eshay", portrait:"eshay_default",
-        text:"Oi but listen bra... the boys are talkin'. Word out of Eastern Creek. The drags. Saturday night, official strip. Sgt Snout's challenging anyone with a pulse to a drag race. Beat the Blue and you're THE legend. The big leagues adlay. ESHAYS.",
+        text:"Oi but listen bra... the boys are talkin'. Word out of Eastern Creek. The drags. Saturday night, official strip. Sgt Snout's challengin' anyone with a pulse to a drag race. Beat the Blue and you're THE legend. The big leagues adlay. ESHAYS.",
+        next:"player_eastern_creek_decide"
+      },
+      {
+        id:"player_eastern_creek_decide", speakerId:"player", portrait:"player_default",
+        text:"...A pig cop with a Highway Patrol Commodore on a sanctioned strip. Quarter mile. One shot. We're in.",
         next:"narrator_unlock_3"
       },
       {
@@ -1469,30 +1479,45 @@ const DIALOGUES = {
         id:"engine_diag_resolution", speakerId:"eshay", portrait:"eshay_sad",
         sceneImage:"engine_bay",
         text:"Anyway nah I knew the whole time it was the coil. I just wanted ya to see the mess. Bottom line: she ain't movin' tonight. I'm stranded adlay.",
+        next:"player_diag_response"
+      },
+      {
+        id:"player_diag_response", speakerId:"player", portrait:"player_default",
+        text:"M52 coil pack. Around a hundred bucks from Bursons, eighty for aftermarket. You don't have eighty, do you.",
         next:"mitcho_real_ask"
       },
       {
         id:"mitcho_real_ask", speakerId:"eshay", portrait:"eshay_nervous",
-        text:"Listen bra. Mum needs curry powder for dinner. Like RIGHT now, she's started cooking already. I told her I'd get it. Harris Park's got the place. Closest Indian grocer with the real stuff.",
+        text:"Nah bra. Card declined three times this week. AND Mum needs curry powder for dinner — like RIGHT now, she's started cooking already. Harris Park's got the proper Punjabi grocer. I told her I'd get it.",
+        next:"player_offer"
+      },
+      {
+        id:"player_offer", speakerId:"player", portrait:"player_default",
+        text:"Hop in. We'll go to Harris Park. Coles is on the way if you want to settle for beige curry.",
         choices:[
-          {text:"You want me to drive you to Harris Park... for curry powder.", next:"mitcho_curry_yes"},
-          {text:"Why don't you just go to Coles?", next:"mitcho_curry_coles"},
-          {text:"Get an Uber bra.", next:"mitcho_curry_uber"}
+          {text:"…actually, we'll do Harris Park properly.", next:"player_harris_commit"},
+          {text:"Why's Harris Park the move?", next:"mitcho_curry_coles"},
+          {text:"You sure your old lady can't wait?", next:"mitcho_curry_uber"}
         ]
       },
       {
         id:"mitcho_curry_coles", speakerId:"eshay", portrait:"eshay_excited",
-        text:"COLES?! Bra Coles curry powder is BEIGE. Mum will whack me with the wooden spoon. Has to be the proper Punjabi shop adlay. Harris Park. Wigram St. Trust me.",
-        next:"mitcho_curry_yes"
+        text:"COLES?! Bra Coles curry powder is BEIGE. Mum will whack me with the wooden spoon. Has to be Harris Park, Wigram St adlay. The real stuff. Trust me.",
+        next:"player_harris_commit"
       },
       {
         id:"mitcho_curry_uber", speakerId:"eshay", portrait:"eshay_sad",
-        text:"Card declined bra. Twice. And the boys at the Westfield are busy. You're me last hope adlay. Mum's actually a beautiful woman. You'll love her.",
+        text:"She's already chopped the onions bra. Onions don't wait. And the boys at Westfield are busy. You're me last hope adlay.",
+        next:"player_harris_commit"
+      },
+      {
+        id:"player_harris_commit", speakerId:"player", portrait:"player_default",
+        text:"Alright. Harris Park, curry powder, then back here to sort your engine. Get in.",
         next:"mitcho_curry_yes"
       },
       {
         id:"mitcho_curry_yes", speakerId:"eshay", portrait:"eshay_excited",
-        text:"YEW LEGEND. ESHAYS! Pop the door bra. While we're rollin' I'll tell ya about a Punjabi mechanic in Harris Park, drives a sleeper Camree, might be able to lend me a coil pack. Two birds adlay.",
+        text:"YEW LEGEND adlay! ESHAYS! Oh — while we're rolling I'll tell ya about a Punjabi mechanic in Harris Park, drives a sleeper Camree. Might lend me a coil pack. Two birds bra.",
         triggerEvent:"unlock_parramatta_brenno"
       }
     ]
@@ -1713,21 +1738,26 @@ const DIALOGUES = {
       },
       {
         id:"preet_credits_brenno_beg", speakerId:"eshay", portrait:"eshay_nervous",
-        text:"BRA. BRAAAAA. ESHAYS. Mum's curry is sorted, I delivered, I'm a good son. BUT. The boys back at the Westfield are gonna SMOKE without me bra. I need to get on. Tonight. Now. We HAVE to go to Cabra. Khoa. The Viet bloke. PLEASE bra.",
+        text:"BRA. BRAAAAA. ESHAYS. Mum's curry is sorted, I delivered, I'm a good son. BUT — the boys back at the Westfield are gonna SMOKE without me bra. I need to get on. Tonight. Cabra. Khoa. PLEASE bra.",
+        next:"player_cabra_decide"
+      },
+      {
+        id:"player_cabra_decide", speakerId:"player", portrait:"player_default",
+        text:"Cabra. Khoa. Get you on. Then back to Blacktown for the coil pack.",
         choices:[
-          {text:"Yeah let's go.", next:"preet_credits_mitcho2"},
-          {text:"What's 'get on' mean?", next:"preet_credits_geton_explain"},
-          {text:"Curry first, then weed?", next:"preet_credits_priority"}
+          {text:"Tell me about Khoa.", next:"preet_credits_mitcho2"},
+          {text:"What's 'get on' actually mean?", next:"preet_credits_geton_explain"},
+          {text:"Does your mum's curry hold? We're stacking errands.", next:"preet_credits_priority"}
         ]
       },
       {
         id:"preet_credits_geton_explain", speakerId:"eshay", portrait:"eshay_excited",
-        text:"BRA come on adlay. Get on. Hook up. Bag o' green. Smoke. Punia. Whatever ya wanna call it. Khoa's old man's got a shed full of it. Khoa's the gatekeeper. ESHAYS we need him bra.",
+        text:"BRA come on adlay. Get on. Hook up. Bag o' green. Smoke. Punia. Whatever ya wanna call it. Khoa's the gatekeeper in Cabra adlay.",
         next:"preet_credits_mitcho2"
       },
       {
         id:"preet_credits_priority", speakerId:"eshay", portrait:"eshay_nervous",
-        text:"Mum's curry stays in the bag bra, she's not cookin' for another hour. Plenty of time to do Cabra and be home in time for dinner. I've timed this run bra, I've TIMED IT.",
+        text:"Curry holds for an hour minimum bra, she's not cookin' for another forty. Plenty of time to do Cabra and be home in time for dinner. I've timed this run bra, I've TIMED IT.",
         next:"preet_credits_mitcho2"
       },
       {
@@ -1747,9 +1777,9 @@ const DIALOGUES = {
       },
       {
         id:"preet_credits_mitcho4", speakerId:"eshay", portrait:"eshay_default",
-        text:"Word from Harris Park's already gone down the M5. Khoa knows we're comin'. He'll have the bag ready. M4 down to Liverpool Rd, then onto Cabramatta Rd. Take the second exit at the markets bra. We pull up next to him, do three quick swaps, gone.",
+        text:"Word from Harris Park's already gone down the M5. Khoa knows we're comin'. M4 to Liverpool Rd, second exit at the markets bra. Pull up next to him, three swaps, gone.",
         choices:[
-          {text:"Let's roll then.", next:"preet_credits_go"},
+          {text:"Three swaps. Got it.", next:"player_preet_plan"},
           {text:"How do I know when the cop's looking?", next:"preet_credits_spotlight"},
           {text:"Tell me about the S14.", next:"preet_credits_s14"}
         ]
@@ -1757,16 +1787,21 @@ const DIALOGUES = {
       {
         id:"preet_credits_spotlight", speakerId:"eshay", portrait:"eshay_excited",
         text:"Cop's got the spotlight on bra, you'll see it sweepin' over the carpark. When it's pointed away — TAP. When it's lit up on us — WAIT. Three quick taps in the blind spots and we're sweet. Easy as. Mostly.",
-        next:"preet_credits_go"
+        next:"player_preet_plan"
       },
       {
         id:"preet_credits_s14", speakerId:"eshay", portrait:"eshay_default",
-        text:"S14 Silveeya, '94 to '98, JDM coupe with the SR20DET. Best chassis Nissan ever made. Khoa's one's a kouki — pearl white, red stripe, hydro handbrake, deep dish Work Meisters. Doesn't matter for tonight though, we're just parked next to it.",
+        text:"S14 Silveeya, '94 to '98, JDM coupe with the SR20DET. Best chassis Nissan ever made. Khoa's one's a kouki — pearl white, red stripe, hydro handbrake. Doesn't matter tonight though, we're just parked next to it.",
+        next:"player_preet_plan"
+      },
+      {
+        id:"player_preet_plan", speakerId:"player", portrait:"player_default",
+        text:"Right. Cabra Maccas carpark. Three taps in the blind spots. Bag in hand. Out. Buckle up.",
         next:"preet_credits_go"
       },
       {
         id:"preet_credits_go", speakerId:"narrator", portrait:null,
-        text:"You roll out of Wigram St with Brenno's playlist already on the speakers. Brenno checks his pockets for cash. Cabramatta's twenty minutes south. The Maccas carpark on John St. Khoa. The cop. Three taps.",
+        text:"You roll out of Wigram St with Brenno's playlist already on the speakers. Brenno checks his pockets for cash. Cabramatta's twenty minutes south.",
         triggerEvent:"unlock_cabramatta"
       }
     ]
@@ -1933,7 +1968,12 @@ const DIALOGUES = {
       },
       {
         id:"khoa_credits", speakerId:"eshay", portrait:"eshay_excited",
-        text:"YEEEEW ESHAYS. We got the ongbay bra, we GOT IT. Right — now Penrith. There's a country bloke called Brett. Jacked 4x4 Ranjer. He's the only bloke I know with a spare double perc — gunna make us EARN it though adlay. Castlereagh Road, off-road bash from his carpark to the Maccas Drive-Thru. First one upright wins. ESHAYS.",
+        text:"YEEEEW ESHAYS. We got the ongbay bra! Bag's in the brown paper. Now we need the piece — the bong. Country bloke up Penrith called Brett, jacked Ranjer, got a spare double perc. Won't just hand it over though. Wants to make us earn it adlay.",
+        next:"player_brett_plan"
+      },
+      {
+        id:"player_brett_plan", speakerId:"player", portrait:"player_default",
+        text:"Penrith next. Castlereagh Road bash to the Maccas Drive-Thru, first one upright takes the bong. Then it's Liverpool for your coil pack and we're done.",
         next:"khoa_credits_2"
       },
       {
@@ -2090,7 +2130,12 @@ const DIALOGUES = {
       },
       {
         id:"macca_credits", speakerId:"eshay", portrait:"eshay_excited",
-        text:"BRA. ESHAYS. Got the ongbay. Got the gear. Now the coil pack. Moey runs the kebab strip in Liverpool, knows every Beemer wrecker in NSW. We're so close to gettin' me Beemer runnin' adlay.",
+        text:"BRA. ESHAYS. Ongbay — check. Bong — check. We just need the bloody coil pack now. Moey runs the kebab strip in Liverpool, knows every Beemer wrecker in NSW. We're so close adlay.",
+        next:"player_moey_plan"
+      },
+      {
+        id:"player_moey_plan", speakerId:"player", portrait:"player_default",
+        text:"Liverpool. Macquarie Street. Find Moey, race him, get the coil pack. That's the trip. Then your Beemer starts.",
         next:"macca_credits_2"
       },
       {
