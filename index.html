@@ -1410,6 +1410,38 @@ function drawMacca(ctx) {
 //  DIALOGUE DATA (from habibi_intro.json)
 // =============================================
 const DIALOGUES = {
+  // -----------------------------------------------------------------------
+  // OPENING — fires once before the very first suburb (Blacktown). Sets up
+  // who the player character is: a 23yo west-syd driver going out on a
+  // Saturday night looking for a race + whatever else the west throws at
+  // them. The last node triggers 'open_blacktown' which transitions into
+  // the Brenno encounter via the standard driving animation.
+  // -----------------------------------------------------------------------
+  opening_intro: {
+    id: "opening_intro",
+    defaultStartNodeId: "start",
+    nodes: [
+      {
+        id:"start", speakerId:"narrator", portrait:null,
+        stage:{hideCar:true, hideChar:true},
+        text:"Saturday night. Western Sydney. You're 23, you've got a fast car you can't really afford, half a tank of fuel, and an itch in your right foot that only goes away at three in the morning on an empty road.",
+        next:"opening_2"
+      },
+      {
+        id:"opening_2", speakerId:"narrator", portrait:null,
+        stage:{hideCar:true, hideChar:true},
+        text:"Tonight you went out hunting. Mainys, drags, off-the-books meets, side-of-the-road dust-ups — whatever the group chat's lit up about. The west's a long suburb. It owes you a story before sunrise.",
+        next:"opening_3"
+      },
+      {
+        id:"opening_3", speakerId:"narrator", portrait:null,
+        stage:{hideCar:true, hideChar:true},
+        text:"Around eight, a ping comes in. Skinny eshay kid in Blacktown called Brenno — Beemer's cooked, sittin' on a Maccas kerb. Says he needs a hand, and that he knows everyone west of the M4. Could be a race in it. Could be nothing. You point the wheel west.",
+        triggerEvent:"open_blacktown"
+      }
+    ]
+  },
+
   habibi_intro: {
     id: "habibi_intro",
     defaultStartNodeId: "start",
@@ -1560,8 +1592,83 @@ const DIALOGUES = {
       },
       {
         id:"narrator_unlock_3", speakerId:"narrator", portrait:null,
-        text:"Blacktown to Parramatta to Cabramatta to Penrith to Liverpool. Eastern Creek is calling.",
-        triggerEvent:"unlock_easterncreek"
+        text:"Blacktown to Parramatta to Cabramatta to Penrith to Liverpool. Coil pack in the boot, double perc in the boot, ongbay in the boot. The errands are DONE. You point the wheel toward Blacktown and the broken Beemer.",
+        next:"brenno_westfield_beg"
+      },
+      {
+        // Brenno can't quite let the night end without showing off to the
+        // boys. Begs for a Westfield detour before they head back to the
+        // BMW. Sets up the Mt Druitt sesh + cop chase mini-game.
+        id:"brenno_westfield_beg", speakerId:"eshay", portrait:"eshay_excited",
+        text:"BRA. BRA BRA BRA. Listen adlay. ONE more stop. JUST one. ESHAYS. Westfield Mt Druitt, bottom carpark — the WHOLE crew's there RIGHT NOW. Big Shane, Marco, Dezza, all of em. I got the ongbay. I got the double perc. I just won at Liverpool and at Cabra and at Penrith. I HAVE to show up bra, this is a CV night. Twenty minutes. Then we straight to the Beemer, coil pack in, off to Eastern Creek. PLEEEASE lad.",
+        next:"player_westfield_response"
+      },
+      {
+        id:"player_westfield_response", speakerId:"player", portrait:"player_default",
+        text:"Brenno. We've been hooning since seven. We've got a drag race against an actual cop in two hours. ... Fine. Twenty minutes. If you make us late for Eastern Creek I am leaving you at Westfield. With the trolleys.",
+        triggerEvent:"detour_westfield"
+      }
+    ]
+  },
+
+  // -----------------------------------------------------------------------
+  // WESTFIELD DETOUR — Brenno's quick sesh with the boys at Mt Druitt
+  // turns into a cop chase. Plays between habibi_post_win and Eastern
+  // Creek. The last node triggers 'start_cop_chase' which is currently
+  // a stub (skips straight to Eastern Creek) — the actual chase
+  // mini-game will be wired into that trigger later.
+  // -----------------------------------------------------------------------
+  westfield_detour: {
+    id: "westfield_detour",
+    defaultStartNodeId: "start",
+    sceneBg: "bg_blacktown",   // reused for now — Mt Druitt sits in the same visual neighbourhood
+    nodes: [
+      {
+        id:"start", speakerId:"narrator", portrait:null,
+        stage:{hideChar:true},
+        text:"Westfield Mt Druitt, bottom carpark. Half past midnight. A row of customised hatchbacks parked sideways, music low. Half a dozen lads in shorts and slides stand in a loose circle near the trolley bay. Streetlights buzzing. The mall's been shut for hours.",
+        next:"brenno_excited"
+      },
+      {
+        id:"brenno_excited", speakerId:"eshay", portrait:"eshay_excited",
+        stage:{hideChar:true},
+        text:"OI! OI THERE THEY ARE! BIG SHANE — MARCO — DEZZA — BRA the WHOLE crew adlay. ESHAYS! Comin' with bra? Just for the sesh? I'll do introductions, you'll fit right in — half these dogs reckon they can drive, you'll have stuff to chat about.",
+        next:"player_decline"
+      },
+      {
+        id:"player_decline", speakerId:"player", portrait:"player_default",
+        text:"Nah mate, all good. I'll chill on the boot. Need a sec off my feet. Go say hi. ... Twenty minutes Brenno. I mean it.",
+        next:"brenno_off"
+      },
+      {
+        id:"brenno_off", speakerId:"narrator", portrait:null,
+        stage:{hideChar:true},
+        text:"Brenno bounces across the carpark — ongbay in one hand, Brett's double perc held up in the other like a trophy. The boys WHOOP. He disappears into the circle.",
+        next:"waiting_alone"
+      },
+      {
+        id:"waiting_alone", speakerId:"narrator", portrait:null,
+        stage:{hideChar:true},
+        text:"You hop up onto the boot. Streetlights buzz. The boys laugh somewhere across the carpark. A trolley rolls past on its own. You scroll your phone. Ten minutes pass.",
+        next:"waiting_2"
+      },
+      {
+        id:"waiting_2", speakerId:"narrator", portrait:null,
+        stage:{hideChar:true},
+        text:"Then — yelling. The unmistakable WHOOP of a siren bouncing off the mall's tiled wall. Then footsteps. RUNNING footsteps. Brenno's footsteps. Getting LOUDER.",
+        next:"brenno_sprint"
+      },
+      {
+        id:"brenno_sprint", speakerId:"eshay", portrait:"eshay_nervous",
+        stage:{hideChar:true},
+        text:"BRA BRA BRAAAAAA! GET UP! GET UP NOW! RUN ADLAY — COPS, COPS, COPS! GRAB THE KEYS, RUN BRO, ESHAYS RUUUUUN!",
+        next:"cop_chase_intro"
+      },
+      {
+        id:"cop_chase_intro", speakerId:"narrator", portrait:null,
+        stage:{hideChar:true},
+        text:"Brenno yanks you off the boot mid-scroll. Two uniforms round the corner, torchbeams swinging across the bonnets. You're already moving — across the carpark, past the trolley bay, into the back service lane. Boots hammering the bitumen behind you.",
+        triggerEvent:"start_cop_chase"
       }
     ]
   },
@@ -3247,10 +3354,17 @@ function gotoSuburb(suburbName, opts) {
   gotoTransition(suburbName, () => gotoDialogue(dlgId));
 }
 
-// First suburb of the run — drops the player directly into Blacktown
-// after the title screen with no map in between.
+// First suburb of the run — plays the 3-beat opening monologue first
+// (sets the player up as a 23yo west-syd driver going out hunting on a
+// Saturday night), then transitions into Blacktown for the Brenno
+// encounter. The transition + Brenno load are kicked off by the
+// 'open_blacktown' triggerEvent on the last opening node.
 function gotoFirstSuburb() {
-  gotoSuburb('BLACKTOWN');
+  currentSuburb    = 'BLACKTOWN';
+  currentSuburbBg  = 'bg_blacktown';
+  currentCharacter = 'bazza';
+  syncRewards();
+  gotoDialogue('opening_intro');
 }
 
 // Where to go when the player closes the trophy modal:
@@ -3385,12 +3499,13 @@ function populateSuburbs() {
 // =============================================
 // Suburb → little flavour line shown under the destination name
 const SUBURB_ROUTES = {
-  'BLACKTOWN':     "M4 west · stranded carpark calls",
-  'PARRAMATTA':    "M4 east · Wigram St mainys",
-  'CABRAMATTA':    "M5 south · John St markets",
-  'PENRITH':       "M4 west · foothills",
-  'LIVERPOOL':     "M5 south · Macquarie St kebabs",
-  'EASTERN CREEK': "Wallgrove Rd · the strip",
+  'BLACKTOWN':            "M4 west · stranded carpark calls",
+  'PARRAMATTA':           "M4 east · Wigram St mainys",
+  'CABRAMATTA':           "M5 south · John St markets",
+  'PENRITH':              "M4 west · foothills",
+  'LIVERPOOL':            "M5 south · Macquarie St kebabs",
+  'WESTFIELD MT DRUITT':  "M4 west · bottom carpark sesh",
+  'EASTERN CREEK':        "Wallgrove Rd · the strip",
 };
 
 function gotoTransition(destinationName, nextFn) {
@@ -3669,6 +3784,26 @@ function handleEvent(eventName) {
     setTimeout(() => gotoSuburb('EASTERN CREEK'), 1200);
   } else if(eventName === 'start_drag_easterncreek') {
     gotoDrag();
+
+  // ---- Opening narrator → drive transition into Blacktown ----
+  } else if(eventName === 'open_blacktown') {
+    // After the 3-beat opening monologue, run the standard suburb
+    // transition into Blacktown and drop into Brenno's eshay_intro.
+    gotoTransition('BLACKTOWN', () => gotoDialogue('eshay_intro'));
+
+  // ---- Westfield detour: Brenno's quick sesh that becomes a cop chase ----
+  } else if(eventName === 'detour_westfield') {
+    // Transition into Mt Druitt Westfield, then play the detour dialogue.
+    // Re-uses bg_blacktown for the scene (no dedicated Westfield bg yet).
+    gotoTransition('WESTFIELD MT DRUITT', () => gotoDialogue('westfield_detour'));
+  } else if(eventName === 'start_cop_chase') {
+    // STUB. The actual cop-chase mini-game will hook in here. For now
+    // skip straight to Eastern Creek so the story keeps moving — same
+    // effect as 'unlock_easterncreek' but logically separate so it's
+    // easy to replace with the mini-game launcher later.
+    gameProgress.easterncreekUnlocked = true;
+    syncRewards();
+    setTimeout(() => gotoSuburb('EASTERN CREEK'), 1200);
 
   } else if(eventName === 'return_to_map') {
     // Player lost/failed/quit — retry the current suburb's intro
