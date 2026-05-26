@@ -3369,10 +3369,10 @@ function gotoSuburbSelect() {
 // Each suburb's encounter data — background, main character, dialogue ids
 const STORY_SUBURB_DATA = {
   BLACKTOWN:       { bg:'bg_blacktown',    character:'bazza',  intro:'eshay_intro',   post_win:'bazza_post_win',   post_lose:'bazza_post_lose',   beatenKey:'blacktownBeaten',   sceneGif:'scene_blacktown' },
-  PARRAMATTA:      { bg:'bg_parramatta',   character:'preet',  intro:'preet_intro',   post_win:'preet_post_win',   post_lose:'preet_post_lose',   beatenKey:'parramattaBeaten' },
-  CABRAMATTA:      { bg:'bg_cabramatta',   character:'khoa',   intro:'khoa_intro',    post_win:'khoa_post_win',    post_lose:'khoa_post_lose',    beatenKey:'cabramattaBeaten' },
-  PENRITH:         { bg:'bg_penrith',      character:'macca',  intro:'macca_intro',   post_win:'macca_post_win',   post_lose:'macca_post_lose',   beatenKey:'penrithBeaten' },
-  LIVERPOOL:       { bg:'bg_liverpool',    character:'habibi', intro:'habibi_intro',  post_win:'habibi_post_win',  post_lose:'habibi_post_lose',  beatenKey:'liverpoolBeaten' },
+  PARRAMATTA:      { bg:'bg_parramatta',   character:'preet',  intro:'preet_intro',   post_win:'preet_post_win',   post_lose:'preet_post_lose',   beatenKey:'parramattaBeaten', sceneGif:'scene_parramatta' },
+  CABRAMATTA:      { bg:'bg_cabramatta',   character:'khoa',   intro:'khoa_intro',    post_win:'khoa_post_win',    post_lose:'khoa_post_lose',    beatenKey:'cabramattaBeaten', sceneGif:'scene_cabramatta' },
+  PENRITH:         { bg:'bg_penrith',      character:'macca',  intro:'macca_intro',   post_win:'macca_post_win',   post_lose:'macca_post_lose',   beatenKey:'penrithBeaten',    sceneGif:'scene_penrith' },
+  LIVERPOOL:       { bg:'bg_liverpool',    character:'habibi', intro:'habibi_intro',  post_win:'habibi_post_win',  post_lose:'habibi_post_lose',  beatenKey:'liverpoolBeaten',  sceneGif:'scene_liverpool' },
   'EASTERN CREEK': { bg:'bg_easterncreek', character:'pigcop', intro:'snout_intro',   post_win:'snout_post_win',   post_lose:'snout_post_lose',   beatenKey:'easterncreekBeaten' },
 };
 
@@ -4084,12 +4084,18 @@ const SPRITES = {};
 // <img> elements appended to the document so the browser animates them.
 // Used for full-scene takeover backdrops like the dodgy M52 engine bay.
 const SCENE_IMAGE_SRCS = {
-  engine_bay:      'sprites/engine_bay.gif',
-  opening:         'sprites/bg_opening.png',     // 400x400 dusk driveway — opening_intro
-  rahul_burnout:   'sprites/rahul_burnout.gif',  // Camry's 720 mainy entrance at Harris Park
-  cop_chase:       'sprites/cop_chase.gif',      // Westfield Mt Druitt cop-strobe chase
-  drag_strip:      'sprites/drag_strip.gif',     // Eastern Creek dragstrip staging area
-  scene_blacktown: 'sprites/scene_blacktown.gif',// 390x600 full-bleed Blacktown backdrop
+  engine_bay:       'sprites/engine_bay.gif',
+  opening:          'sprites/bg_opening.png',     // 400x400 dusk driveway — opening_intro
+  rahul_burnout:    'sprites/rahul_burnout.gif',  // Camry's 720 mainy entrance at Harris Park
+  cop_chase:        'sprites/cop_chase.gif',      // Westfield Mt Druitt cop-strobe chase
+  drag_strip:       'sprites/drag_strip.gif',     // Eastern Creek dragstrip staging area
+  // Per-suburb FULL-BLEED scene GIFs — PixelLab whole-scene compositions
+  // showing the character + their car + the suburb's distinctive shopfronts.
+  scene_blacktown:  'sprites/scene_blacktown.gif',
+  scene_parramatta: 'sprites/scene_parramatta.gif',
+  scene_cabramatta: 'sprites/scene_cabramatta.gif',
+  scene_penrith:    'sprites/scene_penrith.gif',
+  scene_liverpool:  'sprites/scene_liverpool.gif',
 };
 const SCENE_IMAGES = {};
 function loadSceneImages() {
