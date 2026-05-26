@@ -3344,7 +3344,7 @@ function gotoSuburbSelect() {
 // =============================================
 // Each suburb's encounter data — background, main character, dialogue ids
 const STORY_SUBURB_DATA = {
-  BLACKTOWN:       { bg:'bg_blacktown',    character:'bazza',  intro:'eshay_intro',   post_win:'bazza_post_win',   post_lose:'bazza_post_lose',   beatenKey:'blacktownBeaten' },
+  BLACKTOWN:       { bg:'bg_blacktown',    character:'bazza',  intro:'eshay_intro',   post_win:'bazza_post_win',   post_lose:'bazza_post_lose',   beatenKey:'blacktownBeaten',   sceneGif:'scene_blacktown' },
   PARRAMATTA:      { bg:'bg_parramatta',   character:'preet',  intro:'preet_intro',   post_win:'preet_post_win',   post_lose:'preet_post_lose',   beatenKey:'parramattaBeaten' },
   CABRAMATTA:      { bg:'bg_cabramatta',   character:'khoa',   intro:'khoa_intro',    post_win:'khoa_post_win',    post_lose:'khoa_post_lose',    beatenKey:'cabramattaBeaten' },
   PENRITH:         { bg:'bg_penrith',      character:'macca',  intro:'macca_intro',   post_win:'macca_post_win',   post_lose:'macca_post_lose',   beatenKey:'penrithBeaten' },
@@ -3562,11 +3562,17 @@ function renderNode(node) {
   // then Rahul hops out of the driver door on the next click).
   drawDialogueScene();
 
-  // Toggle the animated scene-overlay image (e.g. engine bay diagnostic GIF)
+  // Toggle the animated scene-overlay image. Priority order:
+  //   1. node.sceneImage    (per-node override, e.g. engine_bay diagnostic)
+  //   2. suburb sceneGif    (per-suburb default backdrop, e.g. scene_blacktown
+  //                          showing Brenno + smoking E36 + Blacktown strip)
+  //   3. none               (canvas-rendered fallback)
   const overlayImg = document.getElementById('scene-overlay-img');
   if(overlayImg) {
-    if(node.sceneImage && SCENE_IMAGE_SRCS[node.sceneImage]) {
-      overlayImg.src = SCENE_IMAGE_SRCS[node.sceneImage];
+    const suburbScene = STORY_SUBURB_DATA[currentSuburb] && STORY_SUBURB_DATA[currentSuburb].sceneGif;
+    const sceneKey = node.sceneImage || suburbScene;
+    if(sceneKey && SCENE_IMAGE_SRCS[sceneKey]) {
+      overlayImg.src = SCENE_IMAGE_SRCS[sceneKey];
       overlayImg.style.display = 'block';
     } else {
       overlayImg.style.display = 'none';
@@ -4043,11 +4049,12 @@ const SPRITES = {};
 // <img> elements appended to the document so the browser animates them.
 // Used for full-scene takeover backdrops like the dodgy M52 engine bay.
 const SCENE_IMAGE_SRCS = {
-  engine_bay:    'sprites/engine_bay.gif',
-  opening:       'sprites/bg_opening.png',     // 400x400 dusk driveway — opening_intro
-  rahul_burnout: 'sprites/rahul_burnout.gif',  // Camry's 720 mainy entrance at Harris Park
-  cop_chase:     'sprites/cop_chase.gif',      // Westfield Mt Druitt cop-strobe chase
-  drag_strip:    'sprites/drag_strip.gif',     // Eastern Creek dragstrip staging area
+  engine_bay:      'sprites/engine_bay.gif',
+  opening:         'sprites/bg_opening.png',     // 400x400 dusk driveway — opening_intro
+  rahul_burnout:   'sprites/rahul_burnout.gif',  // Camry's 720 mainy entrance at Harris Park
+  cop_chase:       'sprites/cop_chase.gif',      // Westfield Mt Druitt cop-strobe chase
+  drag_strip:      'sprites/drag_strip.gif',     // Eastern Creek dragstrip staging area
+  scene_blacktown: 'sprites/scene_blacktown.gif',// Brenno + smoking E36 + Blacktown strip
 };
 const SCENE_IMAGES = {};
 function loadSceneImages() {
