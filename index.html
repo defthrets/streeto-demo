@@ -1833,8 +1833,8 @@ const DIALOGUES = {
       },
       {
         id:"rahul_arrival_2", speakerId:"narrator", portrait:null,
-        stage:{hideChar:true, charMini:true},  // car + small Rahul leaning out window
-        text:"The driver's window winds down. A Sikh man in a bright royal blue dastar leans out grinning ear to ear with a samosa in his hand.",
+        stage:{hideChar:true, charMini:true},  // car + small Rahul standing on the off-side of the Camry
+        text:"The driver's door swings open. A Sikh man in a bright royal blue dastar hops out of the Camry grinning ear to ear with a samosa in his hand.",
         next:"preet_greet"
       },
       {
@@ -2984,13 +2984,31 @@ function drawDialogueScene() {
   // ---- PER-NODE STAGE FLAGS ---------------------------------------------
   // Lets a dialogue node hide/show the default car/character or draw a
   // small "in-the-car" mini sprite. Used for the Harris Park empty-street
-  // → Rahul rips in → Rahul leans out the window staging.
+  // → Rahul rips in → Rahul hops out staging.
   //   stage.hideCar   — skip the per-suburb car
   //   stage.hideChar  — skip the main character sprite
-  //   stage.charMini  — draw a small char sprite at the driver's window
+  //   stage.charMini  — draw a small char sprite stepping out of the car
   const stage = (currentNode && currentNode.stage) || {};
   const showCar  = !stage.hideCar;
   const showChar = !stage.hideChar;
+
+  // ---- MINI CHARACTER (drawn BEHIND the car) ----
+  // Rahul has hopped out of the Camry's driver door, which on an RHD car
+  // is the OFF side — i.e. the far side from the camera. So we render him
+  // BEFORE the car so the car's body visually obscures his lower half,
+  // leaving only his head and shoulders peeking over the roofline.
+  const charKeyMini = 'char_' + currentCharacter;
+  const charImgMini = SPRITES[charKeyMini];
+  if(stage.charMini && carImg && charImgMini) {
+    const fw = charImgMini.width / 4;
+    const miniW = 60;
+    const miniH = 78;
+    // Position over the front-cabin area (where the driver sits on RHD)
+    const miniX = carX + carW*0.30;
+    // Place so head + shoulders poke ~35% above the car roof line.
+    const miniY = carY - miniH*0.40;
+    ctx.drawImage(charImgMini, fw*2, 0, fw, charImgMini.height, miniX, miniY, miniW, miniH);
+  }
 
   if(showCar) {
     if(carImg) {
@@ -3086,27 +3104,6 @@ function drawDialogueScene() {
     ctx.fillStyle='rgba(0,0,0,0.35)';
     ctx.beginPath();
     ctx.ellipse(charX + charW/2, charBaseY, charW*0.38, 7, 0, 0, Math.PI*2);
-    ctx.fill();
-  }
-
-  // ---- MINI CHARACTER IN CAR (leaning out driver window) ----
-  // Used when the car has arrived but the character hasn't fully emerged
-  // yet — Rahul leans out the window with a samosa, Khoa hands a bag, etc.
-  // Draws frame 2 (south-facing) of the same char_<id> sheet at ~40% size,
-  // positioned over the driver's-side window of the parked car.
-  if(stage.charMini && carImg && charImg) {
-    const fw = charImg.width / 4;
-    const miniW = 52;
-    const miniH = 68;
-    // Driver window sits roughly 12% from front of car along x-axis,
-    // around 15% down from top of car along y-axis (sticks out the window)
-    const miniX = carX + carW*0.18;
-    const miniY = carY - miniH*0.18;
-    ctx.drawImage(charImg, fw*2, 0, fw, charImg.height, miniX, miniY, miniW, miniH);
-    // Tiny shadow on the bonnet from the leaning torso
-    ctx.fillStyle = 'rgba(0,0,0,0.30)';
-    ctx.beginPath();
-    ctx.ellipse(miniX + miniW/2, miniY + miniH*0.95, miniW*0.34, 4, 0, 0, Math.PI*2);
     ctx.fill();
   }
 
@@ -3397,7 +3394,7 @@ function renderNode(node) {
 
   // Re-render the scene canvas so per-node stage flags (hideCar/hideChar/charMini)
   // take effect when advancing nodes (e.g. Harris Park: Rahul's car appears,
-  // then Rahul leans out the window on the next click).
+  // then Rahul hops out of the driver door on the next click).
   drawDialogueScene();
 
   // Toggle the animated scene-overlay image (e.g. engine bay diagnostic GIF)
