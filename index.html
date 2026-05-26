@@ -1683,6 +1683,7 @@ const DIALOGUES = {
       {
         id:"brenno_off", speakerId:"narrator", portrait:null,
         stage:{hideChar:true},
+        sceneImage:"beat_westfield_boys",
         text:"Brenno bounces across the carpark — get-on in one hand, Brett's double perc held up in the other like a trophy. The boys WHOOP. He disappears into the circle.",
         next:"waiting_alone"
       },
@@ -2097,11 +2098,13 @@ const DIALOGUES = {
       },
       {
         id:"preet_credits", speakerId:"narrator", portrait:null,
+        sceneImage:"beat_curry_emerge",
         text:"Just as you finish the run, the door of the Indian grocer chimes open. Brenno staggers out clutching a paper bag heavy with curry powder, garam masala, and the three extras Mum tacked on. Eyes wide. Samosa wedged in his mouth.",
         next:"preet_credits_brenno_beg"
       },
       {
         id:"preet_credits_brenno_beg", speakerId:"eshay", portrait:"eshay_excited",
+        sceneImage:"beat_curry_emerge",
         text:"ESHAYS bra! Mum's curry — SORTED. Delivered. I'm a GOOD son. ... OI! RUHUL ya cunt, didn't even see ya there. You's two already met eh? Did this dog try and race ya in his shitbox Camry yet?",
         next:"preet_credits_brenno_plea"
       },
@@ -2330,11 +2333,13 @@ const DIALOGUES = {
         // Triggered AFTER the Cabra stealth deal — Brenno's just put the
         // ongbay in hand and immediately realises he has nowhere to smoke it.
         id:"brenno_ongbay_realize", speakerId:"eshay", portrait:"eshay_sad",
+        sceneImage:"beat_bong_panic",
         text:"BRA. BRAAAAAAA. ME PIECE. SHITTT, ME GLASS. I LEFT THE ONGBAY IN THE BIMMER. The good one. The double perc. I've got all this gear and NOTHIN' to smoke it through. this is a disaster brah not very eshays at all",
         next:"brenno_ongbay_realize_2"
       },
       {
         id:"brenno_ongbay_realize_2", speakerId:"eshay", portrait:"eshay_nervous",
+        sceneImage:"beat_bong_panic",
         text:"Alright alright don't panic big Benno THINK.... AHA Brett up in Penrith has a spare. Lives next door to his old man's tyre shop. that cunt owes me. We HAVE to go bra. Please bruh I need a smoke before I get home lad, PLEEEASSE.",
         next:"player_brett_plan"
       },
@@ -2673,6 +2678,7 @@ const DIALOGUES = {
       },
       {
         id:"falcon_return_1", speakerId:"eshay", portrait:"eshay_excited",
+        sceneImage:"beat_beemer_install",
         text:"There she is bra! Me girl! Hold this. Hold ALL of this. Coil pack, socket set, torch, ongbay, get-on, chips. I'm getting under the bonnet adlay. Hold the torch up here.",
         next:"falcon_return_2"
       },
@@ -4104,6 +4110,11 @@ const SCENE_IMAGE_SRCS = {
   scene_cabramatta: 'sprites/scene_cabramatta.gif',
   scene_penrith:    'sprites/scene_penrith.gif',
   scene_liverpool:  'sprites/scene_liverpool.gif',
+  // Per-beat moment GIFs — story-critical scenes that override the suburb default
+  beat_bong_panic:     'sprites/beat_bong_panic.gif',     // bong alone in Beemer — brenno_ongbay_realize
+  beat_curry_emerge:   'sprites/beat_curry_emerge.gif',   // Brenno staggers out of grocer — preet_credits
+  beat_beemer_install: 'sprites/beat_beemer_install.gif', // Beemer back to life at dawn — falcon_return_1
+  beat_westfield_boys: 'sprites/beat_westfield_boys.gif', // Brenno bounces to the boys — westfield brenno_off
 };
 const SCENE_IMAGES = {};
 function loadSceneImages() {
