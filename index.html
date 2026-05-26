@@ -826,12 +826,15 @@ body {
   image-rendering: pixelated;
   pointer-events: none;
   z-index: 2;
+  /* Sprite is generated facing right natively; flip horizontally so the car
+     reads as nose-left, matching the leftward-scrolling cityscape direction. */
+  transform: scaleX(-1);
   animation: transitionBob 2.6s ease-in-out infinite;
 }
 @keyframes transitionBob {
-  0%   { transform: translateY(0); }
-  50%  { transform: translateY(-6px); }
-  100% { transform: translateY(0); }
+  0%   { transform: scaleX(-1) translateY(0); }
+  50%  { transform: scaleX(-1) translateY(-6px); }
+  100% { transform: scaleX(-1) translateY(0); }
 }
 #transition-label {
   position: absolute;
@@ -1512,21 +1515,21 @@ const DIALOGUES = {
         id:"start", speakerId:"narrator", portrait:null,
         stage:{hideCar:true, hideChar:true},
         sceneImage:"opening",
-        text:"Saturday night. Western Sydney. You're 22, you've got a fast car you can't really afford, half a tank of fuel, and an itch in your right foot that only goes away at three in the morning on an empty road.",
+        text:"Saturday night. Western Sydney. You've got a fast car you can't really afford, half a tank of fuel, and an itch in your right foot that only goes away at three in the morning on an empty road.",
         next:"opening_2"
       },
       {
         id:"opening_2", speakerId:"narrator", portrait:null,
         stage:{hideCar:true, hideChar:true},
         sceneImage:"opening",
-        text:"Tonight you went out hunting. Mainys, drags, off-the-books meets, side-of-the-road dust-ups — whatever the group chat's lit up about. The west's a long suburb. It owes you a story before sunrise.",
+        text:"Tonight you went out hunting. Drags, off-the-books meets, ladies — whatever the group chat's lit up about. The west's a big place and it owes you a story before sunrise.",
         next:"opening_3"
       },
       {
         id:"opening_3", speakerId:"narrator", portrait:null,
         stage:{hideCar:true, hideChar:true},
         sceneImage:"opening",
-        text:"Around eight, a ping comes in. Skinny eshay kid in Blacktown called Brenno — Beemer's cooked, sittin' on a Maccas kerb. Says he needs a hand, and that he knows everyone west of the M4. Could be a race in it. Could be nothing. You point the wheel west.",
+        text:"Around eight, you decide to head out. You heard there's a new El Jannah opened in Blacktown so you grab your keys and take off down the road...",
         triggerEvent:"open_blacktown"
       }
     ]
