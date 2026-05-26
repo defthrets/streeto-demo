@@ -436,6 +436,22 @@ body {
 .scene-canvas {
   position:absolute; inset:0;
 }
+/* Full-bleed per-suburb scene GIF. Sits over the canvas (so it
+   visually replaces the canvas backdrop) but below the dialogue
+   panel + portrait + scene-overlay-img (which both sit on z:5/20).
+   The dialogue panel's near-opaque dark background covers the bottom
+   third of the GIF, framing the visible scene above it. */
+#scene-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  image-rendering: pixelated;
+  z-index: 1;
+  pointer-events: none;
+}
 /* Animated scene takeover image (e.g. Brenno's engine bay diagnostic GIF).
    Sits above the canvas backdrop, below the dialogue panel.
    Centered horizontally in the top section. */
@@ -1005,7 +1021,13 @@ body {
   <div class="screen" id="dialogue-screen">
     <button id="trophy-peek-btn" type="button" title="View trophies">★</button>
     <canvas class="scene-canvas" id="scene-canvas" width="390" height="844"></canvas>
-    <!-- Animated full-scene takeover (e.g. engine bay diagnostic). Hidden by default. -->
+    <!-- Full-bleed per-suburb scene GIF — covers the canvas behind the
+         dialogue panel. Hidden by default; activated when the current
+         suburb has a sceneGif registered. -->
+    <img id="scene-bg-img" alt="" style="display:none;" />
+    <!-- Smaller framed overlay for per-beat takeovers (engine bay GIF,
+         opening monologue dusk shot, etc.). Sits inside a bordered box
+         centered in the top portion of the screen. -->
     <img id="scene-overlay-img" alt="" style="display:none;" />
     <div class="dialogue-panel">
       <div class="portrait-row">
@@ -3344,7 +3366,7 @@ function gotoSuburbSelect() {
 // =============================================
 // Each suburb's encounter data — background, main character, dialogue ids
 const STORY_SUBURB_DATA = {
-  BLACKTOWN:       { bg:'bg_blacktown',    character:'bazza',  intro:'eshay_intro',   post_win:'bazza_post_win',   post_lose:'bazza_post_lose',   beatenKey:'blacktownBeaten' },
+  BLACKTOWN:       { bg:'bg_blacktown',    character:'bazza',  intro:'eshay_intro',   post_win:'bazza_post_win',   post_lose:'bazza_post_lose',   beatenKey:'blacktownBeaten',   sceneGif:'scene_blacktown' },
   PARRAMATTA:      { bg:'bg_parramatta',   character:'preet',  intro:'preet_intro',   post_win:'preet_post_win',   post_lose:'preet_post_lose',   beatenKey:'parramattaBeaten' },
   CABRAMATTA:      { bg:'bg_cabramatta',   character:'khoa',   intro:'khoa_intro',    post_win:'khoa_post_win',    post_lose:'khoa_post_lose',    beatenKey:'cabramattaBeaten' },
   PENRITH:         { bg:'bg_penrith',      character:'macca',  intro:'macca_intro',   post_win:'macca_post_win',   post_lose:'macca_post_lose',   beatenKey:'penrithBeaten' },
@@ -3562,20 +3584,31 @@ function renderNode(node) {
   // then Rahul hops out of the driver door on the next click).
   drawDialogueScene();
 
-  // Toggle the animated scene-overlay image. Priority order:
-  //   1. node.sceneImage    (per-node override, e.g. engine_bay diagnostic)
-  //   2. suburb sceneGif    (per-suburb default backdrop, e.g. scene_blacktown
-  //                          showing Brenno + smoking E36 + Blacktown strip)
-  //   3. none               (canvas-rendered fallback)
+  // Two scene-image layers, each with their own role:
+  //   - scene-bg-img: FULL-BLEED behind the dialogue panel. Per-suburb
+  //     defaults from STORY_SUBURB_DATA[].sceneGif (e.g. scene_blacktown).
+  //   - scene-overlay-img: smaller FRAMED BOX in the upper portion. Per-node
+  //     overrides via node.sceneImage (e.g. engine_bay diagnostic, opening
+  //     monologue dusk shot). When set, takes precedence — the suburb's
+  //     full-bleed bg is hidden for the duration of the override.
+  const bgImg = document.getElementById('scene-bg-img');
   const overlayImg = document.getElementById('scene-overlay-img');
+  const suburbScene = STORY_SUBURB_DATA[currentSuburb] && STORY_SUBURB_DATA[currentSuburb].sceneGif;
+  const hasNodeOverride = !!(node.sceneImage && SCENE_IMAGE_SRCS[node.sceneImage]);
   if(overlayImg) {
-    const suburbScene = STORY_SUBURB_DATA[currentSuburb] && STORY_SUBURB_DATA[currentSuburb].sceneGif;
-    const sceneKey = node.sceneImage || suburbScene;
-    if(sceneKey && SCENE_IMAGE_SRCS[sceneKey]) {
-      overlayImg.src = SCENE_IMAGE_SRCS[sceneKey];
+    if(hasNodeOverride) {
+      overlayImg.src = SCENE_IMAGE_SRCS[node.sceneImage];
       overlayImg.style.display = 'block';
     } else {
       overlayImg.style.display = 'none';
+    }
+  }
+  if(bgImg) {
+    if(!hasNodeOverride && suburbScene && SCENE_IMAGE_SRCS[suburbScene]) {
+      bgImg.src = SCENE_IMAGE_SRCS[suburbScene];
+      bgImg.style.display = 'block';
+    } else {
+      bgImg.style.display = 'none';
     }
   }
 
@@ -4049,11 +4082,12 @@ const SPRITES = {};
 // <img> elements appended to the document so the browser animates them.
 // Used for full-scene takeover backdrops like the dodgy M52 engine bay.
 const SCENE_IMAGE_SRCS = {
-  engine_bay:    'sprites/engine_bay.gif',
-  opening:       'sprites/bg_opening.png',     // 400x400 dusk driveway — opening_intro
-  rahul_burnout: 'sprites/rahul_burnout.gif',  // Camry's 720 mainy entrance at Harris Park
-  cop_chase:     'sprites/cop_chase.gif',      // Westfield Mt Druitt cop-strobe chase
-  drag_strip:    'sprites/drag_strip.gif',     // Eastern Creek dragstrip staging area
+  engine_bay:      'sprites/engine_bay.gif',
+  opening:         'sprites/bg_opening.png',     // 400x400 dusk driveway — opening_intro
+  rahul_burnout:   'sprites/rahul_burnout.gif',  // Camry's 720 mainy entrance at Harris Park
+  cop_chase:       'sprites/cop_chase.gif',      // Westfield Mt Druitt cop-strobe chase
+  drag_strip:      'sprites/drag_strip.gif',     // Eastern Creek dragstrip staging area
+  scene_blacktown: 'sprites/scene_blacktown.gif',// 390x600 full-bleed Blacktown backdrop
 };
 const SCENE_IMAGES = {};
 function loadSceneImages() {
