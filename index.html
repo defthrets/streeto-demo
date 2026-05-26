@@ -1009,7 +1009,7 @@ function drawHabibi(ctx) {
   px(c,24,44,16,12,DK);
   // Gold chain
   px(c,14,50,36,3,GO); px(c,20,53,24,2,GO); px(c,26,55,12,2,GO);
-  // Chain pendant (AGM badge shape)
+  // Chain pendant (AMG badge shape)
   px(c,28,57,8,4,GO); px(c,30,56,4,2,GO);
 }
 
@@ -1278,27 +1278,27 @@ const DIALOGUES = {
     nodes: [
       {
         id:"start", speakerId:"narrator", portrait:null,
-        text:"Liverpool. Macquarie Street, 11pm. A late night kebab shop with the vertical spit still turning. A row of AGMs and Hellcats out the front. A bloke in a white shirt leans on a black AGM, scrolling his phone with a face like thunder. Brenno recognises him instantly: 'OI ADLAY THAT'S MOEY. THE Moey. ESHAYS bra he's got the M52 coil pack we need, his cousin runs the wrecker on Hume Hwy.'",
+        text:"Liverpool. Macquarie Street, 11pm. A late night kebab shop with the vertical spit still turning. A row of AMGs and Hellcats out the front. A bloke in a white shirt leans on a black AMG, scrolling his phone with a face like thunder. Brenno recognises him instantly: 'OI ADLAY THAT'S MOEY. THE Moey. ESHAYS bra he's got the M52 coil pack we need, his cousin runs the wrecker on Hume Hwy.'",
         next:"habibi_greet"
       },
       {
         id:"habibi_greet", speakerId:"habibi", portrait:"habibi_angry",
-        text:"OI! Cuz! Come here lad! You see this akhi?! Some donut from Penrith called Tony Tooks Two just posted a TikTok sayin' MY AGM is all show, no go bra. SIX HUNDRED THOUSAND VIEWS WALLAH! Wallah I swear on me teta yeh.",
+        text:"OI! Cuz! Come here lad! You see this akhi?! Some donut from Penrith called Tony Tooks Two just posted a TikTok sayin' MY AMG is all show, no go bra. SIX HUNDRED THOUSAND VIEWS WALLAH! Wallah I swear on me teta yeh.",
         choices:[
           {text:"Who are you?", next:"habibi_who"},
           {text:"Show me the video.", next:"habibi_show_vid"},
-          {text:"Is the AGM actually fast?", next:"habibi_compliment"},
+          {text:"Is the AMG actually fast?", next:"habibi_compliment"},
           {text:"Just here for a kebab.", next:"habibi_food"}
         ]
       },
       {
         id:"habibi_who", speakerId:"habibi", portrait:"habibi_proud",
-        text:"Who am I lad?! CUZ. I am THE Moey of Liverpool habibi. I put the hektik in Hektik bra. Everyone from south west syd to the airport knows this AGM yeh wallah.",
+        text:"Who am I lad?! CUZ. I am THE Moey of Liverpool habibi. I put the hektik in Hektik bra. Everyone from south west syd to the airport knows this AMG yeh wallah.",
         next:"habibi_brag"
       },
       {
         id:"habibi_brag", speakerId:"habibi", portrait:"habibi_angry",
-        text:"Or they USED to lad. Until Tony Tooks Two and his Hondah Tipe-R started runnin' the streets and postin' it everywhere bra. Now everyone's askin' 'where's the AGM'. I'M RIGHT HERE CUZ. RIGHT HERE.",
+        text:"Or they USED to lad. Until Tony Tooks Two and his Honda Type R started runnin' the streets and postin' it everywhere bra. Now everyone's askin' 'where's the AMG'. I'M RIGHT HERE CUZ. RIGHT HERE.",
         choices:[
           {text:"Never heard of Tony.", next:"habibi_tony"},
           {text:"Sounds like you've got a Tony problem.", next:"habibi_tony"},
@@ -1307,7 +1307,7 @@ const DIALOGUES = {
       },
       {
         id:"habibi_show_vid", speakerId:"habibi", portrait:"habibi_angry",
-        text:"Watch this cuz. Tony Tooks Two, Tipe-R, doin' donuts in MY suburb akhi. With me own cousin Rami in the passenger seat LAUGHIN' bra! Rami's been off WhatsApp for a week wallah, the traitor lad.",
+        text:"Watch this cuz. Tony Tooks Two, Type R, doin' donuts in MY suburb akhi. With me own cousin Rami in the passenger seat LAUGHIN' bra! Rami's been off WhatsApp for a week wallah, the traitor lad.",
         next:"habibi_tony"
       },
       {
@@ -1327,7 +1327,7 @@ const DIALOGUES = {
       },
       {
         id:"habibi_food_followup", speakerId:"habibi", portrait:"habibi_smug",
-        text:"Now we're friends yeh cuz. So let me ask you somethin' lad... that car of yours got any go in it bra? Or is it all show like Tony Tooks Two's Tipe-R akhi?",
+        text:"Now we're friends yeh cuz. So let me ask you somethin' lad... that car of yours got any go in it bra? Or is it all show like Tony Tooks Two's Type R akhi?",
         choices:[
           {text:"All go.", next:"habibi_race_offer"},
           {text:"Who's Tony Tooks Two?", next:"habibi_tony"}
@@ -1335,7 +1335,7 @@ const DIALOGUES = {
       },
       {
         id:"habibi_compliment", speakerId:"habibi", portrait:"habibi_happy",
-        text:"WALLAH thank you for askin' lad! C63S habibi, biturbo V8, full carbon kit, AGM performance exhaust bra. Sounds like an earthquake when it's lit up cuz, swear on me mum yeh.",
+        text:"WALLAH thank you for askin' lad! C63S habibi, biturbo V8, full carbon kit, AMG performance exhaust bra. Sounds like an earthquake when it's lit up cuz, swear on me mum yeh.",
         next:"habibi_compliment_2"
       },
       {
@@ -1362,7 +1362,7 @@ const DIALOGUES = {
       },
       {
         id:"habibi_real_stakes", speakerId:"habibi", portrait:"habibi_suspicious",
-        text:"Just a video?! Lad this is rep akhi. If I post a clean win the haters disappear cuz, Rami crawls back bra, me uncle stops sayin' I wasted me money. If I lose habibi... I'm out here sellin' the AGM to pay for a Hondah wallah.",
+        text:"Just a video?! Lad this is rep akhi. If I post a clean win the haters disappear cuz, Rami crawls back bra, me uncle stops sayin' I wasted me money. If I lose habibi... I'm out here sellin' the AMG to pay for a Honda wallah.",
         next:"habibi_deal_yes"
       },
       {
@@ -1432,7 +1432,7 @@ const DIALOGUES = {
     nodes:[
       {
         id:"start", speakerId:"habibi", portrait:"habibi_smug",
-        text:"HA! Caught it all on dashcam lad! Postin' that the second I get inside cuz! No socials for you for a WHOLE week bra, that was the bet wallah. Get the cone out the AGM yeh akhi, we're celebratin'.",
+        text:"HA! Caught it all on dashcam lad! Postin' that the second I get inside cuz! No socials for you for a WHOLE week bra, that was the bet wallah. Get the cone out the AMG yeh akhi, we're celebratin'.",
         choices:[
           {text:"Best of three?", next:"habibi_rematch"},
           {text:"Fair enough.", next:"habibi_accept"}
@@ -1445,7 +1445,7 @@ const DIALOGUES = {
       },
       {
         id:"habibi_accept", speakerId:"habibi", portrait:"habibi_smug",
-        text:"Smart lad. Come back when you're ready cuz. The AGM will be waitin' out front bra. Order a HSP while you're at it habibi.",
+        text:"Smart lad. Come back when you're ready cuz. The AMG will be waitin' out front bra. Order a HSP while you're at it habibi.",
         next:"lose_end"
       },
       {
@@ -1581,7 +1581,7 @@ const DIALOGUES = {
       },
       {
         id:"mitcho_curry_yes", speakerId:"eshay", portrait:"eshay_excited",
-        text:"YEW LEGEND adlay! ESHAYS! Oh — while we're rolling I'll tell ya about a Punjabi mechanic in Harris Park, drives a sleeper Camree. Might lend me a coil pack. Two birds bra.",
+        text:"YEW LEGEND adlay! ESHAYS! Oh — while we're rolling I'll tell ya about a Punjabi mechanic in Harris Park, drives a sleeper Camry. Might lend me a coil pack. Two birds bra.",
         triggerEvent:"unlock_parramatta_brenno"
       }
     ]
@@ -1688,8 +1688,8 @@ const DIALOGUES = {
       },
       {
         id:"rahul_arrival", speakerId:"narrator", portrait:null,
-        stage:{hideChar:true},  // Camree appears, Rahul not yet visible
-        text:"A grey Toirota Camree RIPS into Wigram Street at full lock, drifts past you on the wrong side of the road, completes a full 720° mainy around the Marion Street roundabout — smoke pouring off the rear tyres, Punjabi rap blasting at concert volume out of the open windows — then straightens up and parks beside you with a perfect handbrake stop.",
+        stage:{hideChar:true},  // Camry appears, Rahul not yet visible
+        text:"A grey Toyota Camry RIPS into Wigram Street at full lock, drifts past you on the wrong side of the road, completes a full 720° mainy around the Marion Street roundabout — smoke pouring off the rear tyres, Punjabi rap blasting at concert volume out of the open windows — then straightens up and parks beside you with a perfect handbrake stop.",
         next:"rahul_arrival_2"
       },
       {
@@ -1744,7 +1744,7 @@ const DIALOGUES = {
       },
       {
         id:"preet_explain", speakerId:"preet", portrait:"preet_happy",
-        text:"Bhai PLEASE do not insult Chamkili by saying 'a Camree'. 1MZ-FE V6, yes, but with Eaton supercharger off a Lotus, custom intake I welded myself in taya-ji's shop, six-speed manual swap, stripped interior. 320 horsepower in 1100 kilos. Sounds like a tabla solo.",
+        text:"Bhai PLEASE do not insult Chamkili by saying 'a Camry'. 1MZ-FE V6, yes, but with Eaton supercharger off a Lotus, custom intake I welded myself in taya-ji's shop, six-speed manual swap, stripped interior. 320 horsepower in 1100 kilos. Sounds like a tabla solo.",
         next:"preet_race_offer"
       },
       {
@@ -1826,12 +1826,12 @@ const DIALOGUES = {
       },
       {
         id:"preet_credits_mitcho1", speakerId:"eshay", portrait:"eshay_excited",
-        text:"Also adlay — you just SMOKED Rahul. THE Rahul. In a Toirota Camree. The boys in Cabra are not gonna believe this.",
+        text:"Also adlay — you just SMOKED Rahul. THE Rahul. In a Toyota Camry. The boys in Cabra are not gonna believe this.",
         next:"preet_credits_mitcho2"
       },
       {
         id:"preet_credits_mitcho2", speakerId:"eshay", portrait:"eshay_default",
-        text:"Khoa's the polite plug, drives a white pearl S14 Silveeya — proper drift car but he barely races it anymore. Mostly uses it as the mobile office bra. Boot's the shop.",
+        text:"Khoa's the polite plug, drives a white pearl S14 Silvia — proper drift car but he barely races it anymore. Mostly uses it as the mobile office bra. Boot's the shop.",
         next:"preet_credits_mitcho3"
       },
       {
@@ -1855,7 +1855,7 @@ const DIALOGUES = {
       },
       {
         id:"preet_credits_s14", speakerId:"eshay", portrait:"eshay_default",
-        text:"S14 Silveeya, '94 to '98, JDM coupe with the SR20DET. Best chassis Nissan ever made. Khoa's one's a kouki — pearl white, red stripe, hydro handbrake. Doesn't matter tonight though, we're just parked next to it.",
+        text:"S14 Silvia, '94 to '98, JDM coupe with the SR20DET. Best chassis Nissan ever made. Khoa's one's a kouki — pearl white, red stripe, hydro handbrake. Doesn't matter tonight though, we're just parked next to it.",
         next:"player_preet_plan"
       },
       {
@@ -1905,7 +1905,7 @@ const DIALOGUES = {
     nodes:[
       {
         id:"start", speakerId:"narrator", portrait:null,
-        text:"John St Cabramatta, behind the markets. Red lanterns and fairy lights hang between the rooftops. A young Viet Australian guy in a crisp light-blue shirt is leaning on a pearl white S14 Silveeya, vaping and scrolling his phone. Brenno lets out a low whistle from the passenger seat.",
+        text:"John St Cabramatta, behind the markets. Red lanterns and fairy lights hang between the rooftops. A young Viet Australian guy in a crisp light-blue shirt is leaning on a pearl white S14 Silvia, vaping and scrolling his phone. Brenno lets out a low whistle from the passenger seat.",
         next:"khoa_greet"
       },
       {
@@ -1975,7 +1975,7 @@ const DIALOGUES = {
       },
       {
         id:"khoa_family", speakerId:"khoa", portrait:"khoa_default",
-        text:"Found the S14 sittin' in a shed out in Auburn, 1996 Kouki, original SR20DET still in it. Took me two years to bring her back. Dad reckoned I should've bought a Camree. He didn't get it. He gets it now.",
+        text:"Found the S14 sittin' in a shed out in Auburn, 1996 Kouki, original SR20DET still in it. Took me two years to bring her back. Dad reckoned I should've bought a Camry. He didn't get it. He gets it now.",
         choices:[
           {text:"What's it running now?", next:"khoa_explain"},
           {text:"Got it. Let's sort the deal.", next:"khoa_respect"}
@@ -2032,7 +2032,7 @@ const DIALOGUES = {
       },
       {
         id:"khoa_credits", speakerId:"eshay", portrait:"eshay_excited",
-        text:"YEEEEW ESHAYS. We got the ongbay bra! Bag's in the brown paper. Now we need the piece — the bong. Country bloke up Penrith called Brett, jacked Ranjer, got a spare double perc. Won't just hand it over though. Wants to make us earn it adlay.",
+        text:"YEEEEW ESHAYS. We got the ongbay bra! Bag's in the brown paper. Now we need the piece — the bong. Country bloke up Penrith called Brett, jacked Ranger, got a spare double perc. Won't just hand it over though. Wants to make us earn it adlay.",
         next:"player_brett_plan"
       },
       {
@@ -2092,7 +2092,7 @@ const DIALOGUES = {
       },
       {
         id:"macca_greet", speakerId:"macca", portrait:"macca_default",
-        text:"Gday mate! You must be the bloke from out east. Heard you been pingin' it through west syd. Pull up, grab a beer. The name's Brett. That there's the Ranjer.",
+        text:"Gday mate! You must be the bloke from out east. Heard you been pingin' it through west syd. Pull up, grab a beer. The name's Brett. That there's the Ranger.",
         choices:[
           {text:"Who told you we were comin', Brett?", next:"macca_news"},
           {text:"Nice rig, Brett.", next:"macca_truck"},
@@ -2120,7 +2120,7 @@ const DIALOGUES = {
       },
       {
         id:"macca_doubt", speakerId:"macca", portrait:"macca_excited",
-        text:"Hahaha that's exactly what city blokes always reckon mate. She doesn't NEED top speed. Out the back of Penrith it's all dips, dirt, paddock fences and dry creek beds. The Ranjer eats that for breakfast. You'll see.",
+        text:"Hahaha that's exactly what city blokes always reckon mate. She doesn't NEED top speed. Out the back of Penrith it's all dips, dirt, paddock fences and dry creek beds. The Ranger eats that for breakfast. You'll see.",
         next:"macca_deal_setup"
       },
       {
@@ -2154,7 +2154,7 @@ const DIALOGUES = {
       },
       {
         id:"macca_lets_go", speakerId:"macca", portrait:"macca_default",
-        text:"One thing though — and I'm serious about this one mate — if you flip the rig, just hit retry and have another crack. The Ranjer's tough, you'll be right. See ya at the Drive-Thru.",
+        text:"One thing though — and I'm serious about this one mate — if you flip the rig, just hit retry and have another crack. The Ranger's tough, you'll be right. See ya at the Drive-Thru.",
         next:"mitcho_penrith_quip_final"
       },
       {
@@ -2204,7 +2204,7 @@ const DIALOGUES = {
       },
       {
         id:"macca_credits_2", speakerId:"narrator", portrait:null,
-        text:"Word from Penrith carries down the M5 to Liverpool. Moey is sharpening his AGM. The last suburb is open.",
+        text:"Word from Penrith carries down the M5 to Liverpool. Moey is sharpening his AMG. The last suburb is open.",
         triggerEvent:"unlock_liverpool"
       }
     ]
@@ -2215,7 +2215,7 @@ const DIALOGUES = {
     nodes:[
       {
         id:"start", speakerId:"macca", portrait:"macca_happy",
-        text:"Aw mate, on ya roof are ya. Don't feel bad, half the boys end up there their first crack at Castlereagh. The Ranjer's tough, you'll be right. Pull up, get a beer in ya. Have another go whenever you're ready yeah.",
+        text:"Aw mate, on ya roof are ya. Don't feel bad, half the boys end up there their first crack at Castlereagh. The Ranger's tough, you'll be right. Pull up, get a beer in ya. Have another go whenever you're ready yeah.",
         choices:[
           {text:"That was on me. Run it back, Brett.", next:"macca_rematch"},
           {text:"Need a minute. I'll be back.", next:"macca_humble"}
@@ -2247,12 +2247,12 @@ const DIALOGUES = {
     nodes:[
       {
         id:"start", speakerId:"narrator", portrait:null,
-        text:"Eastern Creek Raceway. Saturday night. Floodlights blazing, Christmas tree starting lights glowing amber and green. A row of doof rigs and tuner cars line the strip. A copper in full blues with a pig snout pokes his head out the window of his Highway Patrol Commadore and waves you over.",
+        text:"Eastern Creek Raceway. Saturday night. Floodlights blazing, Christmas tree starting lights glowing amber and green. A row of doof rigs and tuner cars line the strip. A copper in full blues with a pig snout pokes his head out the window of his Highway Patrol Commodore and waves you over.",
         next:"snout_greet"
       },
       {
         id:"snout_greet", speakerId:"pigcop", portrait:"pigcop_default",
-        text:"WELL WELL WELL. The legend from west syd. They told me you'd be coming. Sergeant Snout, Highway Patrol. I race blokes like you for sport. The dragstrip don't lie — your tuner against me Commadore SS, quarter mile, one shot. Eshays come and go but the Blue is forever.",
+        text:"WELL WELL WELL. The legend from west syd. They told me you'd be coming. Sergeant Snout, Highway Patrol. I race blokes like you for sport. The dragstrip don't lie — your tuner against me Commodore SS, quarter mile, one shot. Eshays come and go but the Blue is forever.",
         choices:[
           {text:"Why's a copper at the drags?", next:"snout_why"},
           {text:"You're a pig. Literally.", next:"snout_pig"},
@@ -2424,7 +2424,7 @@ const DIALOGUES = {
     nodes:[
       {
         id:"start", speakerId:"pigcop", portrait:"pigcop_default",
-        text:"OINK OINK. The Blue prevails. Better luck next Saturday, sunshine. I'll be here. Cleanin' the tyres on me Commadore.",
+        text:"OINK OINK. The Blue prevails. Better luck next Saturday, sunshine. I'll be here. Cleanin' the tyres on me Commodore.",
         choices:[
           {text:"Best of three?", next:"snout_rematch"},
           {text:"Fair go, copper.", next:"snout_humble"}
@@ -2517,8 +2517,8 @@ function getEncounters() {
     {
       suburb: "PARRAMATTA",
       desc: gameProgress.parramattaBeaten
-        ? "You smoked Rahul's Camree. He still owes you a thali at Sweet Punjab."
-        : "Harris Park. Rahul rips mainys at the roundabouts in a sleeper Camree.",
+        ? "You smoked Rahul's Camry. He still owes you a thali at Sweet Punjab."
+        : "Harris Park. Rahul rips mainys at the roundabouts in a sleeper Camry.",
       rep: gameProgress.parramattaBeaten ? "DONE ★"
          : gameProgress.parramattaUnlocked ? "NEW TURF" : "LOCKED",
       locked: !gameProgress.parramattaUnlocked,
@@ -2554,7 +2554,7 @@ function getEncounters() {
       desc: gameProgress.liverpoolBeaten
         ? "You ran Liverpool. Moey's posting your dashcam vid everywhere."
         : gameProgress.liverpoolUnlocked
-            ? "Moey's holding court at a Liverpool kebab shop. Black AGM out the front."
+            ? "Moey's holding court at a Liverpool kebab shop. Black AMG out the front."
             : "South west syd. The endgame. Locked until you've crossed every other line.",
       rep: gameProgress.liverpoolBeaten ? "DONE ★"
          : gameProgress.liverpoolUnlocked ? "FINAL TURF" : "LOCKED",
@@ -2681,8 +2681,8 @@ function drawWindows(ctx, bx, by, bw, bh) {
   }
 }
 
-function drawAGM(ctx, x, y) {
-  // AGM silhouette (top-down view, facing left)
+function drawAMG(ctx, x, y) {
+  // AMG silhouette (top-down view, facing left)
   ctx.fillStyle = '#111120';
   ctx.fillRect(x, y, 120, 54);
   ctx.fillStyle = '#1a1a30';
@@ -2802,10 +2802,10 @@ function drawDialogueScene() {
   //
   // Per-suburb car:
   //   Blacktown  -> Brenno's broken E36 Beemer (smoke plume)
-  //   Parramatta -> Preet's Camree "Chamkili"
-  //   Cabramatta -> Khoa's S14 Silveeya
-  //   Penrith    -> Macca's jacked ForrdRanjer
-  //   Liverpool  -> Habibi's AGM
+  //   Parramatta -> Preet's Camry "Chamkili"
+  //   Cabramatta -> Khoa's S14 Silvia
+  //   Penrith    -> Macca's jacked ForrdRanger
+  //   Liverpool  -> Habibi's AMG
   const carBySuburb = {
     BLACKTOWN:  'car_e36_side',
     PARRAMATTA: 'car_camry_side',
@@ -3416,13 +3416,13 @@ function handleEvent(eventName) {
   if(eventName === 'start_race_blacktown') {
     gotoRace('wrx');          // Merrylands crew's WRX
   } else if(eventName === 'start_race_parramatta') {
-    gotoRace('camry');        // Preet's sleeper Camree
+    gotoRace('camry');        // Preet's sleeper Camry
   } else if(eventName === 'start_sesh_cabramatta') {
     gotoSesh();               // Khoa's Cabra carpark stealth deal
   } else if(eventName === 'start_race_penrith') {
     gotoHill();           // Macca's side-scroll 4x4 hill climb
   } else if(eventName === 'start_race_liverpool') {
-    gotoRace('amg');          // Habibi's AGM (the final boss)
+    gotoRace('amg');          // Habibi's AMG (the final boss)
 
   // ---- Linear story progression — auto-advance to the next suburb ----
   // Each unlock_X event marks the matching beaten flag, syncs rewards,
@@ -4192,7 +4192,7 @@ function gotoRace(rival) {
     camry:  { gap: 460, speed: 295, speedMult: 1.05 }, // Parramatta — Preet's sleeper, harder
     silvia: { gap: 420, speed: 305, speedMult: 1.10 }, // Cabramatta — drift S14
     ranger: { gap: 360, speed: 290, speedMult: 1.05 }, // Penrith — slow but wide
-    amg:    { gap: 300, speed: 460, speedMult: 1.45 }, // Liverpool — Moey AGM, REALLY fast
+    amg:    { gap: 300, speed: 460, speedMult: 1.45 }, // Liverpool — Moey AMG, REALLY fast
   }[rival] || { gap: 520, speed: 280, speedMult: 1.0 };
   raceSpeedMult = cfg.speedMult || 1.0;
 
@@ -5312,7 +5312,7 @@ function showHillResult(kind) {
                : (kind === 'bogged') ? "BOGGED!"
                : "FAILED";
   const sub    = (kind === 'win')    ? "Sharon's got the McChickens. Brett hands over the double perc."
-               : (kind === 'flip')   ? "Wheels up in a paddock. Have another crack — the Ranjer's tough."
+               : (kind === 'flip')   ? "Wheels up in a paddock. Have another crack — the Ranger's tough."
                : (kind === 'bogged') ? "Stuck in the dry creek bed. Hit retry and gun it harder."
                : "";
   const colour = (kind === 'win') ? '#ffaa33' : '#ff5544';
