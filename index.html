@@ -757,16 +757,18 @@ body {
   background: #0a0814;
   overflow: hidden;
 }
-/* Single composite GIF — covers the same vertical range the old layered
-   cityscape + road + car covered. Animation (parallax scroll, road
-   dashes, wheel blur, gentle bob) is all baked into the GIF. */
+/* Full-bleed cinematic travel GIF — 390x600 native, fills most of the
+   screen between the destination label up top and the distance flavor
+   at the bottom. Aspect ratio matched (71% of 844 = 599 ≈ 600) so the
+   GIF displays at its natural pixel scale with no cropping. */
 #transition-travel-gif {
   position: absolute;
-  top: 30%;
+  top: 22%;
   left: 0;
   width: 100%;
-  height: 50%;             /* 28% cityscape + 22% road = 50% combined */
+  height: 71%;
   object-fit: cover;
+  object-position: center top;
   image-rendering: pixelated;
   pointer-events: none;
 }
@@ -796,7 +798,7 @@ body {
 }
 #transition-distance {
   position: absolute;
-  bottom: 8%;
+  bottom: 3%;
   left: 0; right: 0;
   text-align: center;
   font-family: var(--font-body);
