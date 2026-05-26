@@ -1751,12 +1751,14 @@ const DIALOGUES = {
       {
         id:"brenno_sprint", speakerId:"eshay", portrait:"eshay_nervous",
         stage:{hideChar:true},
+        sceneImage:"cop_chase",
         text:"BRA BRA BRAAAAAA! GET UP! GET UP NOW! RUN ADLAY — COPS, COPS, COPS! GRAB THE KEYS, RUN BRO, ESHAYS RUUUUUN!",
         next:"cop_chase_intro"
       },
       {
         id:"cop_chase_intro", speakerId:"narrator", portrait:null,
         stage:{hideChar:true},
+        sceneImage:"cop_chase",
         text:"Brenno yanks you off the boot mid-scroll. Two uniforms round the corner, torchbeams swinging across the bonnets. You're already moving — across the carpark, past the trolley bay, into the back service lane. Boots hammering the bitumen behind you.",
         triggerEvent:"start_cop_chase"
       }
@@ -2025,6 +2027,7 @@ const DIALOGUES = {
       {
         id:"rahul_arrival", speakerId:"narrator", portrait:null,
         stage:{hideChar:true},  // Camry appears, Rahul not yet visible
+        sceneImage:"rahul_burnout",
         text:"A grey Toyota Camry RIPS into Wigram Street, completes a full 720 around the Marion Street roundabout — smoke pouring off the front tyre as he peels out towards your direction, Punjabi rap blasting at concert volume out of the open windows — then straightens up and parks beside you hitting the gutter in the process.",
         next:"rahul_arrival_2"
       },
@@ -2591,6 +2594,7 @@ const DIALOGUES = {
     nodes:[
       {
         id:"start", speakerId:"narrator", portrait:null,
+        sceneImage:"drag_strip",
         text:"Eastern Creek Raceway. Saturday night. Floodlights blazing, Christmas tree starting lights glowing amber and green. A row of doof rigs and tuner cars line the strip. A copper in full blues with a pig snout pokes his head out the window of his Highway Patrol Commodore and waves you over.",
         next:"snout_greet"
       },
@@ -4115,8 +4119,11 @@ const SPRITES = {};
 // <img> elements appended to the document so the browser animates them.
 // Used for full-scene takeover backdrops like the dodgy M52 engine bay.
 const SCENE_IMAGE_SRCS = {
-  engine_bay: 'sprites/engine_bay.gif',
-  opening:    'sprites/bg_opening.png',  // 400x400 dusk driveway — used only by opening_intro
+  engine_bay:    'sprites/engine_bay.gif',
+  opening:       'sprites/bg_opening.png',     // 400x400 dusk driveway — opening_intro
+  rahul_burnout: 'sprites/rahul_burnout.gif',  // Camry's 720 mainy entrance at Harris Park
+  cop_chase:     'sprites/cop_chase.gif',      // Westfield Mt Druitt cop-strobe chase
+  drag_strip:    'sprites/drag_strip.gif',     // Eastern Creek dragstrip staging area
 };
 const SCENE_IMAGES = {};
 function loadSceneImages() {
