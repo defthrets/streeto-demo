@@ -52,7 +52,7 @@ body {
 
 .stars { position:absolute; top:0; left:0; right:0; height:45%; }
 .star { position:absolute; background:#fff; border-radius:50%; animation: twinkle 14s infinite ease-in-out; }
-@keyframes twinkle { 0%,100%{opacity:0.5} 50%{opacity:1} }
+@keyframes twinkle { 0%,100%{opacity:0.78} 50%{opacity:1} }
 
 .horizon {
   position:absolute; top:44%; left:0; right:0; height:2px;
@@ -6037,12 +6037,14 @@ function drawTitleCity(time) {
   ctx.fillStyle = sky;
   ctx.fillRect(0, 0, TC_W, TC_H);
 
-  // ---- STARS (twinkling) ----
+  // ---- STARS — fixed positions, gentle flicker only (no drift/slide) ----
   const tSec = time / 1000;
   TC_STARS.forEach(s => {
     const flicker = 0.5 + 0.5 * Math.sin(tSec * s.twinkleSpeed + s.twinklePhase);
-    const bright = s.baseBright * (0.55 + 0.45 * flicker);
-    ctx.fillStyle = `rgba(255,255,${220 + Math.floor(flicker*35)},${bright.toFixed(2)})`;
+    // Narrow brightness swing (0.88 → 1.0) so the flicker reads as a
+    // gentle shimmer, not a jittering disco
+    const bright = s.baseBright * (0.88 + 0.12 * flicker);
+    ctx.fillStyle = `rgba(255,255,240,${bright.toFixed(2)})`;
     ctx.fillRect(s.x, s.y, 2, 2);
   });
 
