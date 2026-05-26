@@ -51,7 +51,7 @@ body {
 }
 
 .stars { position:absolute; top:0; left:0; right:0; height:45%; }
-.star { position:absolute; background:#fff; border-radius:50%; animation: twinkle 2s infinite; }
+.star { position:absolute; background:#fff; border-radius:50%; animation: twinkle 7s infinite ease-in-out; }
 @keyframes twinkle { 0%,100%{opacity:0.4} 50%{opacity:1} }
 
 .horizon {
@@ -2746,8 +2746,8 @@ function initStars() {
       top:${Math.random()*100}%;
       width:${Math.random()*2+1}px;
       height:${s.style.width};
-      animation-delay:${Math.random()*3}s;
-      animation-duration:${1.5+Math.random()*2}s;
+      animation-delay:${Math.random()*8}s;
+      animation-duration:${5+Math.random()*5}s;
       opacity:${0.3+Math.random()*0.7};
     `;
     stars.appendChild(s);
@@ -5979,7 +5979,9 @@ const TC_STARS = (() => {
       x: Math.floor(seed(i*2) * TC_W),
       y: Math.floor(seed(i*2+1) * TC_H * 0.55),
       baseBright: 0.4 + seed(i*3) * 0.5,
-      twinkleSpeed: 0.5 + seed(i*5) * 2.0,
+      // Calm gentle twinkle — 0.15 to 0.5 cycles/sec (one shimmer every
+      // 2-7 seconds), down from the old jittery 0.5-2.5 range
+      twinkleSpeed: 0.15 + seed(i*5) * 0.35,
       twinklePhase: seed(i*7) * Math.PI * 2,
     });
   }
