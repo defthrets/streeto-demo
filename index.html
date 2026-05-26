@@ -1947,30 +1947,35 @@ const DIALOGUES = {
       {
         id:"start", speakerId:"narrator", portrait:null,
         stage:{hideCar:true, hideChar:true},
+        sceneImage:"scene_harrispark",
         text:"Wigram Street, Harris Park. Indian sweets shop on one corner, 7-Eleven on the other, sari fabrics in every window. The street's dead quiet — Sunday night, most shops closed. Brenno tumbles out of your car holding a Maccas receipt covered in Mum's handwriting.",
         next:"brenno_grocer"
       },
       {
         id:"brenno_grocer", speakerId:"eshay", portrait:"eshay_excited",
         stage:{hideCar:true, hideChar:true},
+        sceneImage:"scene_harrispark",
         text:"Alright bra, I'm duckin' in. Curry powder, garam masala, plus two more Mum tacked on while we were drivin'. Won't be ten minutes adlay. ESHAYS. Hold the fort.",
         next:"brenno_leaves"
       },
       {
         id:"brenno_leaves", speakerId:"narrator", portrait:null,
         stage:{hideCar:true, hideChar:true},
+        sceneImage:"scene_harrispark",
         text:"Brenno bowls into the Indian grocer. The door chimes. The street falls completely silent.",
         next:"waiting_alone_1"
       },
       {
         id:"waiting_alone_1", speakerId:"narrator", portrait:null,
         stage:{hideCar:true, hideChar:true},
+        sceneImage:"scene_harrispark",
         text:"You sit alone in the driver's seat. Engine ticking down. Distant Punjabi music drifts from a sari shop across the road. A rat scuttles past a wheelie bin. Quiet.",
         next:"waiting_alone_2"
       },
       {
         id:"waiting_alone_2", speakerId:"narrator", portrait:null,
         stage:{hideCar:true, hideChar:true},
+        sceneImage:"scene_harrispark",
         text:"Then — far off, the squeal of tyres. Building. Closer. Closer. CLOSER.",
         next:"rahul_arrival"
       },
@@ -4095,6 +4100,7 @@ const SCENE_IMAGE_SRCS = {
   // showing the character + their car + the suburb's distinctive shopfronts.
   scene_blacktown:  'sprites/scene_blacktown.gif',
   scene_parramatta: 'sprites/scene_parramatta.gif',
+  scene_harrispark: 'sprites/scene_harrispark.gif', // empty Wigram St — used before Rahul arrives
   scene_cabramatta: 'sprites/scene_cabramatta.gif',
   scene_penrith:    'sprites/scene_penrith.gif',
   scene_liverpool:  'sprites/scene_liverpool.gif',
