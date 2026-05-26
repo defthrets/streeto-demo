@@ -1838,13 +1838,18 @@ const DIALOGUES = {
         next:"preet_greet"
       },
       {
+        // HUB. All flavor branches loop back here so the player can explore
+        // every Rahul beat before committing to the race. The "You're on"
+        // choice commits to preet_race_offer. Rahul's tone is consistently
+        // cocky in every reply — he's convincing the player to race him.
         id:"preet_greet", speakerId:"preet", portrait:"preet_happy",
-        text:"Sat Sri Akal my friend! You must be the bloke Brenno's messaged me about just now. Did you SEE that mainy? Did you see it? Pure poetry yaar. I got here as soon as I could but I dropped a butter chicken in Westmead just before so it took me longer sar. Anyway, eaten yet? You haven't? Bhai we cannot do business on an empty stomach.",
+        text:"Sat Sri Akal my friend! So YOU are the bloke Brenno's been TYPING about — said you'd give Chamkili a real run. Yaar I have to tell you straight up: twelve years undefeated on this street, twelve years. Chamkili has not lost ONCE. But come, sit, eat, ask me anything bhai. Just so you know what you are walking into.",
         choices:[
           {text:"What's that you're eating?", next:"preet_food"},
-          {text:"What's your name?", next:"preet_name"},
-          {text:"Sick skid, mate.", next:"preet_mainy_proud"},
-          {text:"That song is loud.", next:"preet_music"}
+          {text:"What's your story, Rahul?", next:"preet_name"},
+          {text:"Talk me through Chamkili.", next:"preet_explain"},
+          {text:"Sick skid earlier.", next:"preet_mainy_proud"},
+          {text:"Alright. You're on.", next:"preet_race_offer"}
         ]
       },
       {
@@ -1854,41 +1859,42 @@ const DIALOGUES = {
       },
       {
         id:"preet_backstory", speakerId:"preet", portrait:"preet_calm",
-        text:"My taya-ji has a mechanic shop on Marion Street, taught me everything from twelve years old. Distributors, carbies, the lot. UberEats by night to pay for car parts yaar — green bag never comes off, 4.94 star rating, I am untouchable on the app. Two kids at home, wife Simran is a literal angel.",
+        text:"My taya-ji has a mechanic shop on Marion Street, taught me everything from twelve years old. Distributors, carbies, the lot. UberEats by night — green bag never comes off, 4.94 star rating, untouchable on the app. Two kids at home, wife Simran is a literal angel. She tells the school mums her husband has not lost a race in twelve years. The other dads believe her now bhai. They have stopped trying.",
         next:"preet_mainy_intro"
       },
       {
         id:"preet_mainy_intro", speakerId:"preet", portrait:"preet_happy",
-        text:"But Sunday nights? Sunday nights are sacred bhai. UberEats app goes OFFLINE. Mainys around the Westmead, the Marion Street round, all three Parramatta circles. Music up. Tyres screaming. Cops never catch me because I know every gurdwara back lane in west syd AND I memorised them doing food drops for three years.",
-        choices:[
-          {text:"Show me one then.", next:"preet_race_offer"},
-          {text:"Tell me about the car.", next:"preet_explain"},
-          {text:"What's blasting in the speakers?", next:"preet_music"}
-        ]
+        text:"And Sunday nights? Sacred bhai. App goes OFFLINE. Mainys around Westmead, Marion Street round, all three Parramatta circles. Tyres screaming. Cops never catch me — I know every gurdwara back lane from three years of food drops. You came on a Sunday night, to MY street, with a fast car. You came to lose my friend. You just don't know it yet.",
+        next:"preet_music"
       },
       {
         id:"preet_food", speakerId:"preet", portrait:"preet_happy",
-        text:"Aloo samosa from Apna Dera yaar, lifeblood. Listen — Sweet Punjab does the best paneer tikka, Billu's for dosa, Curry Hut biryani is unreal, kulfi at the end of Wigram St is THE best in west syd no debate possible. After we race I'm shouting you a thali, no arguments.",
-        next:"preet_mainy_intro"
+        text:"Aloo samosa from Apna Dera yaar, lifeblood. Sweet Punjab does the best paneer tikka, Billu's for dosa, Curry Hut biryani is unreal, kulfi at the end of Wigram St is THE best in west syd, no debate. After we race I'm shouting you a thali — loser eats too, that is the rule bhai. You're definitely losing by the way, so come hungry.",
+        next:"preet_greet"
       },
       {
         id:"preet_mainy_proud", speakerId:"preet", portrait:"preet_happy",
-        text:"AHAHA you saw it! That was a clean 720 my friend. Anti-clockwise too, against the camber, the hard way. Mum was watching from upstairs, gave me a thumbs up. Chamkili sliiiiiides like she's dancing at a wedding yaar.",
-        next:"preet_mainy_intro"
+        text:"AHAHA you saw it! That was a clean 720 my friend. Anti-clockwise too, against the camber, the hard way. Mum was watching from upstairs, gave me a thumbs up. Chamkili sliiiiides like she's dancing at a wedding yaar. And bhai? That was just my warmup lap. You haven't seen me TRY yet.",
+        next:"preet_greet"
       },
       {
+        // Tail of the "Your story?" chain — loops back to the hub. Music
+        // taste is folded in here so it's one flowing biography instead of
+        // its own top-level choice.
         id:"preet_music", speakerId:"preet", portrait:"preet_proud",
-        text:"DIVINE my friend! 'Mirchi'. Top of the playlist. Naezy next, then KR$NA, then a bit of Sidhu MOOSE WALA when I'm feeling spiritual, may he rest in peace. If you're driving in west syd and the speakers aren't shaking, are you even DRIVING yaar?",
-        next:"preet_mainy_intro"
+        text:"DIVINE my friend! 'Mirchi'. Top of the playlist. Naezy next, then KR$NA, then a bit of Sidhu MOOSE WALA when I'm feeling spiritual, may he rest in peace. If you're driving in west syd and the speakers aren't shaking, are you even DRIVING yaar? Your car probably plays podcasts. We will fix that when I tow it to taya-ji's shop after.",
+        next:"preet_greet"
       },
       {
         id:"preet_explain", speakerId:"preet", portrait:"preet_happy",
-        text:"Bhai PLEASE do not insult Chamkili by saying 'a Camry'. 1MZ-FE V6, yes, but with Eaton supercharger off a Lotus, custom intake I welded myself in taya-ji's shop, six-speed manual swap, stripped interior. 320 horsepower in 1100 kilos. Sounds like a tabla solo.",
-        next:"preet_race_offer"
+        text:"Bhai PLEASE do not insult Chamkili by saying 'just a Camry'. 1MZ-FE V6, yes, but with Eaton supercharger off a Lotus, custom intake I welded myself in taya-ji's shop, six-speed manual swap, stripped interior. 320 horsepower in 1100 kilos. Sounds like a tabla solo. And she will eat your car for breakfast yaar. With chutney. And a side of paratha.",
+        next:"preet_greet"
       },
       {
+        // RACE COMMIT SUB-HUB. "Deal." fires the race; the other two loop
+        // back here so the player can hear all the rules + song before going.
         id:"preet_race_offer", speakerId:"preet", portrait:"preet_calm",
-        text:"Right — the race! Wigram Street to the Westmead roundabout, three full mainys at the end before we call it. If you win, you are the king of Harris Park, I will announce it at gurdwara langar this Sunday. If I win... you wash Chamkili. Deal or no deal yaar?",
+        text:"AAAAAHA! The man is BRAVE. Right — Wigram Street to the Westmead roundabout, three full mainys at the end before we call it. If you win, you are the king of Harris Park, I will announce it at gurdwara langar this Sunday. BUT YOU WILL NOT WIN. When I win... you wash Chamkili. Both sides. With proper wax. Deal or no deal yaar?",
         choices:[
           {text:"Deal.", next:"preet_lets_go"},
           {text:"What's the song for the run?", next:"preet_music_pick"},
@@ -1898,12 +1904,12 @@ const DIALOGUES = {
       {
         id:"preet_music_pick", speakerId:"preet", portrait:"preet_proud",
         text:"Pre-loaded already my friend. 'Apna Time Aayega' from Gully Boy. We hit launch when the beat drops at 0:34. You'll hear it. Whole street will hear it. Mum will hear it from the kitchen.",
-        next:"preet_lets_go"
+        next:"preet_race_offer"
       },
       {
         id:"preet_rules", speakerId:"preet", portrait:"preet_serious",
         text:"Rules are simple yaar. No bumping. No dirty tricks. If cops come we both peel into the temple carpark, they NEVER follow there. And NO bus lane, this is disrespectful to bus drivers, they are working people.",
-        next:"preet_lets_go"
+        next:"preet_race_offer"
       },
       {
         id:"preet_lets_go", speakerId:"preet", portrait:"preet_happy",
@@ -3474,6 +3480,21 @@ function renderNode(node) {
   // Clear pending state from previous node
   _pendingEvent = null;
   _pendingNext  = null;
+
+  // Hub loop-back detection: if this node has choices AND any of them have
+  // already been used (player came back here after exploring a flavor
+  // branch), skip the typewriter and re-show the text instantly with the
+  // remaining choices. The used-choice grey-out lives in renderChoices.
+  const isHubReturn = node.choices && node.choices.length > 0 &&
+    currentGraph && currentGraph._usedChoices &&
+    node.choices.some(ch =>
+      currentGraph._usedChoices.has(node.id + '|' + ch.text));
+  if(isHubReturn) {
+    document.getElementById('dialogue-text').textContent = node.text;
+    typing = false;
+    renderChoices(node.choices);
+    return;
+  }
 
   // Typewriter text
   typeText(node.text, () => {
