@@ -1762,6 +1762,7 @@ const DIALOGUES = {
       },
       {
         id:"mitcho_greet", speakerId:"eshay", portrait:"eshay_default",
+        sceneImage:"beat_brenno_beemer_intro",
         text:"OI! Adlay! Bra, BRA, aye brah howyagoeen lad, oi listen, me Beemer is absolutely cooked. Coil pack's gone I reckon. But she's smokin' aswell so I'm not sure. Have a look would ya? Tell me what YOU see.",
         choices:[
           {text:"Who even are you?", next:"mitcho_intro_self"},
@@ -1976,7 +1977,7 @@ const DIALOGUES = {
       {
         id:"waiting_alone_1", speakerId:"narrator", portrait:null,
         stage:{hideCar:true, hideChar:true},
-        sceneImage:"scene_harrispark",
+        sceneImage:"beat_harrispark_quiet_interior",
         text:"You sit alone in the driver's seat. Engine ticking down. Distant Punjabi music drifts from a sari shop across the road. A rat scuttles past a wheelie bin. Quiet.",
         next:"waiting_alone_2"
       },
@@ -2022,16 +2023,19 @@ const DIALOGUES = {
       },
       {
         id:"preet_backstory", speakerId:"preet", portrait:"preet_calm",
+        sceneImage:"beat_rahul_ubereats_camry",
         text:"My taya-ji has a mechanic shop on Marion Street, taught me everything from twelve years old. Distributors, carbies, the lot. UberEats by night — green bag never comes off, 4.94 star rating, untouchable on the app. Two kids at home, wife Simran is a literal angel. She tells the school mums her husband has not lost a race in twelve years. The other dads believe her now bhai. They have stopped trying.",
         next:"preet_mainy_intro"
       },
       {
         id:"preet_mainy_intro", speakerId:"preet", portrait:"preet_happy",
+        sceneImage:"beat_rahul_mainy_saturday",
         text:"And Saturday nights? Sacred bhai. App goes OFFLINE. Mainys around Westmead, Marion Street round, all three Parramatta circles. Tyres screaming. Cops never catch me — I know every gurdwara back lane from three years of food drops. You came on a Saturday night, to MY street, with a fast car. You came to lose my friend. You just don't know it yet.",
         next:"preet_music"
       },
       {
         id:"preet_food", speakerId:"preet", portrait:"preet_happy",
+        sceneImage:"beat_rahul_food_spread",
         text:"Aloo samosa from Apna Dera yaar, lifeblood. Sweet Punjab does the best paneer tikka, Billu's for dosa, Curry Hut biryani is unreal, kulfi at the end of Wigram St is THE best in west syd, no debate. After we race I'm shouting you a thali — loser eats too, that is the rule bhai. You're definitely losing by the way, so come hungry.",
         next:"preet_greet"
       },
@@ -4152,6 +4156,11 @@ const SCENE_IMAGE_SRCS = {
   beat_khoa_slick_celebration:'sprites/beat_khoa_slick_celebration.gif',// Khoa finger-gun, cop oblivious — khoa_post_win:start
   beat_brett_penrith_vibe:'sprites/beat_brett_penrith_vibe.gif', // JB Hi-Fi meets Blue Mountains — macca_country
   beat_brett_hulix_offroad:'sprites/beat_brett_hulix_offroad.gif',// Hilux mid-jump in bush — macca_doubt
+  beat_brenno_beemer_intro:'sprites/beat_brenno_beemer_intro.gif',// Brenno gesturing at smoking Beemer — mitcho_greet
+  beat_harrispark_quiet_interior:'sprites/beat_harrispark_quiet_interior.gif',// FPS Harris Park car interior — waiting_alone
+  beat_rahul_food_spread: 'sprites/beat_rahul_food_spread.gif', // Indian food top-down spread — preet_food
+  beat_rahul_ubereats_camry:'sprites/beat_rahul_ubereats_camry.gif',// UberEats bag + 4.94 stars — preet_backstory
+  beat_rahul_mainy_saturday:'sprites/beat_rahul_mainy_saturday.gif',// Camry mainy at roundabout — preet_mainy_intro
   beat_khoa_handoff:      'sprites/beat_khoa_handoff.gif',      // brown paper bag handoff — khoa_respect_back
   beat_brett_handover:    'sprites/beat_brett_handover.gif',    // Brett presents the bong — macca_handover
   beat_moey_phone:        'sprites/beat_moey_phone.gif',        // Moey shoves TikTok phone — habibi_show_vid
