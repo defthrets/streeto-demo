@@ -1667,17 +1667,20 @@ const DIALOGUES = {
       {
         id:"start", speakerId:"narrator", portrait:null,
         stage:{hideChar:true},
+        sceneImage:"beat_westfield_carpark",
         text:"Westfield Mt Druitt, bottom carpark. Half past midnight. A row of customised hatchbacks parked sideways, music low. Half a dozen lads in shorts and slides stand in a loose circle near the trolley bay. Streetlights buzzing. The mall's been shut for hours.",
         next:"brenno_excited"
       },
       {
         id:"brenno_excited", speakerId:"eshay", portrait:"eshay_excited",
         stage:{hideChar:true},
+        sceneImage:"beat_westfield_carpark",
         text:"OI! OI THERE THEY ARE! BIG SHANE — MARCO — DEZZA — BRA the WHOLE crew adlay. ESHAYS! Comin' with bra? Just for the sesh? I'll do introductions, you'll fit right in — half these dogs reckon they can drive, you'll have stuff to chat about.",
         next:"player_decline"
       },
       {
         id:"player_decline", speakerId:"player", portrait:"player_default",
+        sceneImage:"beat_westfield_carpark",
         text:"Nah mate, all good. I'll chill on the boot. Need a sec off my feet. Go say hi. ... Twenty minutes Brenno. I mean it.",
         next:"brenno_off"
       },
@@ -1691,12 +1694,14 @@ const DIALOGUES = {
       {
         id:"waiting_alone", speakerId:"narrator", portrait:null,
         stage:{hideChar:true},
+        sceneImage:"beat_westfield_carpark",
         text:"You hop up onto the boot. Streetlights buzz. The boys laugh somewhere across the carpark. A trolley rolls past on its own. You scroll your phone. Ten minutes pass.",
         next:"waiting_2"
       },
       {
         id:"waiting_2", speakerId:"narrator", portrait:null,
         stage:{hideChar:true},
+        sceneImage:"beat_westfield_carpark",
         text:"Then — yelling. The unmistakable WHOOP of a siren bouncing off the mall's tiled wall. Then footsteps. RUNNING footsteps. Brenno's footsteps. Getting LOUDER.",
         next:"brenno_sprint"
       },
@@ -4121,7 +4126,8 @@ const SCENE_IMAGE_SRCS = {
   beat_curry_emerge:      'sprites/beat_curry_emerge.gif',      // Brenno staggers out of grocer — preet_credits
   beat_beemer_install:    'sprites/beat_beemer_install.gif',    // Beemer back to life at dawn — falcon_return_1
   beat_westfield_boys:    'sprites/beat_westfield_boys.gif',    // Brenno bounces to the boys — westfield brenno_off
-  beat_coil_pack_closeup: 'sprites/beat_coil_pack_closeup.gif', // cracked coil pack close-up — engine_diag_resolution
+  beat_coil_pack_closeup:    'sprites/beat_coil_pack_closeup.gif',    // cracked coil pack close-up — engine_diag_resolution
+  beat_westfield_carpark:    'sprites/beat_westfield_carpark.gif',    // Westfield Mt Druitt establishing carpark
   beat_rahul_revving:     'sprites/beat_rahul_revving.gif',     // Camree idling at launch line — preet_lets_go
   beat_khoa_handoff:      'sprites/beat_khoa_handoff.gif',      // brown paper bag handoff — khoa_respect_back
   beat_brett_handover:    'sprites/beat_brett_handover.gif',    // Brett presents the bong — macca_handover
