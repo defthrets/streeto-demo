@@ -2451,6 +2451,39 @@ BEAT_PROMPTS = {
         "gurdwara golden dome + OFFLINE badge, the 'Saturday nights are sacred' moment — "
         "Parramatta touge street-racing transformation"
     ),
+    # brenno_grocer — "Alright bra, I'm duckin' in. Curry powder, garam
+    # masala, plus two more Mum tacked on while we were drivin'. Won't
+    # be ten minutes adlay. ESHAYS. Hold the fort." Brenno mid-stride
+    # heading into the Indian grocer on Wigram Street to do Mum's run.
+    "brenno_grocer_dash": (
+        "pixel art MEDIUM SHOT side-on view of Wigram Street Harris Park at night, "
+        "Brenno (skinny pale ginger Australian eshay teenager, NAVY BLUE NIKE TN CAP pulled low "
+        "with yellow swoosh, MUSTARD YELLOW JUMPER, navy tracksuit pants tucked into white tube "
+        "socks, white rubber slides, freckles, patchy ginger stubble) caught MID-STRIDE pushing "
+        "through the OPEN DOORWAY of an INDIAN GROCERY SHOP on the footpath, "
+        "Brenno's body angled forward LEANING INTO the doorway — one foot already across the "
+        "threshold inside the shop, his other foot still on the footpath behind, ONE HAND on the "
+        "door handle pushing it inward, the door slightly ajar with a HANDWRITTEN BELL TINKLE icon "
+        "in the upper corner above the doorframe (the visual ding of the shop bell), "
+        "his OTHER HAND clutching a CRUMPLED HANDWRITTEN SHOPPING LIST — a small folded scrap of "
+        "lined paper with messy Mum's-handwriting items scrawled on it (Curry Powder, Garam Masala, "
+        "and two more items crossed out then re-added in different ink), "
+        "Brenno's head turned slightly back TOWARD CAMERA with a confident eshay grin + open mouth "
+        "mid-yell, "
+        "the GROCERY SHOPFRONT dominating the right half of the frame — the door propped open by "
+        "Brenno, glass display window beside the door showing colourful sacks of basmati rice + "
+        "bags of lentils + bottles of mango pickle + bright packets of Indian spices stacked up "
+        "in the window, brightly-lit warm yellow shop INTERIOR visible through the open doorway "
+        "with rows of spice shelves and a small old TV mounted in the corner playing Bollywood, "
+        "a small bright sign 'GROCER' or 'INDIAN SPICES' glowing above the doorframe in neon, "
+        "BACKGROUND: the rest of Wigram Street visible to the left — Sweet Punjab restaurant "
+        "glow further down with its yellow neon, sari fabric store, fairy lights strung between "
+        "shopfronts overhead twinkling, parked cars at the curb, "
+        "warm amber streetlamp pool on the footpath, deep navy night sky above with stars, "
+        "16-bit pixel art with HIGH DETAIL on Brenno mid-stride + the open doorway + the shop "
+        "interior glow, the 'duckin' in for Mum's shopping' moment — Western Sydney suburban "
+        "errand-night atmosphere, the ESHAYS dynamic energy of a quick shop dash"
+    ),
     # westfield_detour:brenno_off: "Brenno bounces across the carpark
     # with the paper bag from Khoa in one hand and Brett's double perc
     # in the other, both held up like trophies. The boys whoop."
