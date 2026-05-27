@@ -1830,12 +1830,13 @@ const DIALOGUES = {
       },
       {
         id:"engine_diag_resolution", speakerId:"eshay", portrait:"eshay_sad",
-        sceneImage:"engine_bay",
+        sceneImage:"beat_coil_pack_closeup",
         text:"Anyway nah I knew the whole time it was the coil. I just wanted ya to see the mess. Bottom line: she ain't movin' tonight. I'm stranded adlay.",
         next:"player_diag_response"
       },
       {
         id:"player_diag_response", speakerId:"player", portrait:"player_default",
+        sceneImage:"beat_coil_pack_closeup",
         text:"Hmmm M52 coil pack. Around a hundred bucks from Bursons, eighty for aftermarket. Let me guess ... You don't have eighty, do you.",
         next:"mitcho_real_ask"
       },
@@ -4111,10 +4112,11 @@ const SCENE_IMAGE_SRCS = {
   scene_penrith:    'sprites/scene_penrith.gif',
   scene_liverpool:  'sprites/scene_liverpool.gif',
   // Per-beat moment GIFs — story-critical scenes that override the suburb default
-  beat_bong_panic:     'sprites/beat_bong_panic.gif',     // bong alone in Beemer — brenno_ongbay_realize
-  beat_curry_emerge:   'sprites/beat_curry_emerge.gif',   // Brenno staggers out of grocer — preet_credits
-  beat_beemer_install: 'sprites/beat_beemer_install.gif', // Beemer back to life at dawn — falcon_return_1
-  beat_westfield_boys: 'sprites/beat_westfield_boys.gif', // Brenno bounces to the boys — westfield brenno_off
+  beat_bong_panic:        'sprites/beat_bong_panic.gif',        // bong alone in Beemer — brenno_ongbay_realize
+  beat_curry_emerge:      'sprites/beat_curry_emerge.gif',      // Brenno staggers out of grocer — preet_credits
+  beat_beemer_install:    'sprites/beat_beemer_install.gif',    // Beemer back to life at dawn — falcon_return_1
+  beat_westfield_boys:    'sprites/beat_westfield_boys.gif',    // Brenno bounces to the boys — westfield brenno_off
+  beat_coil_pack_closeup: 'sprites/beat_coil_pack_closeup.gif', // cracked coil pack close-up — engine_diag_resolution
 };
 const SCENE_IMAGES = {};
 function loadSceneImages() {
