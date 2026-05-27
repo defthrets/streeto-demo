@@ -37,8 +37,16 @@ def gen_image(description, width, height,
               shading="medium shading",
               detail="highly detailed",
               no_background=True,
+              init_image=None,
+              init_image_strength=300,
               retries=2):
-    """Call PixelLab and return a PIL Image (RGBA), or None on failure."""
+    """Call PixelLab and return a PIL Image (RGBA), or None on failure.
+
+    When `init_image` (PIL Image) is provided, it's passed as the PixelLab
+    init_image for image-to-image consistency. `init_image_strength` is the
+    PixelLab 0-999 noise floor: lower = more freedom from the reference,
+    higher = stay closer. For character expression variation, 250-400 is
+    a good range (keeps face/outfit consistent, lets expression change)."""
     payload = {
         "description":   description,
         "image_size":    {"width": width, "height": height},
@@ -49,6 +57,15 @@ def gen_image(description, width, height,
     }
     if direction: payload["direction"] = direction
     if view:      payload["view"]      = view
+
+    if init_image is not None:
+        # Pass the reference image as base64 for PixelLab to use as a starting
+        # point. This produces character-consistent variations across states.
+        buf = io.BytesIO()
+        init_image.convert("RGBA").save(buf, format="PNG")
+        b64_init = base64.b64encode(buf.getvalue()).decode("ascii")
+        payload["init_image"] = {"type": "base64", "base64": b64_init}
+        payload["init_image_strength"] = init_image_strength
 
     for attempt in range(retries + 1):
         try:
@@ -888,6 +905,160 @@ for portrait_id, prompt in PORTRAITS_AI.items():
         p, 64, 64,
         outline="single color black outline", shading="detailed shading", detail="highly detailed",
         no_background=False))
+
+
+# -- CHARACTER v2 SYSTEM ---------------------------------------------------
+# PixelLab character-consistency workflow. For each character we lock down
+# a CANONICAL DESCRIPTION (immutable face + outfit + accessories), generate
+# one master reference at high detail, then derive each emotion-state portrait
+# from the master via init_image (strength ~300, so the face/outfit stays
+# consistent and only the expression changes). This is how we keep eight
+# different Brenno portraits looking like the same person.
+print("\n===  CHARACTER v2 — BRENNO  ===")
+
+
+def make_character_states(char_id, canonical_desc, states, master_filename,
+                           init_strength=300, master_size=128, state_size=64,
+                           overwrite_default_filename=None):
+    """Generate a master reference + N expression-state portraits that all
+    look like the same character.
+
+    Args:
+      char_id: short id used for naming (e.g. 'eshay').
+      canonical_desc: the immutable description of the character (face, hair,
+        outfit, accessories — the bits we want consistent across all states).
+      states: dict of {state_name: extra_prompt} — extra_prompt describes the
+        expression/pose for that state (e.g. 'huge open-mouthed grin showing
+        teeth, eyes wide with excitement').
+      master_filename: the .png filename for the master reference.
+      init_strength: PixelLab init_image_strength (0-999) for state generations.
+      master_size: pixel size for the master reference (higher = more detail).
+      state_size: pixel size for each state portrait.
+      overwrite_default_filename: optional second .png to overwrite with the
+        master so legacy dialogue keys still resolve.
+    """
+    # 1) Master reference at higher resolution for richer face detail.
+    master_prompt = (
+        canonical_desc
+        + " calm neutral expression, mouth closed, looking straight at the camera, "
+          "PLAIN SOLID DARK NAVY BACKGROUND, close-up bust framing showing face + shoulders only, "
+          "REALISTIC GRITTY PIXEL ART character portrait, NOT cartoon, NOT anime, NOT chibi, "
+          "richly shaded with multiple tone bands, defined three-dimensional facial structure, "
+          "matching the Moey/Khoa portrait realism bar."
+    )
+    print(f"   -> {master_filename}  (master reference, {master_size}x{master_size})")
+    master_img = gen_image(
+        master_prompt, master_size, master_size,
+        outline="single color black outline",
+        shading="detailed shading",
+        detail="highly detailed",
+        no_background=False,
+    )
+    if master_img is None:
+        print(f"      FAIL master generation failed — skipping {char_id} states")
+        return
+    master_path = os.path.join(OUT_DIR, master_filename)
+    master_img.save(master_path, "PNG")
+    print(f"      OK saved {master_filename}")
+
+    # Resize the master to the state size for use as init_image — PixelLab
+    # works best when init_image dimensions match the target image_size.
+    init_ref = master_img.resize((state_size, state_size), Image.NEAREST)
+
+    # Also save the master at the state size as the canonical 'default' state.
+    default_state_path = os.path.join(OUT_DIR, f"portrait_{char_id}_default.png")
+    init_ref.save(default_state_path, "PNG")
+    print(f"      OK saved portrait_{char_id}_default.png  (downsampled from master)")
+
+    if overwrite_default_filename:
+        legacy_path = os.path.join(OUT_DIR, overwrite_default_filename)
+        init_ref.save(legacy_path, "PNG")
+        print(f"      OK overwrote {overwrite_default_filename}  (legacy fallback)")
+
+    # 2) For each emotion state, regenerate using the master as init_image.
+    for state_name, expression in states.items():
+        if state_name == "default":
+            continue  # already saved above
+        out_filename = f"portrait_{char_id}_{state_name}.png"
+        out_path = os.path.join(OUT_DIR, out_filename)
+        state_prompt = (
+            canonical_desc
+            + f" {expression}, "
+              "PLAIN SOLID DARK NAVY BACKGROUND, close-up bust framing showing face + shoulders only, "
+              "REALISTIC GRITTY PIXEL ART character portrait, NOT cartoon, NOT anime, NOT chibi, "
+              "richly shaded with multiple tone bands, defined three-dimensional facial structure, "
+              "matching the Moey/Khoa portrait realism bar."
+        )
+        print(f"   -> {out_filename}")
+        state_img = gen_image(
+            state_prompt, state_size, state_size,
+            outline="single color black outline",
+            shading="detailed shading",
+            detail="highly detailed",
+            no_background=False,
+            init_image=init_ref,
+            init_image_strength=init_strength,
+        )
+        if state_img is None:
+            print(f"      FAIL — skipping {out_filename}")
+            continue
+        state_img.save(out_path, "PNG")
+        print(f"      OK saved {out_filename}")
+
+
+# --- BRENNO ---------------------------------------------------------------
+# Canonical Brenno description — locked-down face + outfit + accessories.
+# Every state generation prepends this verbatim; only the expression varies.
+BRENNO_CANONICAL = (
+    "a young white Australian eshay teenager in his late teens, "
+    "skinny pale narrow face with a sharp pointed nose, weathered milky complexion "
+    "with light acne scarring scattered across the cheeks, sharp angular cheekbones, "
+    "narrow chin, freckles across the nose and upper cheeks, "
+    "pale-blue eyes, thin patchy ginger stubble along the jawline and upper lip, "
+    "BRIGHT GINGER ORANGE messy mullet haircut — long thin ginger rat-tail dangling "
+    "down the side of his neck past the collar, ginger fringe poking out under the cap brim, "
+    "wearing a NAVY BLUE NIKE TN baseball cap pulled LOW over the eyes casting a dramatic "
+    "shadow across the upper face, the bright YELLOW NIKE SWOOSH logo prominently visible "
+    "on the side panel of the cap, the cap brim FLAT with a small sticker still on it, "
+    "wearing a baggy MUSTARD YELLOW oversized crewneck JUMPER as the main top garment, "
+    "the jumper collar visible at the shoulders, "
+    "a thin tarnished silver chain hanging at the neck above the jumper, "
+    "faded blue prison-style knuckle tattoos peeking from the jumper collar onto the lower neck, "
+    "a black Nike Crossbody bum bag strap clearly visible running diagonally across one shoulder "
+    "over the jumper, "
+)
+
+BRENNO_STATES = {
+    "default":   "calm neutral expression, mouth closed, eyes forward, relaxed face",
+    "happy":     "broad genuine open-mouthed smile showing white teeth, "
+                 "eyes scrunched in joy, cheek apples raised, eyebrows up and out",
+    "sad":       "downturned mouth, lips pressed together, eyebrows drooping inward and down, "
+                 "eyes glistening with the faintest tear in the corner, shoulders slumped",
+    "angry":     "fierce snarling scowl with bared teeth, mouth twisted in a grimace, "
+                 "thick eyebrows drawn together hard, eyes narrowed in aggression, "
+                 "veins faintly visible at the temple",
+    "excited":   "huge open-mouthed grin mid-yell showing teeth and tongue, "
+                 "eyes wide open with pupils dilated, eyebrows raised HIGH in pure stoked hype, "
+                 "mouth open wider than relaxed",
+    "nervous":   "anxious worried face with mouth slightly open in concern, "
+                 "eyes wide and darting, eyebrows raised together in the middle, "
+                 "faint sweat beads on the forehead, lower lip caught between teeth",
+    "smug":      "cocky smug smirk pulled to one side of the mouth, one eyebrow raised in arrogance, "
+                 "eyes half-lidded in confident contempt, head tilted slightly back",
+    "surprised": "wide-open shocked mouth in a clear 'O' shape, eyes WIDE OPEN with eyebrows "
+                 "raised AT MAXIMUM, cheeks slack in surprise, whole face stretched in disbelief",
+}
+
+make_character_states(
+    char_id="eshay",
+    canonical_desc=BRENNO_CANONICAL,
+    states=BRENNO_STATES,
+    master_filename="portrait_eshay_master.png",
+    init_strength=320,
+    master_size=128,
+    state_size=64,
+    overwrite_default_filename="portrait_bazza_default.png",
+)
 
 
 # -- REWARD / TROPHY ITEMS --------------------------------------------------
