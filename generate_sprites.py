@@ -917,6 +917,36 @@ for portrait_id, prompt in PORTRAITS_AI.items():
 print("\n===  CHARACTER v2 — BRENNO  ===")
 
 
+# -------- STREETO PORTRAIT STYLE GUIDE -----------------------------------
+# Locked-in style directives that get appended to EVERY character portrait
+# generation. This is the look the game's character art was built around —
+# Moey-tier gritty cinematic pixel art with rich multi-tone shading, NOT
+# the soft anime/cell-shaded look PixelLab defaults to. Every state of every
+# character runs through this style filter so the cast looks like it belongs
+# together.
+STREETO_PORTRAIT_STYLE_GUIDE = (
+    "REALISTIC GRITTY HAND-PAINTED PIXEL ART portrait bust modelled in the EXACT same style and "
+    "detail level as the Moey/Khoa established character portraits, "
+    "absolutely NOT cartoon, NOT anime, NOT chibi, NOT cell-shaded flat-look — "
+    "this is gritty REALISTIC RENAISSANCE-BUST style pixel art, "
+    "PLAIN SOLID DARK NAVY BLUE BACKGROUND behind the character, no scenery, "
+    "intense tight close-up bust framing showing face + shoulders only, the face DOMINATES the frame, "
+    "STRONG DIRECTIONAL CINEMATIC LAMP LIGHTING FROM ABOVE casting harsh dramatic shadows on the face, "
+    "RICH MULTI-TONE PIXEL SHADING with at least 4-5 distinct tone bands per surface "
+    "(deep shadow / shadow / midtone / highlight / specular catch-light), "
+    "smooth pixel-level dithering between tones, "
+    "defined highlights on the cheekbones, nose bridge, jawline, brow ridge, "
+    "deep cast shadows under the brow, under the jaw, inside the eye sockets, "
+    "crisp clean linework, sub-pixel anti-aliased edges, harsh contrast shading like a hand-painted bust, "
+    "vivid saturated yet grounded skin tones, "
+    "defined three-dimensional facial structure with NO cartoony exaggeration, "
+    "realistic adult proportions — face anatomy must look like a real photographed person, "
+    "absolutely NO giant anime eyes, NO simplified flat shading, NO cute soft chibi style, "
+    "the result should look like a SCREENGRAB FROM A 16-BIT JRPG CINEMATIC PORTRAIT — gritty, weathered, real, "
+    "Western Sydney street-culture realism, weighty cinematic photographic lighting"
+)
+
+
 def make_character_states(char_id, canonical_desc, states, master_filename,
                            init_strength=300, master_size=128, state_size=64,
                            overwrite_default_filename=None):
@@ -941,10 +971,7 @@ def make_character_states(char_id, canonical_desc, states, master_filename,
     master_prompt = (
         canonical_desc
         + " calm neutral expression, mouth closed, looking straight at the camera, "
-          "PLAIN SOLID DARK NAVY BACKGROUND, close-up bust framing showing face + shoulders only, "
-          "REALISTIC GRITTY PIXEL ART character portrait, NOT cartoon, NOT anime, NOT chibi, "
-          "richly shaded with multiple tone bands, defined three-dimensional facial structure, "
-          "matching the Moey/Khoa portrait realism bar."
+        + STREETO_PORTRAIT_STYLE_GUIDE
     )
     print(f"   -> {master_filename}  (master reference, {master_size}x{master_size})")
     master_img = gen_image(
@@ -984,10 +1011,7 @@ def make_character_states(char_id, canonical_desc, states, master_filename,
         state_prompt = (
             canonical_desc
             + f" {expression}, "
-              "PLAIN SOLID DARK NAVY BACKGROUND, close-up bust framing showing face + shoulders only, "
-              "REALISTIC GRITTY PIXEL ART character portrait, NOT cartoon, NOT anime, NOT chibi, "
-              "richly shaded with multiple tone bands, defined three-dimensional facial structure, "
-              "matching the Moey/Khoa portrait realism bar."
+            + STREETO_PORTRAIT_STYLE_GUIDE
         )
         print(f"   -> {out_filename}")
         state_img = gen_image(
@@ -1010,22 +1034,29 @@ def make_character_states(char_id, canonical_desc, states, master_filename,
 # Canonical Brenno description — locked-down face + outfit + accessories.
 # Every state generation prepends this verbatim; only the expression varies.
 BRENNO_CANONICAL = (
-    "a young white Australian eshay teenager in his late teens, "
-    "skinny pale narrow face with a sharp pointed nose, weathered milky complexion "
-    "with light acne scarring scattered across the cheeks, sharp angular cheekbones, "
-    "narrow chin, freckles across the nose and upper cheeks, "
-    "pale-blue eyes, thin patchy ginger stubble along the jawline and upper lip, "
-    "BRIGHT GINGER ORANGE messy mullet haircut — long thin ginger rat-tail dangling "
-    "down the side of his neck past the collar, ginger fringe poking out under the cap brim, "
-    "wearing a NAVY BLUE NIKE TN baseball cap pulled LOW over the eyes casting a dramatic "
-    "shadow across the upper face, the bright YELLOW NIKE SWOOSH logo prominently visible "
-    "on the side panel of the cap, the cap brim FLAT with a small sticker still on it, "
-    "wearing a baggy MUSTARD YELLOW oversized crewneck JUMPER as the main top garment, "
-    "the jumper collar visible at the shoulders, "
-    "a thin tarnished silver chain hanging at the neck above the jumper, "
-    "faded blue prison-style knuckle tattoos peeking from the jumper collar onto the lower neck, "
-    "a black Nike Crossbody bum bag strap clearly visible running diagonally across one shoulder "
-    "over the jumper, "
+    "a wiry pale young white Australian street kid in his early twenties (NOT a young teenager, "
+    "NOT a child, NOT cute — a weathered adult-faced street kid who has lived rough), "
+    "GAUNT NARROW FACE with sharp angular cheekbones, hollow sunken cheeks under the cheekbones, "
+    "narrow weak chin, sharp pointed nose, "
+    "weathered pale MILKY COMPLEXION with visible LIGHT ACNE SCARRING scattered across the cheeks, "
+    "FRECKLES across the nose and upper cheeks, "
+    "HOLLOW TIRED PALE-BLUE EYES with prominent DARK CIRCLES underneath suggesting sleep deprivation, "
+    "an intense neutral STREET STARE directly at the viewer (the look of a kid who has seen things), "
+    "thin patchy GINGER STUBBLE along the jawline and upper lip (uneven adult stubble, not a baby face), "
+    "BRIGHT GINGER ORANGE MESSY MULLET haircut — short on top, long thin GINGER RAT-TAIL dangling "
+    "down the side of his neck past the collar onto his shoulder, ginger fringe poking out under cap brim, "
+    "wearing a NAVY BLUE NIKE TN baseball cap pulled LOW over the eyes casting a DEEP DRAMATIC SHADOW "
+    "across the upper face (the shadow obscures the eye sockets — the hollow black voids show beneath "
+    "the cap brim), the bright YELLOW NIKE SWOOSH logo prominently visible on the side panel of the cap, "
+    "FLAT cap brim with a small sticker still stuck on it, "
+    "wearing a baggy MUSTARD YELLOW oversized crewneck JUMPER, the jumper collar visible at the shoulders, "
+    "a thin tarnished SILVER CHAIN hanging at the neck above the jumper, "
+    "faded blue PRISON-STYLE KNUCKLE TATTOOS visible peeking from the jumper collar onto the lower neck "
+    "(stick-and-poke amateur ink — not professional), "
+    "a black NIKE CROSSBODY BUMBAG STRAP clearly visible running diagonally across one shoulder over the "
+    "jumper, "
+    "his face must read like a DOCUMENTARY PHOTOGRAPH OF A REAL WESTERN SYDNEY ESHAY KID — gritty, "
+    "lived-in, real adult features, NOT a stylised Pixar/anime character, "
 )
 
 BRENNO_STATES = {
@@ -1054,10 +1085,67 @@ make_character_states(
     canonical_desc=BRENNO_CANONICAL,
     states=BRENNO_STATES,
     master_filename="portrait_eshay_master.png",
-    init_strength=320,
-    master_size=128,
+    init_strength=420,
+    master_size=64,
     state_size=64,
     overwrite_default_filename="portrait_bazza_default.png",
+)
+
+# --- YOU / PLAYER ---------------------------------------------------------
+# The protagonist. Locked-down description matches the established
+# tight-close-up portrait look — face dominates the frame, scarred brow,
+# intense focused stare, gold stud + chain glimpse, black hoodie + white
+# tee collar at the bottom edge.
+print("\n===  CHARACTER v2 — YOU / PLAYER  ===")
+
+PLAYER_CANONICAL = (
+    "a young mixed-background Australian street racer in his early-to-mid twenties, "
+    "tan olive complexion with painterly subtle skin detail and natural skin texture, "
+    "sharp strong defined jawline with short LIGHT DARK STUBBLE clearly visible across the chin "
+    "and along the jaw, prominent brow ridge with thick black eyebrows, "
+    "a small thin SCAR slicing diagonally through the OUTER END of one of his eyebrows, "
+    "intense focused DARK BROWN EYES with a serious squint, defined nose bridge with subtle nostril shadow, "
+    "calm neutral expression baseline with a hint of confident set at the corner of the mouth, "
+    "SHORT CROPPED DARK BROWN HAIR styled in a clean faded undercut — short on the sides "
+    "with slightly longer texture on top, "
+    "a small GOLD STUD EARRING visible in one ear, "
+    "wearing a BLACK ZIP-UP HOODIE unzipped at the collar showing a sliver of clean WHITE TEE underneath "
+    "at the neckline, "
+    "a thick subtle GOLD CHAIN visible at the collar between the hoodie and the white tee, "
+)
+
+PLAYER_STATES = {
+    "default":   "calm neutral expression, mouth closed, eyes forward focused, "
+                 "subtle confident set to the jaw, baseline serious driver face",
+    "happy":     "genuine warm smile with the corners of the mouth pulled up, "
+                 "slight teeth visible, eyes crinkled at the corners with mirth, "
+                 "eyebrows relaxed up",
+    "sad":       "downturned mouth, lips pressed together tight, eyebrows drooping "
+                 "inward and down at the inner ends, eyes dimmed with a hint of "
+                 "moisture at the corners, jaw slack",
+    "angry":     "hard angry scowl, jaw clenched tight with bared teeth showing slightly, "
+                 "mouth pulled into a snarl, thick eyebrows drawn down and together in fury, "
+                 "eyes narrowed in aggression, vein faintly visible at the temple",
+    "excited":   "open-mouthed exhilarated grin showing teeth, eyes wide with adrenaline, "
+                 "eyebrows raised up, the pure thrill of a race well-driven face",
+    "nervous":   "tense uncertain look with mouth slightly open in concern, "
+                 "eyes wide and scanning, eyebrows raised together in the middle in worry, "
+                 "faint sweat sheen on the forehead, lower lip caught between teeth",
+    "smug":      "cocky smirk pulled to one side of the mouth, one eyebrow arched in arrogance, "
+                 "eyes half-lidded in confident contempt, chin tilted slightly up",
+    "surprised": "wide-open shocked mouth in a clear 'O' shape, eyes BLOWN WIDE with eyebrows "
+                 "raised AT MAXIMUM, jaw dropped, face slack with pure disbelief",
+}
+
+make_character_states(
+    char_id="player",
+    canonical_desc=PLAYER_CANONICAL,
+    states=PLAYER_STATES,
+    master_filename="portrait_player_master.png",
+    init_strength=420,
+    master_size=64,
+    state_size=64,
+    overwrite_default_filename="portrait_player_default.png",
 )
 
 
