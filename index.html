@@ -1772,11 +1772,13 @@ const DIALOGUES = {
       },
       {
         id:"mitcho_intro_self", speakerId:"eshay", portrait:"eshay_excited",
+        sceneImage:"beat_brenno_bullshitting",
         text:"Big Brenno onerske adlay. The boys just call me Breno. I always come first, in races, in graff, in fights. Mostly fights. Too many ogdays around these parts bra I tell ya.",
         next:"mitcho_intro_2"
       },
       {
         id:"mitcho_intro_2", speakerId:"eshay", portrait:"eshay_default",
+        sceneImage:"beat_brenno_bullshitting",
         text:"Mum works at Coles. Dad's doin' a stint at Long Bay, free the boys. I run with the Mexican Hoon Cartel when they let me, I swear ay.",
         next:"engine_inspect_lead"
       },
@@ -1807,19 +1809,19 @@ const DIALOGUES = {
       },
       {
         id:"engine_diag_wires", speakerId:"eshay", portrait:"eshay_excited",
-        sceneImage:"engine_bay",
+        sceneImage:"beat_brenno_wires_proud",
         text:"HAHA yeah the wires are FUCKED. But that's just how I left em adlay, they been like that for ages. Not it bra. Try again.",
         next:"engine_inspect"
       },
       {
         id:"engine_diag_screws", speakerId:"eshay", portrait:"eshay_excited",
-        sceneImage:"engine_bay",
+        sceneImage:"beat_brenno_tek_screws",
         text:"Tek screws are how all my plastics live adlay. Lifetime warranty. Not it bra, keep lookin'.",
         next:"engine_inspect"
       },
       {
         id:"engine_diag_bundy", speakerId:"eshay", portrait:"eshay_nervous",
-        sceneImage:"engine_bay",
+        sceneImage:"beat_brenno_bundy_bottle",
         text:"Oi that's a half full one lad don't touch it. Not the problem bra, but cheers for spotting. Keep your eye on the motor.",
         next:"engine_inspect"
       },
@@ -1831,7 +1833,7 @@ const DIALOGUES = {
       },
       {
         id:"engine_diag_shit", speakerId:"eshay", portrait:"eshay_default",
-        sceneImage:"engine_bay",
+        sceneImage:"beat_brenno_points_coil",
         text:"Hahaha fair call bra. It IS all shit. But the actual culprit is the coil pack — see that cracked one on top of cylinder four? Hangin' on by a prayer. Engine's runnin' on five out of six.",
         next:"engine_diag_resolution"
       },
@@ -1843,17 +1845,19 @@ const DIALOGUES = {
       },
       {
         id:"player_diag_response", speakerId:"player", portrait:"player_default",
-        sceneImage:"beat_coil_pack_closeup",
+        sceneImage:"beat_player_burson_price",
         text:"Hmmm M52 coil pack. Around a hundred bucks from Bursons, eighty for aftermarket. Let me guess ... You don't have eighty, do you.",
         next:"mitcho_real_ask"
       },
       {
         id:"mitcho_real_ask", speakerId:"eshay", portrait:"eshay_nervous",
+        sceneImage:"beat_brenno_card_declined",
         text:"Nah bra. Card declined three times this week. Fukin cenno ain't come in yet, I only got enough for a stick AND Mum needs curry powder for dinner — like RIGHT now, she's started cooking already. Harris Park's got the proper Punjabi grocer. I told her I'd get it lad.",
         next:"player_offer"
       },
       {
         id:"player_offer", speakerId:"player", portrait:"player_default",
+        sceneImage:"beat_player_offer_hop_in",
         text:"Alright. Hop in. ... Coles is closer though, that'd do, yeah?",
         choices:[
           {text:"Harris Park it is — Wigram St, full thing.", next:"player_harris_commit"},
@@ -1868,16 +1872,19 @@ const DIALOGUES = {
       },
       {
         id:"mitcho_curry_uber", speakerId:"eshay", portrait:"eshay_sad",
+        sceneImage:"beat_brenno_onions_dont_wait",
         text:"She's already chopped the onions bra. Onions don't wait. And the boys at Westfield are busy. You're me last hope adlay.",
         next:"player_harris_commit"
       },
       {
         id:"player_harris_commit", speakerId:"player", portrait:"player_default",
+        sceneImage:"beat_player_route_commit",
         text:"Alright. Harris Park, curry powder, then back here to sort your engine. Get in.",
         next:"mitcho_curry_yes"
       },
       {
         id:"mitcho_curry_yes", speakerId:"eshay", portrait:"eshay_excited",
+        sceneImage:"beat_brenno_yew_legend",
         text:"YEW LEGEND adlay! ESHAYS! Wigram St, full thing. Mum will love ya. Let's roll bra.",
         triggerEvent:"unlock_parramatta_brenno"
       }
@@ -1970,7 +1977,7 @@ const DIALOGUES = {
       {
         id:"brenno_leaves", speakerId:"narrator", portrait:null,
         stage:{hideCar:true, hideChar:true},
-        sceneImage:"scene_harrispark",
+        sceneImage:"beat_wigram_street_empty_silence",
         text:"Brenno bowls into the Indian grocer. The door chimes. The street falls completely silent.",
         next:"waiting_alone_1"
       },
@@ -1998,6 +2005,7 @@ const DIALOGUES = {
       {
         id:"rahul_arrival_2", speakerId:"narrator", portrait:null,
         stage:{hideChar:true, charMini:true},  // car + small Rahul standing on the off-side of the Camree
+        sceneImage:"beat_rahul_arrival_door",
         text:"The driver's door swings open. A Sikh man in a bright royal blue dastar hops out of the Camree grinning ear to ear with a samosa in his hand.",
         next:"preet_greet"
       },
@@ -2007,6 +2015,7 @@ const DIALOGUES = {
         // choice commits to preet_race_offer. Rahul's tone is consistently
         // cocky in every reply — he's convincing the player to race him.
         id:"preet_greet", speakerId:"preet", portrait:"preet_happy",
+        sceneImage:"beat_rahul_greet_welcome",
         text:"Sat Sri Akal my friend! So YOU are the bloke Brenno's been hyping in the group chat — said you'd give Chamkili a real run. Yaar I have to tell you straight up: twelve years undefeated on this street, twelve years. Chamkili has not lost ONCE. But come, sit, eat, ask me anything bhai. Just so you know what you are walking into.",
         choices:[
           {text:"What's that you're eating?", next:"preet_food"},
@@ -2041,6 +2050,7 @@ const DIALOGUES = {
       },
       {
         id:"preet_mainy_proud", speakerId:"preet", portrait:"preet_happy",
+        sceneImage:"beat_chamkili_720_spin",
         text:"AHAHA you saw it! That was a clean 720 my friend. Anti-clockwise too, against the camber, the hard way. Mum was watching from upstairs, gave me a thumbs up. Chamkili sliiiiides like she's dancing at a wedding yaar. And bhai? That was just my warmup lap. You haven't seen me TRY yet.",
         next:"preet_greet"
       },
@@ -2054,6 +2064,7 @@ const DIALOGUES = {
       },
       {
         id:"preet_explain", speakerId:"preet", portrait:"preet_happy",
+        sceneImage:"beat_chamkili_engine_specs",
         text:"Bhai PLEASE do not insult Chamkili by saying 'just a Camree'. 1MZ-FE V6, yes, but with Eaton supercharger off a Lotus, custom intake I welded myself in taya-ji's shop, six-speed manual swap, stripped interior. 320 horsepower in 1100 kilos. Sounds like a tabla solo. And she will eat your car for breakfast yaar. With chutney. And a side of paratha.",
         next:"preet_greet"
       },
@@ -2061,6 +2072,7 @@ const DIALOGUES = {
         // RACE COMMIT SUB-HUB. "Deal." fires the race; the other two loop
         // back here so the player can hear all the rules + song before going.
         id:"preet_race_offer", speakerId:"preet", portrait:"preet_calm",
+        sceneImage:"beat_rahul_race_route_map",
         text:"AAAAAHA! The man is BRAVE. Right — Wigram Street to the Westmead roundabout, three full mainys at the end before we call it. If you win, you are the king of Harris Park, I will announce it at gurdwara langar this Sunday. BUT YOU WILL NOT WIN. When I win... you wash Chamkili. Both sides. With proper wax. Deal or no deal yaar?",
         choices:[
           {text:"Deal.", next:"preet_lets_go"},
@@ -2070,6 +2082,7 @@ const DIALOGUES = {
       },
       {
         id:"preet_music_pick", speakerId:"preet", portrait:"preet_proud",
+        sceneImage:"beat_rahul_stereo_apna_time",
         text:"Pre-loaded already my friend. 'Apna Time Aayega' from Gully Boy. We hit launch when the beat drops at 0:34. You'll hear it. Whole street will hear it. Mum will hear it from the kitchen.",
         next:"preet_race_offer"
       },
@@ -2092,6 +2105,7 @@ const DIALOGUES = {
     nodes:[
       {
         id:"start", speakerId:"preet", portrait:"preet_happy",
+        sceneImage:"beat_rahul_shock_amazed",
         text:"Arre wah! What driving my friend, what driving! Chamkili is in shock only, I am also in shock! First time she has lost in twelve years I am telling you.",
         choices:[
           {text:"GG, Rahul.", next:"preet_respect_back"},
@@ -2105,6 +2119,7 @@ const DIALOGUES = {
       },
       {
         id:"preet_chamkili_meaning", speakerId:"preet", portrait:"preet_happy",
+        sceneImage:"beat_chamkili_nostalgic_flashback",
         text:"Shiny one, in Punjabi! She has been with me since I was tiny in Harris Park. Even when she loses she's gorgeous yaar. Today she just learned a lesson. That is also a beautiful thing.",
         next:"preet_credits"
       },
@@ -2212,11 +2227,13 @@ const DIALOGUES = {
       },
       {
         id:"preet_tech", speakerId:"preet", portrait:"preet_proud",
+        sceneImage:"beat_chamkili_weight_breakdown",
         text:"Weight, bhai. ALL weight. Stripped interior, lightweight Enkei wheels, carbon bonnet from a wrecker in Lidcombe. 1100 kilos total. And the music — Divine on full volume, Chamkili feeds on the BASS yaar, this is half the horsepower.",
         next:"preet_retry"
       },
       {
         id:"preet_retry", speakerId:"narrator", portrait:null,
+        sceneImage:"beat_rahul_king_harris_park",
         text:"Harris Park remains Rahul's. Come back when you've got more horsepower — and a louder stereo.",
         triggerEvent:"return_to_map"
       }
@@ -2228,6 +2245,7 @@ const DIALOGUES = {
     nodes:[
       {
         id:"start", speakerId:"narrator", portrait:null,
+        sceneImage:"beat_cabra_john_st_arrival",
         text:"John St Cabramatta, behind the markets. Red lanterns and fairy lights hang between the rooftops. A young Viet Australian guy in a crisp light-blue shirt is leaning on a pearl white S14 Silvio, vaping and scrolling his phone. Brenno lets out a low whistle from the passenger seat.",
         next:"khoa_greet"
       },
@@ -2260,6 +2278,7 @@ const DIALOGUES = {
       },
       {
         id:"khoa_geton_g", speakerId:"khoa", portrait:"khoa_happy",
+        sceneImage:"beat_khoa_boot_brown_bag",
         text:"All good bro. Pop the boot — bag's in the brown paper from the dosa place. Anyone asks, ya bought a samosa.",
         next:"khoa_geton_done"
       },
@@ -2299,6 +2318,7 @@ const DIALOGUES = {
       },
       {
         id:"khoa_food", speakerId:"khoa", portrait:"khoa_happy",
+        sceneImage:"beat_khoa_pho_mum_special",
         text:"That's what I'm talkin' about! Tái nạm, big bowl, extra chilli, with the bánh quẩy for dippin'. We'll grab one after I smoke ya, hahaha. Mum's special is the brisket.",
         next:"khoa_food_2"
       },
@@ -2309,6 +2329,7 @@ const DIALOGUES = {
       },
       {
         id:"khoa_explain", speakerId:"khoa", portrait:"khoa_proud",
+        sceneImage:"beat_khoa_s14_engine_bay",
         text:"SR20DET, big single Garrett, front mount, T56 conversion, hydraulic handbrake for the touges. She makes a smooth 380 to the wheels. And she SLIDES bro, you don't even know.",
         next:"khoa_explain_2"
       },
@@ -2346,6 +2367,7 @@ const DIALOGUES = {
       },
       {
         id:"khoa_humble", speakerId:"khoa", portrait:"khoa_serious",
+        sceneImage:"beat_khoa_humble_spotlight",
         text:"Tell me about it bro. HWP's been doin' this loop every Saturday. We just gotta read the spotlight — once ya see the rhythm, easy. You did good.",
         next:"brenno_ongbay_realize"
       },
@@ -4162,6 +4184,36 @@ const SCENE_IMAGE_SRCS = {
   beat_rahul_ubereats_camry:'sprites/beat_rahul_ubereats_camry.gif',// UberEats bag + 4.94 stars — preet_backstory
   beat_rahul_mainy_saturday:'sprites/beat_rahul_mainy_saturday.gif',// Camry mainy at roundabout — preet_mainy_intro
   beat_brenno_grocer_dash:'sprites/beat_brenno_grocer_dash.gif',// Brenno duckin' into Indian grocer — brenno_grocer
+  beat_rahul_greet_welcome:'sprites/beat_rahul_greet_welcome.gif',// Rahul arms-wide welcoming + samosa — preet_greet
+  beat_chamkili_engine_specs:'sprites/beat_chamkili_engine_specs.gif',// 1MZ-FE V6 + Eaton supercharger — preet_explain
+  beat_chamkili_720_spin:'sprites/beat_chamkili_720_spin.gif',// Camry 720 spin + Mum thumbs-up — preet_mainy_proud
+  beat_rahul_race_route_map:'sprites/beat_rahul_race_route_map.gif',// Wigram→Westmead route map — preet_race_offer
+  beat_rahul_stereo_apna_time:'sprites/beat_rahul_stereo_apna_time.gif',// Stereo at 0:33 + EQ — preet_music_pick
+  beat_rahul_shock_amazed:'sprites/beat_rahul_shock_amazed.gif',// Rahul stunned reaction — preet_post_win:start
+  beat_chamkili_nostalgic_flashback:'sprites/beat_chamkili_nostalgic_flashback.gif',// Young Rahul flashback — preet_chamkili_meaning
+  beat_chamkili_weight_breakdown:'sprites/beat_chamkili_weight_breakdown.gif',// Weight-spec tech diagram — preet_tech
+  beat_rahul_king_harris_park:'sprites/beat_rahul_king_harris_park.gif',// KING OF HARRIS PARK hero shot — preet_retry
+  beat_wigram_street_empty_silence:'sprites/beat_wigram_street_empty_silence.gif',// Empty Wigram St silence — brenno_leaves
+  beat_rahul_arrival_door:'sprites/beat_rahul_arrival_door.gif',// Rahul hops out of Camry with samosa — rahul_arrival_2
+  beat_khoa_s14_engine_bay:'sprites/beat_khoa_s14_engine_bay.gif',// SR20DET + Garrett snail — khoa_explain
+  beat_khoa_boot_brown_bag:'sprites/beat_khoa_boot_brown_bag.gif',// Boot popped, brown paper bag + decoy samosa — khoa_geton_g
+  beat_khoa_humble_spotlight:'sprites/beat_khoa_humble_spotlight.gif',// Khoa leaning, reading spotlight — khoa_humble
+  beat_cabra_john_st_arrival:'sprites/beat_cabra_john_st_arrival.gif',// John St lanterns + Khoa vaping — khoa_intro:start
+  beat_khoa_pho_mum_special:'sprites/beat_khoa_pho_mum_special.gif',// Pho bowl top-down + bánh quẩy — khoa_food
+  beat_brenno_bullshitting:'sprites/beat_brenno_bullshitting.gif',// Brenno smack-talking BS pose — mitcho_intro_self + mitcho_intro_2
+  beat_brenno_wires_proud:'sprites/beat_brenno_wires_proud.gif',// Wire nest + spark + Brenno point — engine_diag_wires
+  beat_brenno_tek_screws:'sprites/beat_brenno_tek_screws.gif',// Tek screws + impact driver — engine_diag_screws
+  beat_brenno_bundy_bottle:'sprites/beat_brenno_bundy_bottle.gif',// Half-full Bundy in engine bay — engine_diag_bundy
+  beat_brenno_points_coil:'sprites/beat_brenno_points_coil.gif',// Row of 6 coils + red highlight on broken one — engine_diag_shit
+  beat_player_burson_price:'sprites/beat_player_burson_price.gif',// Burson's app on phone $100/$80 — player_diag_response
+  beat_brenno_card_declined:'sprites/beat_brenno_card_declined.gif',// Phone DECLINED + $5 note — mitcho_real_ask
+  beat_player_offer_hop_in:'sprites/beat_player_offer_hop_in.gif',// Evo passenger door open + Brenno hopeful — player_offer
+  beat_brenno_onions_dont_wait:'sprites/beat_brenno_onions_dont_wait.gif',// Brenno pleading + Mum kitchen thought-bubble — mitcho_curry_uber
+  beat_player_route_commit:'sprites/beat_player_route_commit.gif',// GPS Blacktown→Harris Park — player_harris_commit
+  beat_brenno_yew_legend:'sprites/beat_brenno_yew_legend.gif',// Brenno YEW LEGEND mid-jump celebration — mitcho_curry_yes
+  // Archived alternate beat GIFs preserved for later story use (per user request):
+  beat_brett_camry_engine:'sprites/beat_brett_camry_engine.gif',// preserved old engine-bay GIF — pending Brett-arc wiring
+  beat_chamkili_720_topdown:'sprites/beat_chamkili_720_topdown.gif',// preserved top-down 720-spin GIF — pending later-story wiring
   beat_khoa_handoff:      'sprites/beat_khoa_handoff.gif',      // brown paper bag handoff — khoa_respect_back
   beat_brett_handover:    'sprites/beat_brett_handover.gif',    // Brett presents the bong — macca_handover
   beat_moey_phone:        'sprites/beat_moey_phone.gif',        // Moey shoves TikTok phone — habibi_show_vid
