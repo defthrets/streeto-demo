@@ -2118,6 +2118,7 @@ const DIALOGUES = {
       },
       {
         id:"preet_credits_brenno_plea", speakerId:"eshay", portrait:"eshay_nervous",
+        sceneImage:"beat_brenno_plead",
         text:"Oi lad, listen — the boys back at the Westfield are gonna SMOKE without me bra. I NEED to get on. Tonight. PLEEEASE bra. Just one more stop, swear down.",
         next:"player_cabra_decide"
       },
@@ -2193,6 +2194,7 @@ const DIALOGUES = {
     nodes:[
       {
         id:"start", speakerId:"preet", portrait:"preet_happy",
+        sceneImage:"beat_rahul_thali_invite",
         text:"AHAHA bhai it's okay! Chamkili dances better, what can I say. Mainys are an artform, you'll get there. Come — thali at Sweet Punjab is still on me. Loser still eats. That's the rule yaar.",
         choices:[
           {text:"I'll be back, Rahul.", next:"preet_kind"},
@@ -2238,6 +2240,7 @@ const DIALOGUES = {
       },
       {
         id:"khoa_geton_intro", speakerId:"khoa", portrait:"khoa_default",
+        sceneImage:"beat_khoa_deal_hand",
         text:"Bahaha Brenno told ya. Yeah I can sort ya. Sticky green, $50 a gram, $200 a Q. Pickup happens HERE actually bro, in the Maccas carpark. Mum's shed's too close to home, I'm not bringin' the heat to her.",
         choices:[
           {text:"Grab a Q.", next:"khoa_geton_q"},
@@ -2247,6 +2250,7 @@ const DIALOGUES = {
       },
       {
         id:"khoa_geton_q", speakerId:"eshay", portrait:"eshay_excited",
+        sceneImage:"beat_brenno_yew_hype",
         text:"YEEEEEEEEW! Q the boys up adlay! ESHAYS. That'll do us all weekend. Real ones get on at Cabra, NOT the city. Bra you're an icon.",
         next:"khoa_geton_done"
       },
@@ -2267,6 +2271,7 @@ const DIALOGUES = {
       },
       {
         id:"khoa_deal_setup", speakerId:"khoa", portrait:"khoa_default",
+        sceneImage:"beat_khoa_spotlight_brief",
         text:"Watch the spotlight bro. When it sweeps away — TAP. When it's on us — WAIT. Six beats to the swap: boot pop, eye it, sniff it, weigh it, count cash, hand-off. And from about halfway in there's a foot patrol that wanders the lot — his torch counts too. Don't get nicked. And don't make me wait too long either, I've gotta close up shop yeah.",
         triggerEvent:"start_sesh_cabramatta"
       },
@@ -2305,6 +2310,7 @@ const DIALOGUES = {
       },
       {
         id:"khoa_explain_2", speakerId:"khoa", portrait:"khoa_happy",
+        sceneImage:"beat_khoa_old_pacific",
         text:"Drive her every Sunday up Old Pacific Highway with the crew. Then back to Cabra for phở. Best routine in the country yeah.",
         next:"khoa_geton_intro"
       },
@@ -2321,6 +2327,7 @@ const DIALOGUES = {
     nodes:[
       {
         id:"start", speakerId:"khoa", portrait:"khoa_happy",
+        sceneImage:"beat_khoa_slick_celebration",
         text:"Ahhh bro! That was SLICK. Six clean beats, cop didn't even SNIFF us, and you dodged Snr Constable Foot Patrol like he was wearin' bells. You've got fingers like a card dealer yeah.",
         choices:[
           {text:"Nice doin' business, Khoa.", next:"khoa_respect_back"},
@@ -2399,6 +2406,7 @@ const DIALOGUES = {
     nodes:[
       {
         id:"start", speakerId:"narrator", portrait:null,
+        sceneImage:"beat_brett_penrith_vibe",
         text:"Penrith. A normal Westfield carpark with a Bunnings next door, but the bloke leaning on a jacked Toyolo Hulix in front of you is dressed like he just walked off an outback station — flannie, Akubra, work boots, mud tyres bigger than your bonnet. The Blue Mountains glow pink on the horizon.",
         next:"mitcho_penrith_quip1"
       },
@@ -2418,6 +2426,7 @@ const DIALOGUES = {
       },
       {
         id:"macca_country", speakerId:"macca", portrait:"macca_happy",
+        sceneImage:"beat_brett_penrith_vibe",
         text:"Aw mate, Penrith's the gateway to the bush. You can SEE the Blue Mountains from here. Half me mates are out in Lithgow, Bathurst, Dubbo. Spiritually I'm a bushie. Geographically I'm next to a JB Hi-Fi. Splits the difference yeah.",
         next:"macca_truck"
       },
@@ -2428,6 +2437,7 @@ const DIALOGUES = {
       },
       {
         id:"macca_truck", speakerId:"macca", portrait:"macca_proud",
+        sceneImage:"beat_brett_hulix_offroad",
         text:"She's a 2018 Toyolo Hulix SR5. 2.8 litre turbo diesel, 3 inch lift, 35 inch muddies, snorkel, dual battery, light bar, ARB winch. Tows me boat, tows me caravan, tows me mate's broken-down Falcon every other weekend.",
         choices:[
           {text:"That thing's not built for speed though.", next:"macca_doubt"},
@@ -2436,6 +2446,7 @@ const DIALOGUES = {
       },
       {
         id:"macca_doubt", speakerId:"macca", portrait:"macca_excited",
+        sceneImage:"beat_brett_hulix_offroad",
         text:"Hahaha that's exactly what city blokes always reckon mate. She doesn't NEED top speed. Out the back of Penrith it's all dips, dirt, paddock fences and dry creek beds. The Hulix eats that for breakfast. You'll see.",
         next:"macca_deal_setup"
       },
@@ -2455,6 +2466,7 @@ const DIALOGUES = {
       },
       {
         id:"macca_player_warned", speakerId:"macca", portrait:"macca_excited",
+        sceneImage:"beat_brett_hulix_offroad",
         text:"Course there will mate! Logs the council never cleared, hay bales me uncle dropped, a fridge that someone dumped outside the panel-beater, couple of sheep that wander on at dusk. Standard Castlereagh stuff. Watch the rocks past the quarry, they'll send ya proper sideways.",
         next:"macca_lets_go"
       },
@@ -4131,6 +4143,15 @@ const SCENE_IMAGE_SRCS = {
   beat_westfield_phone_pov:  'sprites/beat_westfield_phone_pov.gif',  // FPS phone POV on Evo boot — player_decline
   beat_rahul_revving:     'sprites/beat_rahul_revving.gif',     // Camree idling at launch line — preet_lets_go (legacy)
   beat_camry_tail_lights: 'sprites/beat_camry_tail_lights.gif', // Camry rear tail lights glowing — preet_lets_go
+  beat_brenno_plead:      'sprites/beat_brenno_plead.gif',      // Brenno BEGGING pose — preet_credits_brenno_plea
+  beat_rahul_thali_invite:'sprites/beat_rahul_thali_invite.gif',// Rahul gestures to Sweet Punjab — preet_post_lose:start
+  beat_khoa_old_pacific:  'sprites/beat_khoa_old_pacific.gif',  // S14 mid-corner Old Pacific Hwy — khoa_explain_2
+  beat_khoa_deal_hand:    'sprites/beat_khoa_deal_hand.gif',    // sticky green baggie close-up — khoa_geton_intro
+  beat_brenno_yew_hype:   'sprites/beat_brenno_yew_hype.gif',   // Brenno YEEEEEW fist-pump — khoa_geton_q
+  beat_khoa_spotlight_brief:'sprites/beat_khoa_spotlight_brief.gif',// cop spotlight sweep tutorial — khoa_deal_setup
+  beat_khoa_slick_celebration:'sprites/beat_khoa_slick_celebration.gif',// Khoa finger-gun, cop oblivious — khoa_post_win:start
+  beat_brett_penrith_vibe:'sprites/beat_brett_penrith_vibe.gif', // JB Hi-Fi meets Blue Mountains — macca_country
+  beat_brett_hulix_offroad:'sprites/beat_brett_hulix_offroad.gif',// Hilux mid-jump in bush — macca_doubt
   beat_khoa_handoff:      'sprites/beat_khoa_handoff.gif',      // brown paper bag handoff — khoa_respect_back
   beat_brett_handover:    'sprites/beat_brett_handover.gif',    // Brett presents the bong — macca_handover
   beat_moey_phone:        'sprites/beat_moey_phone.gif',        // Moey shoves TikTok phone — habibi_show_vid
@@ -5206,92 +5227,85 @@ function hillSurfaceAt(x) {
   return 'dirt';
 }
 
-// Smooth terrain height function — combines base rolling hills + dramatic
-// per-segment features + obstacle bumps. Cos-shaped bumps so the wheels
-// can physically crawl over them.
+// Smooth terrain height function — REALISTIC paddock / dirt track scale.
+// Base elevation barely wobbles (~1m); per-segment features are subtle
+// dips and gentle climbs — NOT motocross launch ramps. The Hilux drives
+// over an actual back-paddock track, not a freestyle MX park.
 function hillTerrain(x) {
   if(x < 0) x = 0;
-  // Base gentle rolling foundation for all segments
+  // Base GENTLE rolling foundation — paddock-scale undulation
   let y = 6
-        + 2.2 * Math.sin(x * 0.045)
-        + 1.4 * Math.sin(x * 0.12 + 1.3)
-        + 0.9 * Math.sin(x * 0.27 + 0.7);
+        + 0.7 * Math.sin(x * 0.045)
+        + 0.4 * Math.sin(x * 0.12 + 1.3)
+        + 0.25 * Math.sin(x * 0.27 + 0.7);
 
-  // SEG 1: EASY_PADDOCK (0-80) — just the base hills, mellow warmup
+  // SEG 1: EASY_PADDOCK (0-80) — flat dirt track, just the base wobble
 
-  // SEG 2: MUD_BOG (80-160) — wide soft ruts that sag the car down
+  // SEG 2: MUD_BOG (80-160) — subtle wet ruts dipping the track slightly
   if(x > 80 && x < 160) {
-    // Three deep ruts
     for(const cx of [100, 125, 148]) {
       const dx = Math.abs(x - cx);
-      if(dx < 9) y -= 1.4 * Math.cos((dx/9) * Math.PI/2);
+      if(dx < 9) y -= 0.45 * Math.cos((dx/9) * Math.PI/2);
     }
   }
 
-  // SEG 3: ROCKY_OUTCROP (160-280) — sharp irregular bumps
+  // SEG 3: ROCKY_OUTCROP (160-280) — gentle uneven bumps (loose rocks)
   if(x > 160 && x < 280) {
-    y += 1.8 * Math.sin((x - 160) * 0.55);   // tight wavelength = jagged
-    y += 0.9 * Math.sin((x - 160) * 1.10 + 1.7);
-    // Two larger boulder-like crests
+    y += 0.55 * Math.sin((x - 160) * 0.55);
+    y += 0.3 * Math.sin((x - 160) * 1.10 + 1.7);
+    // Two slightly larger embedded boulders
     for(const cx of [195, 240]) {
       const dx = Math.abs(x - cx);
-      if(dx < 8) y += 2.0 * Math.cos((dx/8) * Math.PI/2);
+      if(dx < 8) y += 0.55 * Math.cos((dx/8) * Math.PI/2);
     }
   }
 
-  // SEG 4: BIG_RAMP (280-360) — proper jump ramp ascending then a drop
+  // SEG 4: BIG_RAMP (280-360) — small dirt mound, not a launch ramp
   if(x > 290 && x < 320) {
-    // Steeply rising ramp
     const t = (x - 290) / 30;
-    y += 6.5 * t * t;   // quadratic ramp up
+    y += 1.6 * t * t;   // gentle quadratic ramp up to ~1.6m
   } else if(x >= 320 && x < 332) {
-    // Lip / takeoff
-    y += 6.5 + (x - 320) * 0.2;
+    y += 1.6 + (x - 320) * 0.04;   // small lip
   } else if(x >= 332 && x < 360) {
-    // Landing zone — much lower than the lip = airtime
-    y -= 0.5;
+    y += 1.7 - ((x - 332) / 28) * 1.7;   // smooth descent back to base
   }
 
-  // SEG 5: SAND_PIT (360-440) — soft whoops, gentle dips
+  // SEG 5: SAND_PIT (360-440) — soft whoops with mild sag
   if(x > 360 && x < 440) {
-    y += 1.2 * Math.sin((x - 360) * 0.38);    // rolling whoops
-    y -= 0.4 * Math.sin((x - 360) * 0.17);    // overall sag
+    y += 0.4 * Math.sin((x - 360) * 0.38);
+    y -= 0.15 * Math.sin((x - 360) * 0.17);
   }
 
-  // SEG 6: STEEP_CLIMB (440-560) — long uphill grade, commits needed
+  // SEG 6: STEEP_CLIMB (440-560) — actual hill grade, ~2.5m total rise
   if(x > 440 && x < 560) {
-    const t = (x - 440) / 120;     // 0..1 across the climb
-    y += 8.0 * t;                  // 8m rise over 120m
-    y += 0.7 * Math.sin((x - 440) * 0.25);  // mild surface variation
+    const t = (x - 440) / 120;
+    y += 2.5 * t;
+    y += 0.25 * Math.sin((x - 440) * 0.25);
   } else if(x >= 560) {
-    // Carry the elevation gain past the climb
-    y += 8.0;
+    y += 2.5;   // carry the climb elevation
   }
 
-  // SEG 7: DROP_OFF (560-680) — steep descent with rocky bumps
+  // SEG 7: DROP_OFF (560-680) — gentle descent, ~3.5m drop net (-1 from climb)
   if(x > 560 && x < 680) {
     const t = (x - 560) / 120;
-    y -= 12.0 * t;                 // 12m drop over 120m (net -4m from climb top)
-    y += 1.3 * Math.sin((x - 560) * 0.42);   // rocky chatter
-    // A small mid-drop ledge
-    if(x > 605 && x < 615) y -= 0.6;
+    y -= 3.5 * t;
+    y += 0.4 * Math.sin((x - 560) * 0.42);
   } else if(x >= 680) {
-    y -= 12.0;                     // carry the net drop
+    y -= 3.5;
   }
 
-  // SEG 8: WHOOPS (680-820) — rapid washboard bumps
+  // SEG 8: WHOOPS (680-820) — light washboard chatter
   if(x > 680 && x < 820) {
-    y += 1.1 * Math.sin((x - 680) * 0.70);
-    y += 0.5 * Math.sin((x - 680) * 1.40 + 0.8);
+    y += 0.35 * Math.sin((x - 680) * 0.70);
+    y += 0.18 * Math.sin((x - 680) * 1.40 + 0.8);
   }
 
-  // SEG 9: FINAL_DIRT (820-950) — smoother runup to the finish
+  // SEG 9: FINAL_DIRT (820-950) — smooth runup to finish
   if(x > 820 && x < 950) {
-    y += 0.6 * Math.sin((x - 820) * 0.15);
-    // Small finish-line speed bump
+    y += 0.2 * Math.sin((x - 820) * 0.15);
     if(x > 930 && x < 945) {
       const dx = Math.abs(x - 937.5);
-      if(dx < 7.5) y += 0.8 * Math.cos((dx/7.5) * Math.PI/2);
+      if(dx < 7.5) y += 0.3 * Math.cos((dx/7.5) * Math.PI/2);
     }
   }
 

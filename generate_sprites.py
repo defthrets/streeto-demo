@@ -631,7 +631,9 @@ SIDE_CARS = {
                    "two wheels visible (left side only), World Rally Blue paint, "
                    "big black rear wing visible in side view, gold BBS wheels, "
                    "side profile silhouette, NO top-down, ONLY side-on profile",
-    "ranger_side": "Toyota Hilux SR5 lifted 4x4 dual-cab work ute "
+    "ranger_side": "OLD 1990s-era classic Toyota Hilux 4x4 dual-cab work ute (NOT modern — late "
+                   "80s / early 90s LN106 style with the iconic boxy chunky silhouette, "
+                   "rectangular sealed-beam headlights, simple horizontal grille, slab-sided body), "
                    "seen from a STRICT DIRECT side profile view, "
                    "the truck is FACING RIGHT — nose / front bumper / headlights on the RIGHT, "
                    "REAR / tray-back / taillights on the LEFT, "
@@ -640,17 +642,24 @@ SIDE_CARS = {
                    "the four wheels touch FULLY EMPTY TRANSPARENT BACKGROUND directly, "
                    "absolutely no shading or pixels anywhere below the bottom of the tyres, "
                    "camera positioned exactly perpendicular to the truck at ground level on the driver side, "
-                   "both passenger-side wheels visible at the bottom — OVERSIZED chunky knobbly MUD TYRES "
-                   "(35-inch, deep aggressive lugs) on BLACK MAG RIMS, "
-                   "the entire ute length visible from bullbar to towbar — classic Hilux SR5 silhouette "
-                   "with a stubby dual-cab + short tray back, "
-                   "MATTE DARK GREY paint with subtle weathering and minor dust streaks, "
-                   "tall steel BULLBAR at front with twin LED light bars on top, "
-                   "tall SNORKEL intake mounted along the driver-side A-pillar, "
-                   "JACKED-UP lifted suspension giving very HIGH stance (taller than a person standing), "
-                   "tray back at rear with a black toolbox lid, "
-                   "subtle HILUX decal on the rear door, mud splatter along the lower body panels and wheel arches, "
-                   "Australian country-boy work-ute pixel art game sprite, "
+                   "both passenger-side wheels visible at the bottom — MASSIVE 35-INCH MUD-TERRAIN TYRES "
+                   "(huge knobbly aggressive lugs, very deep tread blocks, sidewall as tall as the door is "
+                   "from the ground — these are STUPID-BIG tyres that look almost cartoonishly oversized), "
+                   "tyres mounted on simple BLACK STEEL WHEELS (NOT fancy mags — plain bushie steelies), "
+                   "the entire ute length visible from bullbar to towbar — classic OLD HILUX silhouette "
+                   "with a square upright dual-cab cabin + short flat-sided tray back, "
+                   "DARK GREY MATTE WEATHERED paint (faded, oxidised, dusty, sun-bleached patches, "
+                   "minor rust spots around the wheel arches, subtle dust streaks down the doors), "
+                   "looks like a TWENTY-YEAR-OLD farm ute that's seen serious bush work, "
+                   "simple steel bull-bar at the front with a single round driving light on top, "
+                   "no fancy LED bar, no roof light bar, no snorkel — just an HONEST old farm truck, "
+                   "MASSIVELY JACKED-UP lifted suspension (long-travel shocks, large gap between the body "
+                   "and the top of the tyre) giving an INSANELY HIGH stance — the truck's running boards are "
+                   "at adult chest height, the bonnet is taller than a person — properly stupid lifted height, "
+                   "flat tray back at rear with no canopy, a single rear UHF whip antenna, "
+                   "small HILUX badge on the front guard, mud splatter caked along the lower body panels "
+                   "and wheel arches, plenty of bush-bash scrapes on the bullbar, "
+                   "Australian country-bloke OLD-SCHOOL bushie pixel art game sprite, "
                    "highly detailed retro pixel art game sprite on a PURE TRANSPARENT empty background, "
                    "ONLY the ute body and wheels are drawn, nothing else, "
                    "completely flat side-on silhouette, NO top-down, NO 3-quarter view, ONLY pure side profile"
@@ -1779,26 +1788,29 @@ BEAT_PROMPTS = {
     # I LEFT THE ONGBAY IN THE BIMMER..." — EXTREME CLOSE-UP of Brenno's
     # face as he realises he left his bong behind. Pure comedic-tragic.
     "bong_panic": (
-        "pixel art EXTREME CLOSE-UP PORTRAIT of a young white Australian "
-        "ESHAY teenager named Brenno, his FACE FILLS THE FRAME, "
-        "wearing a NAVY BLUE NIKE TN CAP with a YELLOW swoosh pulled low, "
-        "a MUSTARD YELLOW crewneck JUMPER visible at his collar, "
-        "BRIGHT GINGER hair sticking out untidily under the cap brim and at the sides, "
-        "freckled pale skin flushed red from stress with light acne visible, "
-        "his EXPRESSION IS UTTER HORROR + DISMAY — "
-        "EYES WIDE OPEN with pupils tiny in pure shock, "
-        "MOUTH HANGING OPEN in a silent stretched 'NOOO', teeth visible, "
-        "eyebrows raised HIGH in panic, deep wrinkles of distress on his forehead, "
-        "sweat beads forming on his forehead and temples, "
-        "BOTH HANDS raised gripping the brim of his TN CAP pulling it down over his eyes in despair, "
-        "knuckles white, "
-        "the cap brim casts deep shadow over his eyes amplifying the dread, "
-        "background blurred Blacktown Maccas carpark at night — deep navy, "
-        "warm streetlamp halos and McDonalds golden arches glow softly out of focus, "
-        "the iconic 'BRA. BRAAAAAAA. ME PIECE!' moment of devastating realisation, "
-        "16-bit pixel art with HIGH DETAIL on the face + cap + jumper, "
-        "comedic-tragic close-up portrait, NO other characters, "
-        "Brenno's face must DOMINATE the frame from chin to cap"
+        "pixel art MID-SHOT REALISTIC view of Brenno standing in the Cabra Maccas carpark at night "
+        "(NOT a cartoon close-up, NOT anime-style — REALISTIC SEMI-PHOTOREAL NPC PROPORTIONS matching "
+        "the established Moey/Khoa/Rahul portrait style), "
+        "Brenno is a skinny pale ginger Australian eshay teenager in his late teens — visible from "
+        "WAIST UP standing facing the camera, realistic adult human face proportions (NOT giant anime eyes), "
+        "short cropped ginger orange hair sticking out untidily from under a NAVY BLUE NIKE TN CAP "
+        "with YELLOW swoosh (cap pulled low, peak flat, yellow sticker still on brim), "
+        "pale skin with freckles across his nose and cheeks, faint patchy red-blond stubble along the jaw, "
+        "long narrow face with a sharp pointed nose, thin lips, light blue eyes — "
+        "BOTH HANDS gripping the SIDES of his own head over his ears in a realistic 'oh no' posture, "
+        "elbows raised out to the sides, shoulders hunched forward, "
+        "mouth open in a realistic distressed grimace showing teeth (NOT a stretched cartoon 'O'), "
+        "eyebrows drawn together in genuine human horror — realistic muscle tension on his face, "
+        "wearing a baggy MUSTARD YELLOW crewneck JUMPER visible from collar to elbow, navy tracksuit pants, "
+        "leaning slightly forward as if just realising something terrible, "
+        "BACKGROUND: the Cabra Maccas drive-thru carpark at night, the parked BLACK BMW E36 visible "
+        "directly behind him with its bonnet faintly silhouetted, McDonalds golden arches glowing yellow "
+        "in the distance, warm amber carpark lamp glow spilling onto the asphalt, painted parking bay "
+        "lines, deep navy night sky above, "
+        "the realistic devastated 'I left the bong in the BMW' moment — body language tells the story, "
+        "NOT a stylised cartoon face panel, "
+        "16-bit pixel art realistic NPC style matching Moey + Khoa portrait fidelity, "
+        "atmospheric Cabramatta late-night disaster vibe"
     ),
     # preet_credits: "the door of the Indian grocer chimes open. Brenno
     # staggers out clutching a paper bag heavy with curry powder, garam
@@ -1928,10 +1940,13 @@ BEAT_PROMPTS = {
         "pixel art side-on WIDE SCENE shot of a Penrith country-edge dirt-patch carpark at night, "
         "a tall lanky young white Australian country boy (Brett) standing at MID-BODY framing "
         "(NOT a face close-up — show his upper body and arms holding the prize), "
-        "DARK BROWN messy hair partly visible under his dusty wide-brim AKUBRA cowboy hat brim "
-        "(matching his portrait look), sun-tanned weathered face with sharp angular cheekbones "
-        "and a lopsided friendly grin (face is a small detail in the wider shot, not the focus), "
-        "the Akubra brim casting shadow over his eyes, "
+        "wearing a DUSTY WIDE-BRIM AKUBRA cowboy hat PULLED DOWN LOW — the brim is angled DOWNWARD "
+        "AND COVERS MOST OF HIS FACE, casting a DEEP DARK SHADOW that hides his ENTIRE UPPER FACE "
+        "(eyes, nose bridge, forehead all in deep shadow — completely OBSCURED by the hat brim), "
+        "ONLY the LOWER HALF of his face visible below the brim shadow line — sun-tanned weathered "
+        "JAW + CHIN + MOUTH visible (a faint lopsided friendly grin showing white teeth at the corner, "
+        "a hint of light stubble along the jaw), the rest of his face is INVISIBLE / SHADOW, "
+        "a faint wisp of dark brown hair visible at the nape of his neck beneath the hat, "
         "wearing a faded LIGHT BLUE FLANNEL shirt unbuttoned over a clean white Bonds SINGLET, "
         "sleeves rolled to the elbows, faded blue Wrangler jeans, big silver rodeo BELT BUCKLE visible, "
         "Brett is HOLDING UP a tall GLASS DOUBLE PERCOLATOR BONG with one hand at chest height "
@@ -1943,9 +1958,10 @@ BEAT_PROMPTS = {
         "tall gum trees silhouetted against the deep navy night sky, "
         "warm amber streetlamp pools on the dirt patch, scattered tyre marks in the dirt, "
         "16-bit pixel art with wide-scene composition, "
-        "the prize-handover moment after the hill climb victory, "
+        "the prize-handover moment after the hill climb victory, the MYSTERIOUS HAT-OBSCURED "
+        "country boy silently presenting the bong — face hidden by the brim, "
         "Penrith country-edge atmosphere, "
-        "NO face close-up, NO portrait crop — the bong + scene context are the focus"
+        "the LOW AKUBRA BRIM HIDING THE FACE is the key visual hook"
     ),
     # habibi_show_vid: "Watch this cuz. Tony Tooks Two, Type R, doin'
     # donuts in MY suburb akhi." — Moey shoves his phone in your face.
@@ -2075,6 +2091,235 @@ BEAT_PROMPTS = {
         "this should look authentically WESTERN SYDNEY rough — not stylish, not fashion, "
         "these are dropkick lads + derros doing nothing of value in an empty carpark"
     ),
+    # preet_credits_brenno_plea: "Oi lad, listen — the boys back at
+    # the Westfield are gonna SMOKE without me bra. I NEED to get on.
+    # Tonight. PLEEEASE bra. Just one more stop, swear down."
+    # Brenno BEGGING outside Sweet Punjab post-race.
+    "brenno_plead": (
+        "pixel art MEDIUM CLOSE-UP of Brenno on Wigram Street Harris Park at night, "
+        "Brenno is a skinny pale ginger Australian eshay teenager — short cropped GINGER ORANGE HAIR "
+        "sticking out from under a NAVY BLUE NIKE TN CAP pulled low over his eyes (peak flat, "
+        "yellow sticker still on the brim), faint patchy red-blond stubble, lots of FRECKLES across "
+        "his cheeks and nose, long thin face, light blue eyes wide with desperate pleading, "
+        "wearing a baggy MUSTARD YELLOW JUMPER + navy tracksuit pants tucked into white socks, "
+        "BOTH HANDS CLASPED TOGETHER in front of his chest in a PRAYING / BEGGING POSE, "
+        "leaning forward dramatically toward camera, eyebrows raised in puppy-dog desperation, "
+        "mouth half open mid-plea, "
+        "a brown paper grocery bag of curry powder + samosas tucked under one elbow, "
+        "small CARTOON SPEECH BUBBLE 'PLEEEASE' near his head with hearts and exclamation marks, "
+        "BACKGROUND: Wigram Street shopfronts blurred — SWEET PUNJAB Indian sweets shop with bright "
+        "yellow neon signage and warm interior glow, sari fabric store with hanging colourful fabrics, "
+        "7-Eleven glow further down, "
+        "fairy lights strung across the street overhead, warm orange streetlamp glow, "
+        "deep navy night sky above, "
+        "16-bit pixel art mid-shot with HIGH DETAIL on Brenno's desperate pleading face + hands, "
+        "the comic over-the-top BEGGING moment, Western Sydney post-race night atmosphere"
+    ),
+    # preet_post_lose:start: "AHAHA bhai it's okay! Chamkili dances
+    # better, what can I say. Mainys are an artform, you'll get there.
+    # Come — thali at Sweet Punjab is still on me. Loser still eats."
+    # Rahul gestures warmly toward Sweet Punjab post-race.
+    "rahul_thali_invite": (
+        "pixel art WIDE SHOT side-on view of Wigram Street Harris Park at night outside SWEET PUNJAB, "
+        "in the foreground centre Rahul standing on the footpath beside his parked grey Toyota Camry — "
+        "Rahul is a Sikh Punjabi Australian man in his late twenties with a BRIGHT ROYAL BLUE DASTAR "
+        "TURBAN and a thick full BLACK BEARD, friendly warm smile with teeth showing, head thrown "
+        "slightly back mid-laugh, wearing a crisp LIGHT BLUE BUTTON-UP SHIRT with sleeves rolled to "
+        "the elbows under an OPEN BLACK WAISTCOAT, dark jeans, "
+        "ONE ARM EXTENDED OUT to the side gesturing OPEN-PALM TOWARD the open doorway of Sweet Punjab, "
+        "the other hand resting friendly on the roof of his Camry, "
+        "warm welcoming inviting body language, "
+        "the OPEN DOORWAY of SWEET PUNJAB visible behind him as the focal element — bright golden "
+        "interior glow spilling out onto the footpath, glimpse of stacked GOLDEN THALI PLATES on a "
+        "counter inside with little metal bowls of curry + rice + naan, steam rising, "
+        "the big bright yellow SWEET PUNJAB neon sign above the doorway, "
+        "his grey Camry parked at the curb on the right side of the frame (just rear quarter visible), "
+        "BACKGROUND: Wigram Street fairy lights strung overhead, sari fabric store glow further down, "
+        "7-Eleven sign in the far distance, "
+        "warm orange streetlamp pool, deep navy night sky above, "
+        "16-bit pixel art wide composition, the WARM POST-RACE FRIENDSHIP moment — loser still eats, "
+        "Harris Park late-night welcoming atmosphere"
+    ),
+    # khoa_explain_2: "Drive her every Sunday up Old Pacific Highway
+    # with the crew. Then back to Cabra for phở. Best routine in the
+    # country yeah." — Khoa's iconic Sunday cruise.
+    "khoa_old_pacific": (
+        "pixel art DYNAMIC ACTION side-on view of Khoa's WHITE PEARL Nissan S14 Silvia mid-CORNER on the "
+        "OLD PACIFIC HIGHWAY — a sweeping windy forest road north of Sydney at GOLDEN HOUR Sunday morning, "
+        "the S14 in the foreground centre tilted slightly LEANING into a corner with a hint of TAIL-OUT "
+        "DRIFT angle, thin curls of WHITE TYRE SMOKE wisping from the rear wheels, the deep-dish "
+        "gunmetal aftermarket wheels turning, slammed coilover stance, JDM tuner body with subtle aero, "
+        "Khoa visible inside the cabin through the side window — a Vietnamese Australian man in his "
+        "late twenties with crisp light blue button-up shirt, well-groomed black hair, AVIATOR SUNGLASSES "
+        "on, polite focused confident expression, both hands on the steering wheel, "
+        "TWO MORE TUNER CARS visible following further back along the road behind him (the Sunday crew) — "
+        "a red Toyota Supra and a black RX-7 silhouetted in the distance, "
+        "BACKGROUND: tall lush green EUCALYPTUS gum trees lining both sides of the road, dappled GOLDEN "
+        "sunlight beams cutting through the tree canopy onto the asphalt in bright patches, "
+        "the road curving up and around the side of a forested hill, painted white centre line, "
+        "small road sign 'OLD PACIFIC HWY' visible beside the road, "
+        "a glimpse of a distant deep BLUE COASTAL HORIZON visible between the trees, "
+        "warm GOLDEN HOUR sky above with soft yellow + peach + light blue gradient, "
+        "16-bit pixel art with HIGH DETAIL on the drifting S14 + golden sunlight, "
+        "Sunday morning JDM crew cruise atmosphere, the iconic NSW touge spot"
+    ),
+    # khoa_geton_intro: "Bahaha Brenno told ya. Yeah I can sort ya.
+    # Sticky green, $50 a gram, $200 a Q. Pickup happens HERE..."
+    # Tight close-up on Khoa's hand showing a small zip-bag of green.
+    "khoa_deal_hand": (
+        "pixel art EXTREME CLOSE-UP from inside Khoa's white S14 Silvia at night in Cabra Maccas carpark, "
+        "camera angle looking down into the centre console / passenger seat area, "
+        "the FOCAL ELEMENT is Khoa's HAND HOLDING UP a small CLEAR ZIP-LOCK BAG of STICKY GREEN HERB — "
+        "a translucent plastic baggie filled with bright vivid green cannabis flower, frosted with thick "
+        "white trichome crystals catching the light, sticky resin glinting, fat dense buds visible through "
+        "the plastic, the baggie tilted at an angle to camera so the contents read clearly, "
+        "Khoa's hand visible — Vietnamese Australian man's hand, light blue button-up shirt sleeve rolled "
+        "to the wrist, thumb and forefinger pinching the top of the baggie to dangle it forward, "
+        "on the centre console below the baggie a small black DIGITAL POCKET SCALE with bright RED LED "
+        "READOUT '28.0' glowing, beside the scale a folded stack of orange $50 + yellow $20 AUSTRALIAN "
+        "BANKNOTES held by a black hair-tie band, "
+        "the dashboard wood-grain visible at the bottom of the frame, S14 interior trim, gear shifter "
+        "with a black aftermarket shift knob, "
+        "BLURRED PERIPHERAL BACKGROUND through the windscreen — the Cabramatta Maccas drive-thru carpark, "
+        "out-of-focus McDonalds GOLDEN ARCHES glowing yellow in the distance, warm amber carpark lamp glow, "
+        "deep navy night sky above the dashboard line, "
+        "the careful businesslike weed deal moment — calm, polite, well-run Cabra plug, "
+        "16-bit pixel art with HIGH DETAIL on the green baggie + scale display + cash, "
+        "no human faces, ONLY the hand + product + counter-top items in close-up"
+    ),
+    # khoa_geton_q: "YEEEEEEEEW! Q the boys up adlay! ESHAYS. That'll
+    # do us all weekend." — Brenno fist-pumping mid-YEEEEEW celebration.
+    "brenno_yew_hype": (
+        "pixel art MEDIUM SHOT of Brenno mid-CELEBRATION in the Cabra Maccas carpark at night, "
+        "Brenno is the skinny pale ginger Australian eshay teenager — short cropped GINGER ORANGE HAIR "
+        "sticking out from under a NAVY BLUE NIKE TN CAP pulled low (peak flat, yellow sticker on brim), "
+        "FRECKLES across his cheeks and nose, baggy MUSTARD YELLOW JUMPER + navy tracksuit pants tucked "
+        "into white tube socks, white rubber slides on his feet, "
+        "Brenno is mid-FIST-PUMP — head THROWN BACK with mouth WIDE OPEN mid-yell of pure eshay joy, "
+        "BOTH ARMS THRUST UP overhead in a victorious double-fist-pump pose, "
+        "ONE HAND HOLDING UP a small BROWN PAPER GROCERY BAG (with a Q of green stashed inside, top "
+        "crumpled closed) raised triumphantly in the air like a trophy, "
+        "the OTHER HAND in a clenched FIST punching the air, "
+        "bouncing on his toes, body language is PURE STOKED ESHAY HYPE, "
+        "small STYLISED LIGHTNING BOLT + cartoon STAR sparkle effects radiating around his raised arms, "
+        "small comic speech-bubble 'YEEEEEEW!' near his head, "
+        "BACKGROUND: Khoa's WHITE PEARL Nissan S14 Silvia parked side-on behind him (just front quarter "
+        "visible at the edge of frame), Cabra Maccas drive-thru carpark with the iconic golden ARCHES "
+        "glowing bright yellow in the distance, painted white parking bay lines on the asphalt, "
+        "warm amber and slight magenta neon glow from the carpark lamps, "
+        "scattered abandoned shopping trolleys further off, deep navy night sky above, "
+        "16-bit pixel art with HIGH DETAIL on Brenno's hyped pose + raised brown paper bag, "
+        "the POST-DEAL ESHAY CELEBRATION moment — pure undiluted Cabra Maccas joy"
+    ),
+    # khoa_deal_setup: "Watch the spotlight bro. When it sweeps away —
+    # TAP. When it's on us — WAIT. Six beats to the swap..." The tense
+    # mini-game briefing — cop spotlight sweeping the carpark.
+    "khoa_spotlight_brief": (
+        "pixel art WIDE ELEVATED 3/4 view of the CABRAMATTA MACCAS DRIVE-THRU CARPARK at night, "
+        "in the centre-foreground the player's WHITE Mitsubishi Lancer Evo IX and Khoa's WHITE PEARL "
+        "Nissan S14 Silvia parked side-by-side in adjacent painted parking bays, both cars dark and "
+        "stationary with headlights OFF, boots facing the camera, the small gap between the cars is "
+        "the deal zone, "
+        "a TALL BRIGHT WHITE COP SPOTLIGHT BEAM cuts diagonally across the carpark from the LEFT EDGE "
+        "of the frame — a visible thick cone of stark white light slicing through the night air, "
+        "DUST motes floating in the beam, the spotlight beam terminating as a bright white pool on the "
+        "asphalt at the far side of the carpark (just past the two parked cars, NOT directly on them), "
+        "a NSW POLICE PADDY WAGON parked at the LEFT edge of frame with the spotlight mounted on its "
+        "roof rotating, blue + red dome lights OFF (silent mode), driver-side door open, "
+        "a UNIFORMED FOOT-PATROL COP walking the lot in the MID-DISTANCE — silhouetted human pig-cop "
+        "(Sgt Snout style: human shape with subtle pig snout) carrying a TORCH with a bright beam, "
+        "the cop's torch beam sweeping a separate cone of light onto the asphalt as he patrols, "
+        "BACKGROUND: McDonalds restaurant lit up at the back of the carpark — bright golden ARCHES sign "
+        "glowing yellow, drive-thru lane visible, lit dining-room windows, "
+        "deep navy night sky above, harsh fluorescent white pools mixed with warm amber lamp glow on "
+        "the asphalt, painted white parking bay lines, "
+        "TENSE STEALTH ATMOSPHERE — the careful 'watch the spotlight' moment, "
+        "16-bit pixel art with HIGH DETAIL on the diagonal spotlight beam cutting across the scene, "
+        "no human faces close-up, the spotlight + carpark layout is the focus, "
+        "Cabramatta late-night carpark heist tension"
+    ),
+    # khoa_post_win:start — "Ahhh bro! That was SLICK. Six clean beats,
+    # cop didn't even SNIFF us..." Slick post-deal celebration with cop
+    # walking oblivious in the background.
+    "khoa_slick_celebration": (
+        "pixel art MEDIUM SHOT view through the open driver's-side window of the player's car looking "
+        "OUT at Khoa standing on the asphalt beside his parked white pearl S14 Silvia in the Cabra "
+        "Maccas carpark at night, "
+        "Khoa is a Vietnamese Australian man in his late twenties leaning on his open S14 driver's door, "
+        "crisp light blue button-up shirt with sleeves rolled to the elbows, well-groomed black hair "
+        "(slightly mussed), small thin gold chain at the collar, friendly polite confident smile "
+        "showing a faint GOLD CROWN on one of his upper teeth catching the light, "
+        "his RIGHT HAND raised in a SLICK FINGER-GUN POINT at camera — index finger pointed straight at "
+        "the player with thumb cocked up in playful 'we did it' approval, "
+        "his other hand resting casually on the S14 door, body language is COOL SMOOTH-OPERATOR pride, "
+        "in the BACKGROUND OUT-OF-FOCUS the uniformed FOOT-PATROL COP (Sgt Snout pig-cop) is visible "
+        "walking AWAY across the carpark in the far distance — torch beam pointed the OTHER direction, "
+        "his BACK to camera, oblivious, "
+        "the carpark cop SPOTLIGHT visible sweeping ANOTHER part of the lot far away, "
+        "the white S14 body visible behind Khoa with its deep-dish gunmetal wheels, "
+        "BACKGROUND: McDonalds golden ARCHES glowing yellow further back, warm amber carpark lamp pools, "
+        "painted white parking bay lines on the asphalt, "
+        "deep navy night sky above, "
+        "the SLICK 'we just got away with it' moment — businessman-cool celebration, "
+        "16-bit pixel art with HIGH DETAIL on Khoa's finger-gun pose + gold tooth glint + cop walking "
+        "away oblivious in the background, Cabra Maccas carpark stealth-deal aftermath atmosphere"
+    ),
+    # macca_country: "Aw mate, Penrith's the gateway to the bush. You
+    # can SEE the Blue Mountains from here. Half me mates are out in
+    # Lithgow, Bathurst, Dubbo. Spiritually I'm a bushie. Geographically
+    # I'm next to a JB Hi-Fi." — the iconic city-meets-bush Penrith vista.
+    "brett_penrith_vibe": (
+        "pixel art WIDE ESTABLISHING shot of the western edge of PENRITH at dusk / early evening, "
+        "the LEFT HALF of the frame is SUBURBAN STRIP-MALL Penrith — a wide intersection corner with "
+        "a JB HI-FI storefront prominent (bright YELLOW JB HI-FI neon sign glowing against a black "
+        "facade, big plate-glass display windows visible), beside it a Westfield carpark entrance, "
+        "a Bunnings warehouse roof in the further distance, painted pedestrian crossing on the road, "
+        "a tall flagpole with the Australian flag, "
+        "the RIGHT HALF of the frame transitions immediately into COUNTRYSIDE — a worn bitumen country "
+        "road heading away to the west with painted centre line, gum trees lining one side with "
+        "drooping silver-green leaves, paddock barbed-wire fence on the other side, a faded ROAD SIGN "
+        "'BLUE MOUNTAINS 30km / LITHGOW 120km / BATHURST 200km' beside the road, "
+        "BACKGROUND: the iconic BLUE MOUNTAINS silhouetted on the FAR HORIZON — layered hazy ranges of "
+        "deep blue-purple mountains receding into the distance, mist clinging to the lower slopes, "
+        "the BLUE MOUNTAINS dominate the upper-right third of the composition, "
+        "in the FOREGROUND off to one side a dark grey jacked-up Toyota Hilux SR5 (Brett's Hulix) "
+        "parked at the edge of frame — chunky mud tyres, bullbar, snorkel, just a partial side view, "
+        "SKY: dramatic dusk gradient — warm orange and pink along the horizon transitioning up to "
+        "deep navy at the top of the frame, a few early stars beginning to twinkle, "
+        "warm yellow streetlamps just starting to flicker on, "
+        "the IDEOLOGICAL CONTRAST is the focus — suburban JB Hi-Fi on the left, vast Blue Mountains "
+        "wilderness on the right, the 'gateway to the bush' moment, "
+        "16-bit pixel art with HIGH DETAIL on the JB Hi-Fi sign + Blue Mountains layered horizon, "
+        "Penrith dusk atmospheric establishing shot — Western Sydney edge-of-civilisation vibe"
+    ),
+    # macca_doubt: "Out the back of Penrith it's all dips, dirt, paddock
+    # fences and dry creek beds. The Hulix eats that for breakfast."
+    # Brett's Hilux mid-action bashing through bush terrain.
+    "brett_hulix_offroad": (
+        "pixel art DYNAMIC ACTION side-on view of Brett's dark grey jacked-up TOYOTA HILUX SR5 dual-cab "
+        "ute MID-FLIGHT over a dirt mound on a bush track at sunset, "
+        "the Hilux is the CENTRAL FOCAL ELEMENT — all four chunky BLACK MUD-TERRAIN TYRES OFF THE GROUND "
+        "in mid-air leap (just past the apex of a jump), front of the truck slightly nose-up, "
+        "thick clouds of brown DIRT and DUST kicking up behind and beneath the wheels in animated puffs, "
+        "small chunks of mud and pebbles flying out the back, "
+        "the Hilux has its full kit — heavy front BULLBAR, tall black SNORKEL on the A-pillar, light bar "
+        "on the roof switched ON (two bright white beams pointing forward), aftermarket steel wheels, "
+        "dirt + bushland grime caked along the lower body and rocker panels, headlights ON "
+        "(yellow-white beams cutting forward), "
+        "Brett visible inside the driver's cab through the side window — Akubra cowboy hat on, lopsided "
+        "grin of pure 4WD JOY, both hands gripping the steering wheel tight, "
+        "FOREGROUND: rugged DIRT TRACK with deep tyre ruts, dry rocky creek-bed crossing visible just "
+        "ahead, scattered red gum branches and tussock grass, an old wooden PADDOCK FENCE with rusted "
+        "barbed wire running parallel to the track on the right edge of frame, "
+        "BACKGROUND: scrubby Australian BUSH paddock landscape — sparse gum trees with drooping leaves, "
+        "tussock grass, dry yellow earth, a low ridge of hills further back, "
+        "the BLUE MOUNTAINS layered silhouette on the FAR horizon in deep purple-blue, "
+        "SKY: dramatic SUNSET gradient — warm orange + red on the horizon transitioning to deep purple "
+        "and navy at the top of the frame, a few early stars appearing, "
+        "BUSH OFF-ROAD MAYHEM atmosphere — 'eats it for breakfast' moment, "
+        "16-bit pixel art with HIGH DETAIL on the jumping Hilux + dirt plume + sunset sky, "
+        "Penrith country-edge 4WD action aesthetic"
+    ),
     # westfield_detour:brenno_off: "Brenno bounces across the carpark
     # with the paper bag from Khoa in one hand and Brett's double perc
     # in the other, both held up like trophies. The boys whoop."
@@ -2141,8 +2386,16 @@ cached_or_gen("travel_src.png", lambda: gen_image(
     no_background=False))
 
 if os.path.exists(os.path.join(OUT_DIR, "travel_src.png")):
+    # PixelLab ignores "FACING RIGHT" direction instructions in the prompt and
+    # often produces a left-facing car. Pre-flip the source horizontally so
+    # the Evo always faces RIGHT in the final gif. Uses a temp file so the
+    # original PixelLab-cached _src.png is preserved untouched.
+    from PIL import Image as _PILImage
+    _travel_src_orig = os.path.join(OUT_DIR, "travel_src.png")
+    _travel_src_flipped = os.path.join(OUT_DIR, "travel_src_flipped.png")
+    _PILImage.open(_travel_src_orig).transpose(_PILImage.FLIP_LEFT_RIGHT).save(_travel_src_flipped)
     make_city_twinkle_gif(
-        os.path.join(OUT_DIR, "travel_src.png"),
+        _travel_src_flipped,
         os.path.join(OUT_DIR, "travel.gif"),
         frames=18, duration=110,
     )
