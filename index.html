@@ -2168,7 +2168,7 @@ const DIALOGUES = {
       },
       {
         id:"preet_credits_mitcho2", speakerId:"eshay", portrait:"eshay_default",
-        text:"Khoa's the polite plug, drives a white pearl S14 Silvio — proper drift car but he barely races it anymore. Mostly uses it as the mobile office bra. Boot's the shop.",
+        text:"Khoa's the polite plug, drives a Crystal White Pearl R32 GT-R Skyline — proper JDM weapon but he barely races it anymore. Mostly uses it as the mobile office bra. Boot's the shop.",
         next:"preet_credits_mitcho3"
       },
       {
@@ -2182,7 +2182,7 @@ const DIALOGUES = {
         choices:[
           {text:"Three swaps. Got it.", next:"player_preet_plan"},
           {text:"How do I know when the cop's looking?", next:"preet_credits_spotlight"},
-          {text:"Tell me about the S14.", next:"preet_credits_s14"}
+          {text:"Tell me about the R32.", next:"preet_credits_s14"}
         ]
       },
       {
@@ -2192,7 +2192,7 @@ const DIALOGUES = {
       },
       {
         id:"preet_credits_s14", speakerId:"eshay", portrait:"eshay_default",
-        text:"S14 Silvio, '94 to '98, JDM coupe with the SR20DET. Best chassis Nessen ever made. Khoa's one's a kouki — pearl white, red stripe, hydro handbrake. Doesn't matter tonight though, we're just parked next to it.",
+        text:"R32 GT-R BNR32, '89 to '94, JDM legend with the RB26DETT twin-turbo. Best chassis Nissan ever made adlay. Khoa's one's Crystal White Pearl, NISMO GT-wing, hydro handbrake. Doesn't matter tonight though, we're just parked next to it.",
         next:"player_preet_plan"
       },
       {
@@ -2246,14 +2246,14 @@ const DIALOGUES = {
       {
         id:"start", speakerId:"narrator", portrait:null,
         sceneImage:"beat_cabra_john_st_arrival",
-        text:"John St Cabramatta, behind the markets. Red lanterns and fairy lights hang between the rooftops. A young Viet Australian guy in a crisp light-blue shirt is leaning on a pearl white S14 Silvio, vaping and scrolling his phone. Brenno lets out a low whistle from the passenger seat.",
+        text:"John St Cabramatta, behind the markets. Red lanterns and fairy lights hang between the rooftops. A young Viet Australian guy in a crisp light-blue shirt is leaning on a Crystal White Pearl R32 GT-R Skyline, vaping and scrolling his phone. Brenno lets out a low whistle from the passenger seat.",
         next:"khoa_greet"
       },
       {
         id:"khoa_greet", speakerId:"khoa", portrait:"khoa_happy",
         text:"Ayyy! You're the one Brenno's been hyping up? Get over here bro, I was about to head out for phở. You want one? My shout. Cabramatta's got the best in the country, no debate.",
         choices:[
-          {text:"That's a clean S14.", next:"khoa_explain"},
+          {text:"That's a clean R32.", next:"khoa_explain"},
           {text:"Tell me about yourself.", next:"khoa_backstory"},
           {text:"Brenno says you can get us on.", next:"khoa_geton_intro"},
           {text:"Cut the chat. Where do we deal?", next:"khoa_respect"},
@@ -2310,7 +2310,7 @@ const DIALOGUES = {
       },
       {
         id:"khoa_family", speakerId:"khoa", portrait:"khoa_default",
-        text:"Found the S14 sittin' in a shed out in Auburn, 1996 Kouki, original SR20DET still in it. Took me two years to bring her back. Dad reckoned I should've bought a Camree. He didn't get it. He gets it now.",
+        text:"Found the R32 sittin' in a shed out in Auburn, 1991 BNR32 GT-R, original RB26DETT still in it. Took me two years to bring her back. Dad reckoned I should've bought a Camree. He didn't get it. He gets it now.",
         choices:[
           {text:"What's it running now?", next:"khoa_explain"},
           {text:"Got it. Let's sort the deal.", next:"khoa_respect"}
@@ -2330,7 +2330,7 @@ const DIALOGUES = {
       {
         id:"khoa_explain", speakerId:"khoa", portrait:"khoa_proud",
         sceneImage:"beat_khoa_s14_engine_bay",
-        text:"SR20DET, big single Garrett, front mount, T56 conversion, hydraulic handbrake for the touges. She makes a smooth 380 to the wheels. And she SLIDES bro, you don't even know.",
+        text:"RB26DETT, twin Garretts, front mount, NISMO Cross 6-speed, ATTESA AWD for the touges, hydro handbrake bolted in. She makes a smooth 500 to all four wheels. And she GRIPS bro, you don't even know.",
         next:"khoa_explain_2"
       },
       {
@@ -5780,10 +5780,12 @@ function drawHill(time) {
   const carScreenX = w2sX(hillCarX);
   const carScreenY = w2sY(hillCarY);
   const rangerImg = SPRITES['car_ranger_side'];
-  // Display size: bigger Ranger (~2.2x wheelbase). The PixelLab sprite faces
-  // LEFT (nose pointing west) but the car drives RIGHT (east) — so flip the
-  // x-axis after the rotate so the nose points in direction of travel.
-  const carPxW = HILL_WHEELBASE * HILL_PIX_PER_M * 2.2;
+  // Display size: bigger Ranger (~3.2x wheelbase) so the ute reads as the
+  // hero element against the wide sunset paddock backdrop. The PixelLab
+  // sprite faces LEFT (nose pointing west) but the car drives RIGHT (east)
+  // — so flip the x-axis after the rotate so the nose points in direction
+  // of travel.
+  const carPxW = HILL_WHEELBASE * HILL_PIX_PER_M * 3.2;
   // Suspension squash visualisation — hard landings briefly compress the
   // chassis vertically + push it slightly downward (springs absorbing
   // impact). Decays in ~0.6s.
