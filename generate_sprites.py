@@ -211,10 +211,14 @@ print("\n===  BACKGROUNDS  ===")
 # beginning to glow as the sky tilts from orange into purple-blue. Warm but
 # quiet — the night hasn't started yet.
 cached_or_gen("bg_opening.png", lambda: gen_image(
-    "pixel art western sydney suburban driveway at golden hour dusk, "
+    "pixel art western sydney suburban driveway at golden hour dusk, rear three-quarter view "
+    "looking at the back of a WHITE Mitsubishi Lancer Evo IX sedan parked in a concrete driveway "
+    "(NOT a Nissan Skyline, NOT a coupe — a four-door white EVO with the iconic giant black rear "
+    "wing on the boot, twin round tail lights, evo-style rear bumper diffuser, slammed coilover "
+    "stance, deep-dish silver wheels), "
+    "rear brake lights glowing red, twin EVO IX tail lights warm, the big black GT-wing clearly "
+    "silhouetted against the sunset sky, ready to roll, "
     "sky a wash of deep orange fading up into purple-blue twilight, "
-    "modified Japanese tuner sports car parked in a concrete driveway, "
-    "rear brake lights glowing red, taillights warm, ready to roll, "
     "single warm amber street lamp just beginning to glow at the kerb, "
     "brick suburban house with red tile roof and a satellite dish behind, "
     "wheelie bins out by the kerb, empty quiet residential street, "
@@ -2735,14 +2739,35 @@ BEAT_PROMPTS = {
     # mitcho_greet — "OI! Adlay! Bra, BRA... me Beemer is absolutely
     # cooked." First sight of Brenno gesturing wildly at his broken E36.
     "brenno_beemer_intro": (
-        "pixel art WIDE FULL-BODY SHOT REALISTIC scene of Blacktown Maccas drive-thru carpark at dusk, "
-        "in the LEFT-CENTRE FOREGROUND " + BRENNO_SCENE_DESC + ", "
-        "standing in mid-rant — FULL BODY visible head to slides, occupying about 60 percent of the "
-        "frame height (NOT a close-up bust, NOT a child-sized figure — proper adult-proportioned lad), "
-        "Brenno's BODY angled toward camera mid-rant with BOTH ARMS THROWN OUT WIDE to the sides in "
-        "animated frustrated gesture (palms upturned, elbows bent out, the 'WHAT DO YA RECKON BRA' "
-        "stance), shoulders slightly hunched forward, mouth open mid-sentence showing teeth in genuine "
-        "human expression, "
+        # ARTISTIC FRAMING: rear-3/4 over-the-shoulder angle so we see the
+        # BACK/SIDE of Brenno, not his face. This (a) avoids face drift
+        # across regens, (b) prominently displays the BRIGHT RED RAT-TAIL
+        # which is Brenno's iconic visual hook, (c) makes the smoking
+        # Beemer the focal element with Brenno in the foreground as a
+        # silhouette frame. Michael's directive: don't focus on faces.
+        "pixel art CINEMATIC OVER-THE-SHOULDER REAR-THREE-QUARTER establishing shot of "
+        "Blacktown Maccas drive-thru carpark at dusk, "
+        "the camera is positioned BEHIND-AND-TO-THE-LEFT of Brenno looking PAST him toward "
+        "his broken-down BMW E36 sedan — so we see the BACK of Brenno's head and the LEFT "
+        "side of his body (FACE TURNED AWAY from camera, only a sliver of profile visible), "
+        "Brenno fills the LEFT third of the frame in foreground (about 70 percent frame "
+        "height), the smoking E36 fills the centre-right middle-ground, "
+        "BRENNO'S APPEARANCE — back-of-head view: he is a wiry adult Australian eshay lad in "
+        "his early twenties (NOT a child, NOT chibi, NOT anime — proper adult proportions), "
+        "his hair is BRIGHT VIVID RED-ORANGE GINGER (the visually dominant hair colour clearly "
+        "readable from behind — NOT dark brown, NOT black, NOT blonde — UNMISTAKABLY RED hair), "
+        "a LONG THIN RED RAT-TAIL of hair dangles down the BACK of his neck onto his shoulder "
+        "(the rat-tail is HIGHLY VISIBLE because we are looking AT his back — this is the key "
+        "visual hook of the shot, render it prominently as a single long thin strand of red "
+        "hair), red fringe poking out under the cap brim around the back rim, "
+        "wearing a NAVY BLUE NIKE TN BASEBALL CAP TILTED UP at the back of his head with the "
+        "yellow Nike swoosh visible on the side panel, "
+        "wearing a BAGGY MUSTARD YELLOW CREWNECK PULLOVER SWEATSHIRT (covers torso AND both "
+        "arms to the wrists — NOT a tank top, NOT bare-armed), navy tracksuit pants, white "
+        "tube socks, white rubber slides, "
+        "Brenno's RIGHT ARM (the one visible to camera) is THROWN OUT WIDE in animated "
+        "frustrated gesture toward the smoking Beemer, palm upturned, the 'WHAT DO YA RECKON "
+        "BRA' stance, shoulders hunched forward, "
         "to the RIGHT of Brenno his parked broken-down DEEP BLUE BMW E36 sedan taking up the right "
         "half of the frame — BONNET PROPPED FULLY OPEN above the engine bay, a THICK PLUME of "
         "DRAMATIC WHITE-GREY ENGINE STEAM billowing up out of the engine bay (the focal animation "
