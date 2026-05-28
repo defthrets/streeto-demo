@@ -12,7 +12,7 @@ Requires:  requests   Pillow
   pip install requests Pillow
 """
 
-import sys, os, base64, io, time
+import sys, os, base64, io, time, shutil, datetime
 
 try:
     import requests
@@ -817,8 +817,8 @@ PORTRAITS_AI = {
         "weathered pale milky complexion with light acne scarring scattered across the cheeks, "
         "sharp angular cheekbones, narrow chin, hollow tired pale-blue eyes with dark circles, "
         "intense neutral street stare directly at the viewer, "
-        "thin patchy ginger stubble along the jawline and upper lip, "
-        "BRIGHT GINGER RED HAIR, messy red mullet haircut, the long thin red rats tail dangling visibly down the side of his neck past his collar onto his shoulder, ginger fringe of hair poking out under the cap brim, "
+        "thin patchy ORANGE stubble along the jawline and upper lip, "
+        "BRIGHT ORANGE HAIR, messy orange mullet haircut, the long thin orange rats tail dangling visibly down the side of his neck past his collar onto his shoulder, orange fringe of hair poking out under the cap brim, "
         "wearing a navy blue Nike TN baseball cap pulled LOW over the eyes casting a deep dramatic shadow across the upper face, "
         "the bright YELLOW Nike swoosh logo prominently visible on the front-side panel of the cap, "
         "a lit Winfield Blue cigarette held crooked in the corner of his mouth, ash glowing red at the tip, "
@@ -1052,9 +1052,9 @@ BRENNO_CANONICAL = (
     "HEAVY GINGER FRECKLES densely covering the nose, cheeks and forehead, "
     "sharp angular cheekbones, narrow chin, hollow tired pale-blue eyes with dark circles, "
     "intense neutral street stare directly at the viewer, "
-    "thin patchy ginger stubble along the jawline and upper lip, "
-    "BRIGHT GINGER RED HAIR, messy red mullet haircut, the long thin red RATS TAIL dangling visibly "
-    "down the side of his neck past his collar onto his shoulder, bright ginger fringe poking forward "
+    "thin patchy ORANGE stubble along the jawline and upper lip, "
+    "BRIGHT ORANGE HAIR, messy orange mullet haircut, the long thin orange RATS TAIL dangling visibly "
+    "down the side of his neck past his collar onto his shoulder, bright orange fringe poking forward "
     "across the forehead, "
     "wearing a NAVY BLUE NIKE TN BASEBALL CAP TILTED UP HIGH ON THE BACK OF THE HEAD (NOT pulled low — "
     "the cap brim angles UP and AWAY from the eyes so the entire face is fully visible and "
@@ -1377,6 +1377,7 @@ print("\n===  TITLE-SCREEN GIFS  ===")
 import random
 
 def make_road_scroll_gif(src_path, out_path, frames=16, duration=70):
+    archive_old_gif(out_path)
     """Scroll the source image down so it appears to move toward viewer."""
     src = Image.open(src_path).convert("RGB")
     w, h = src.size
@@ -1397,6 +1398,7 @@ def make_road_scroll_gif(src_path, out_path, frames=16, duration=70):
 
 
 def make_side_scroll_gif(src_path, out_path, frames=16, duration=70):
+    archive_old_gif(out_path)
     """Scroll the source image LEFT (i.e. world moves RIGHT-to-LEFT so the
     viewer feels they are driving LEFT-to-RIGHT past stationary scenery).
     Source should be a wide tileable horizontal strip."""
@@ -1418,8 +1420,27 @@ def make_side_scroll_gif(src_path, out_path, frames=16, duration=70):
     print(f"      OK {os.path.basename(out_path)}  ({w}x{h}, {frames}f, {kb}kb)")
 
 
+def archive_old_gif(out_path):
+    """Before overwriting a GIF, copy the existing one to sprites/archive/
+    with a timestamp suffix derived from the file's mtime. Michael's rule:
+    never overwrite GIFs blind — some old renders are too good to lose, and
+    git history isn't a great browsable archive. Identical archive paths
+    (same mtime) are no-op'd so repeated regens don't accumulate dupes."""
+    if not os.path.exists(out_path):
+        return
+    archive_dir = os.path.join(OUT_DIR, "archive")
+    os.makedirs(archive_dir, exist_ok=True)
+    stem = os.path.splitext(os.path.basename(out_path))[0]
+    mtime = datetime.datetime.fromtimestamp(os.path.getmtime(out_path))
+    ts = mtime.strftime("%Y%m%d_%H%M%S")
+    archive_path = os.path.join(archive_dir, f"{stem}_{ts}.gif")
+    if not os.path.exists(archive_path):
+        shutil.copy2(out_path, archive_path)
+
+
 def make_city_twinkle_gif(src_path, out_path, frames=10, duration=180):
     """Add randomised window-light flicker on a static city image."""
+    archive_old_gif(out_path)
     src = Image.open(src_path).convert("RGB")
     w, h = src.size
     # Find bright pixels (windows, neon signs) — these get the flicker treatment
@@ -1526,6 +1547,7 @@ if os.path.exists(transition_src):
 # Engine bay — animate with subtle electrical flicker (sparks from the
 # dodgy coil pack) and a faint vibration jitter (cylinder misfire).
 def make_engine_flicker_gif(src_path, out_path, frames=10, duration=120):
+    archive_old_gif(out_path)
     src = Image.open(src_path).convert("RGB")
     w, h = src.size
     # Find brighter pixels (highlights, exposed wire ends) for spark flicker
@@ -2076,9 +2098,9 @@ BRENNO_LAD_DESC = (
     "weathered pale milky complexion HEAVILY covered in densely-packed GINGER FRECKLES "
     "across the nose, cheeks and forehead, sharp angular cheekbones with hollow tired cheeks, "
     "narrow chin, strong masculine narrow jaw, pale-blue eyes with dark circles, "
-    "thin patchy ginger stubble along the jawline and upper lip, "
-    "BRIGHT GINGER-RED messy mullet haircut with a LONG THIN RED RAT-TAIL dangling visibly "
-    "down the side of his neck onto his shoulder, ginger fringe poking forward under the cap, "
+    "thin patchy ORANGE stubble along the jawline and upper lip, "
+    "BRIGHT ORANGE messy mullet haircut with a LONG THIN ORANGE RAT-TAIL dangling visibly "
+    "down the side of his neck onto his shoulder, ORANGE fringe poking forward under the cap, "
     "wearing a NAVY BLUE NIKE TN BASEBALL CAP tilted UP on the back of his head (NOT pulled low) "
     "with the bright YELLOW NIKE SWOOSH logo prominently visible on the side panel of the cap, "
     "wearing a BAGGY MUSTARD YELLOW OVERSIZED CREWNECK PULLOVER SWEATSHIRT in school-bus-yellow "
@@ -2109,8 +2131,8 @@ BRENNO_SCENE_DESC = (
     "adult man face (NOT a cute teenage boy, NOT a chibi figure, NOT anime, NOT cartoon — "
     "Moey/Khoa NPC realism tier), heavy densely-packed GINGER FRECKLES across the nose and "
     "cheeks, sharp narrow jaw, "
-    "BRIGHT GINGER-RED messy hair under the cap with a LONG THIN RED RAT-TAIL dangling visibly "
-    "down the side of his neck onto his shoulder, faint patchy ginger stubble, "
+    "BRIGHT ORANGE messy hair under the cap with a LONG THIN ORANGE RAT-TAIL dangling visibly "
+    "down the side of his neck onto his shoulder, faint patchy ORANGE stubble, "
     "REALISTIC GRITTY hand-painted pixel-art adult NPC fidelity with heavy multi-tone shading"
 )
 
@@ -2159,6 +2181,14 @@ RAHUL_DESC = (
 )
 
 BEAT_PROMPTS = {
+    # ============================================================================
+    # FRAMING GUIDELINE for beat-GIF prompts:
+    #   AVOID tight face close-ups — PixelLab face renders drift across regens
+    #   so tight crops look inconsistent. Default to MEDIUM-WIDE or FULL-BODY
+    #   framing. The figure should sit at ~50-70% of frame height with scene
+    #   context filling the rest. Faces should be visible but not the focal
+    #   element. Body language, gesture, outfit and scene anchor the beat.
+    # ============================================================================
     # brenno_ongbay_realize: "BRA. BRAAAAA. ME PIECE. SHITTT, ME GLASS.
     # I LEFT THE ONGBAY IN THE BIMMER..." — EXTREME CLOSE-UP of Brenno's
     # face as he realises he left his bong behind. Pure comedic-tragic.
@@ -2209,7 +2239,7 @@ BEAT_PROMPTS = {
         "only shape recognition), deep navy night sky, warm yellow shop window glow, "
         "16-bit pixel art realistic NPC style, Harris Park Wigram Street at night"
     ),
-    # falcon_return_1: "There she is bra! Me girl! ... I'm getting under
+    # beemer_return_1: "There she is bra! Me girl! ... I'm getting under
     # the bonnet adlay. Hold the torch up here." — the moment the
     # Beemer comes back to life
     "beemer_install": (
@@ -2474,11 +2504,13 @@ BEAT_PROMPTS = {
     # Tonight. PLEEEASE bra. Just one more stop, swear down."
     # Brenno BEGGING outside Sweet Punjab post-race.
     "brenno_plead": (
-        "pixel art MEDIUM CLOSE-UP REALISTIC mid-shot of " + BRENNO_SCENE_DESC + ", "
-        "on Wigram Street Harris Park at night, "
+        "pixel art MEDIUM-WIDE FULL-BODY shot of " + BRENNO_SCENE_DESC + ", "
+        "on Wigram Street Harris Park at night, FULL BODY visible head to slides occupying about "
+        "65 percent of frame height (NOT a tight face close-up — wider framing so facial details "
+        "stay consistent, the begging gesture + Wigram Street backdrop are the focus), "
         "BOTH HANDS CLASPED TOGETHER in front of his chest in a PRAYING / BEGGING POSE, "
         "leaning forward dramatically toward camera, eyebrows raised in puppy-dog desperation, "
-        "his pale-blue eyes wide with desperate pleading, mouth half-open mid-plea, "
+        "mouth half-open mid-plea, "
         "a brown paper grocery bag of curry powder + samosas tucked under one elbow, "
         "BACKGROUND: Wigram Street shopfronts visible behind — warm yellow Indian-sweets-shop neon "
         "glow with mithai trays in the window, sari fabric store with hanging colourful fabrics, "
@@ -3819,6 +3851,7 @@ if os.path.exists(os.path.join(OUT_DIR, "travel_src.png")):
 print("\n===  STORY-BEAT GIFs  ===")
 
 def make_siren_flash_gif(src_path, out_path, frames=8, duration=140):
+    archive_old_gif(out_path)
     """Pulse alternating red and blue siren tint across the upper half of the
     image — sells the cop strobe. Source should already have the siren glow
     baked in; this just adds the rhythmic colour cycle on top."""
