@@ -2091,6 +2091,29 @@ BRENNO_LAD_DESC = (
     "REALISTIC GRITTY pixel-art adult NPC fidelity matching the Moey/Khoa portrait realism bar"
 )
 
+BRENNO_SCENE_DESC = (
+    # Outfit-FIRST so PixelLab anchors on it before character. Tattoos REMOVED "
+    # because mentioning them tends to make PixelLab render bare arms/chest.
+    "a young white Australian eshay LAD wearing a BAGGY MUSTARD YELLOW CREWNECK PULLOVER "
+    "SWEATSHIRT covering his ENTIRE TORSO and BOTH ARMS all the way down to the wrists "
+    "(absolutely NOT a tank top, NOT a singlet, NOT sleeveless, NOT bare-armed, NOT a t-shirt, "
+    "NOT a polo, NOT a hoodie, NOT a button-up — a solid school-bus-yellow pullover jumper is "
+    "his ONLY upper-body garment and it MUST be visible covering his arms), "
+    "a NAVY BLUE NIKE TN BASEBALL CAP TILTED UP on the back of his head with the peak pointing "
+    "skyward and the BRIGHT YELLOW NIKE SWOOSH clearly visible on the side panel of the cap "
+    "(NOT pulled low over the eyes, NOT flat-brimmed forward — TILTED UP showing forehead and "
+    "fringe), "
+    "navy tracksuit pants tucked into long white tube socks, white rubber slides on his feet, "
+    "a black NIKE CROSSBODY BUMBAG STRAP visible running diagonally across the yellow jumper, "
+    "Brenno himself is a wiry pale-skinned young man in his early twenties with a MASCULINE "
+    "adult man face (NOT a cute teenage boy, NOT a chibi figure, NOT anime, NOT cartoon — "
+    "Moey/Khoa NPC realism tier), heavy densely-packed GINGER FRECKLES across the nose and "
+    "cheeks, sharp narrow jaw, "
+    "BRIGHT GINGER-RED messy hair under the cap with a LONG THIN RED RAT-TAIL dangling visibly "
+    "down the side of his neck onto his shoulder, faint patchy ginger stubble, "
+    "REALISTIC GRITTY hand-painted pixel-art adult NPC fidelity with heavy multi-tone shading"
+)
+
 KHOA_DESC = (
     "Khoa is a Vietnamese Australian man in his late twenties "
     "(MASCULINE adult man face — NOT anime, NOT a cartoon, NOT chibi, NOT cell-shaded — "
@@ -2143,7 +2166,7 @@ BEAT_PROMPTS = {
         "pixel art WIDE ESTABLISHING ENVIRONMENTAL SHOT of the CABRAMATTA MACCAS DRIVE-THRU CARPARK "
         "at night — the carpark is the SCENE ANCHOR (NOT a portrait, NOT a face close-up — wide "
         "environmental composition with foreground figure, midground BMW, background carpark + arches), "
-        "in the centre-foreground a SMALL FULL-BODY figure of " + BRENNO_LAD_DESC + " is visible "
+        "in the centre-foreground a SMALL FULL-BODY figure of " + BRENNO_SCENE_DESC + " is visible "
         "head-to-slides occupying only about 45 percent of frame height, "
         "the figure is standing front-on to camera in a defeated devastated "
         "POSE — head HANGING DOWN slightly, BOTH HANDS RESTING DEFEATED on top of his TN cap, elbows "
@@ -2174,7 +2197,7 @@ BEAT_PROMPTS = {
         "on Wigram Street Harris Park at night, the lit-up shopfront fills the frame as the SCENE "
         "ANCHOR (NOT a portrait, NOT a face close-up — the doorway and shop interior are the main "
         "subject, the figure is one element within it), "
-        "in the doorway threshold a FULL-BODY figure of " + BRENNO_LAD_DESC + " is visible "
+        "in the doorway threshold a FULL-BODY figure of " + BRENNO_SCENE_DESC + " is visible "
         "head-to-slides occupying about 55 percent of frame height, "
         "the figure is STAGGERING OUT of the open doorway of the Indian grocer, "
         "his arms wrapped around a heavy brown paper grocery bag OVERFLOWING with packets of "
@@ -2451,7 +2474,7 @@ BEAT_PROMPTS = {
     # Tonight. PLEEEASE bra. Just one more stop, swear down."
     # Brenno BEGGING outside Sweet Punjab post-race.
     "brenno_plead": (
-        "pixel art MEDIUM CLOSE-UP REALISTIC mid-shot of " + BRENNO_LAD_DESC + ", "
+        "pixel art MEDIUM CLOSE-UP REALISTIC mid-shot of " + BRENNO_SCENE_DESC + ", "
         "on Wigram Street Harris Park at night, "
         "BOTH HANDS CLASPED TOGETHER in front of his chest in a PRAYING / BEGGING POSE, "
         "leaning forward dramatically toward camera, eyebrows raised in puppy-dog desperation, "
@@ -2550,7 +2573,7 @@ BEAT_PROMPTS = {
     # khoa_geton_q: "YEEEEEEEEW! Q the boys up adlay! ESHAYS. That'll
     # do us all weekend." — Brenno fist-pumping mid-YEEEEEW celebration.
     "brenno_yew_hype": (
-        "pixel art WIDE FULL-BODY SHOT REALISTIC view of " + BRENNO_LAD_DESC + ", "
+        "pixel art WIDE FULL-BODY SHOT REALISTIC view of " + BRENNO_SCENE_DESC + ", "
         "mid-CELEBRATION in the Cabra Maccas carpark at night, FULL BODY visible head to slides "
         "(NOT a close-up bust portrait — camera positioned back to show the whole figure plus "
         "Khoa's R32 behind), Brenno occupies about 65 percent of frame height with both arms raised "
@@ -2681,9 +2704,9 @@ BEAT_PROMPTS = {
     # cooked." First sight of Brenno gesturing wildly at his broken E36.
     "brenno_beemer_intro": (
         "pixel art WIDE FULL-BODY SHOT REALISTIC scene of Blacktown Maccas drive-thru carpark at dusk, "
-        "the LEFT-CENTRE FOREGROUND shows " + BRENNO_LAD_DESC + ", "
+        "in the LEFT-CENTRE FOREGROUND " + BRENNO_SCENE_DESC + ", "
         "standing in mid-rant — FULL BODY visible head to slides, occupying about 60 percent of the "
-        "frame height (NOT a close-up bust — camera positioned back to show whole figure plus the car), "
+        "frame height (NOT a close-up bust, NOT a child-sized figure — proper adult-proportioned lad), "
         "Brenno's BODY angled toward camera mid-rant with BOTH ARMS THROWN OUT WIDE to the sides in "
         "animated frustrated gesture (palms upturned, elbows bent out, the 'WHAT DO YA RECKON BRA' "
         "stance), shoulders slightly hunched forward, mouth open mid-sentence showing teeth in genuine "
@@ -2822,7 +2845,7 @@ BEAT_PROMPTS = {
     # heading into the Indian grocer on Wigram Street to do Mum's run.
     "brenno_grocer_dash": (
         "pixel art REALISTIC FULL-BODY medium-shot side-on view of Wigram Street Harris Park at "
-        "night, the LEFT-CENTRE FOREGROUND shows " + BRENNO_LAD_DESC + ", "
+        "night, the LEFT-CENTRE FOREGROUND shows " + BRENNO_SCENE_DESC + ", "
         "FULL BODY visible head to slides occupying about 65 percent of frame height (NOT a close-up "
         "bust portrait — show the whole figure plus the grocery doorway), "
         "Brenno caught MID-STRIDE pushing through the OPEN DOORWAY of an INDIAN GROCERY SHOP — "
@@ -3372,10 +3395,12 @@ BEAT_PROMPTS = {
     # I run with the Mexican Hoon Cartel..." Brenno SMACK TALKING /
     # bullshitting hard, full BS bravado mode.
     "brenno_bullshitting": (
-        "pixel art WIDE FULL-BODY SHOT REALISTIC view of " + BRENNO_LAD_DESC + ", "
+        "pixel art WIDE FULL-BODY SHOT REALISTIC view of " + BRENNO_SCENE_DESC + ", "
         "in the Blacktown Maccas carpark at dusk, FULL BODY visible head to slides (NOT a close-up "
-        "bust portrait — camera positioned back to show the whole figure plus the BMW behind), "
-        "Brenno occupies about 60 percent of frame height with the parked Beemer visible to one side, "
+        "bust portrait, NOT a child-sized figure — camera positioned back to show the whole adult "
+        "figure plus the BMW behind), "
+        "Brenno occupies about 60 percent of frame height with adult lad proportions (long adult "
+        "limbs, narrow adult torso) and the parked Beemer visible to one side, "
         "caught MID-SMACK-TALK in full bullshitting bravado — body angled toward camera, "
         "chest PUFFED OUT proudly, head tilted back with a COCKY GRIN showing teeth on a masculine "
         "adult face (NOT cute kid face NOT chibi NOT anime), eyebrows raised, "
@@ -3555,10 +3580,11 @@ BEAT_PROMPTS = {
     # Fukin cenno ain't come in yet, I only got enough for a stick AND
     # Mum needs curry powder for dinner — like RIGHT now."
     "brenno_card_declined": (
-        "pixel art REALISTIC FULL-BODY MEDIUM-WIDE view of " + BRENNO_LAD_DESC + ", "
+        "pixel art REALISTIC FULL-BODY MEDIUM-WIDE view of " + BRENNO_SCENE_DESC + ", "
         "standing on the Blacktown Maccas carpark footpath at dusk, "
         "FULL BODY visible head to slides occupying about 65 percent of the frame height (NOT a "
-        "close-up bust — show the whole figure plus the smartphone screen as the focal element), "
+        "close-up bust, NOT a child-sized figure — proper adult-proportioned lad with adult limb "
+        "lengths), the smartphone screen is the focal element, "
         "Brenno standing front-on to camera with a DEJECTED RESIGNED look — shoulders slumped, "
         "head tilted slightly down, embarrassed sheepish expression, mouth open mid-confession, "
         "ONE HAND holding up a SMARTPHONE in portrait orientation — the PHONE SCREEN fills the "
@@ -3592,9 +3618,9 @@ BEAT_PROMPTS = {
         "and the player's hand resting on it visible at the bottom edge (just hand + cuff of "
         "black hoodie sleeve, no face), the side-view mirror visible at the lower right edge, "
         "warm amber dashboard glow on the right, "
-        "MIDDLE GROUND through the open window — " + BRENNO_LAD_DESC + ", "
+        "MIDDLE GROUND through the open window — " + BRENNO_SCENE_DESC + ", "
         "standing on the footpath about three metres from the car, FULL BODY visible head to slides "
-        "(realistic adult proportions, NOT chibi NOT anime), "
+        "(realistic adult proportions, NOT chibi NOT anime NOT a child), "
         "head turned toward the player's window, body leaning slightly forward in anticipation, "
         "both hands held out palms-up in a 'really? for real?' grateful gesture, faint hopeful "
         "smile on a masculine adult face, "
@@ -3619,7 +3645,7 @@ BEAT_PROMPTS = {
     # hope adlay."
     "brenno_onions_dont_wait": (
         "pixel art REALISTIC composition: the LEFT TWO-THIRDS of the frame shows "
-        + BRENNO_LAD_DESC + ", "
+        + BRENNO_SCENE_DESC + ", "
         "standing on the Blacktown Maccas footpath at dusk in DESPERATE PLEADING pose, the RIGHT "
         "ONE-THIRD shows a stylised THOUGHT-BUBBLE cloud floating beside his head with an inset "
         "KITCHEN scene, "
@@ -3673,10 +3699,10 @@ BEAT_PROMPTS = {
     # mitcho_curry_yes — "YEW LEGEND adlay! ESHAYS! Wigram St, full thing.
     # Mum will love ya. Let's roll bra." Brenno mid-celebration.
     "brenno_yew_legend": (
-        "pixel art REALISTIC FULL-BODY WIDE shot of " + BRENNO_LAD_DESC + ", "
+        "pixel art REALISTIC FULL-BODY WIDE shot of " + BRENNO_SCENE_DESC + ", "
         "in Blacktown Maccas carpark at dusk caught MID-LEAP straight up in pure ESHAY CELEBRATION, "
         "both feet OFF THE GROUND in mid-jump, FULL BODY visible head to slides occupying about 70 "
-        "percent of frame height, "
+        "percent of frame height (proper ADULT lad proportions — NOT a child-sized figure), "
         "Brenno caught at the APEX OF A JUMP — body extended fully upright with both arms thrown "
         "UP overhead in a victorious V-shape, fists clenched and raised, head tilted back with a "
         "huge open-mouthed shouting GRIN on a masculine adult face, eyes scrunched in joy, "
@@ -3703,7 +3729,7 @@ BEAT_PROMPTS = {
     # in the other, both held up like trophies. The boys whoop."
     "westfield_boys": (
         "pixel art side-on REALISTIC view of Westfield Mt Druitt bottom carpark at midnight, "
-        "in the foreground " + BRENNO_LAD_DESC + ", "
+        "in the foreground " + BRENNO_SCENE_DESC + ", "
         "BOUNCING across the empty asphalt carpark MID-STRIDE TOWARD a loose circle of four other "
         "HARDCORE WESTERN SYDNEY ESHAY LADS standing near the trolley bay (rough-as-guts cheeky lads, "
         "all in navy NIKE TN caps pulled low, mullets spilling out the back, thin chin-strap beards "
