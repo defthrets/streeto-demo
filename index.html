@@ -1507,7 +1507,7 @@ const DIALOGUES = {
       {
         id:"start", speakerId:"narrator", portrait:null,
         stage:{hideCar:true, hideChar:true},
-        sceneImage:"beat_beemer_install",
+        sceneImage:"opening",
         text:"Saturday night. Western Sydney. You've got a fast car you can't really afford, half a tank of fuel, and an itch in your right foot that only goes away at three in the morning on an empty road.",
         next:"opening_2"
       },
@@ -1650,16 +1650,23 @@ const DIALOGUES = {
       {
         id:"habibi_concedes", speakerId:"habibi", portrait:"habibi_suspicious",
         text:"Wallah I HAVE to now lad, that was the deal cuz. A week off socials bra. Me uncle's gonna laugh his head off akhi. I'll be back though habibi, with new tyres yeh.",
-        next:"narrator_unlock"
+        next:"habibi_calls_cousin"
       },
       {
         id:"habibi_respect", speakerId:"habibi", portrait:"habibi_proud",
         text:"Yeh lad... real respect cuz. Post the win, tag me, do the right thing bra. Come find me when you wanna run it again akhi. Wallah you earned it habibi.",
+        next:"habibi_calls_cousin"
+      },
+      {
+        // The coil pack is earned by the WIN: Moey rings his cousin Rami
+        // (runs the wrecker on the Hume Hwy) to bring the M52 part down.
+        id:"habibi_calls_cousin", speakerId:"habibi", portrait:"habibi_sunglasses",
+        text:"Deal's a deal but, I don't go back on me word cuz. *pulls out phone* ... RAMI! Wallah cuz it's me. That M52 coil pack off the blue E36 wreck on the Hume yard — yeh THAT one akhi — bring it down Macquarie Street NOW bra. Nah I didn't crash lad, I LOST, fair and square wallah, don't start. ... He's comin' habibi. Ten minutes off the Hume Hwy. Coil pack's yours cuz, genuine BMW, straight off the wrecker.",
         next:"narrator_unlock"
       },
       {
         id:"narrator_unlock", speakerId:"eshay", portrait:"eshay_excited",
-        text:"BRA BRA BRA. ESHAYS. He's giving it up. The M52 coil pack. FINALLY. The Beemer's gonna run again adlay. We did it.",
+        text:"BRA BRA BRA. ESHAYS. Rami's bringin' it down right now. The M52 coil pack. FINALLY. The Beemer's gonna run again adlay. We did it.",
         next:"player_we_did_it"
       },
       {
@@ -2533,14 +2540,13 @@ const DIALOGUES = {
       },
       {
         id:"mitcho_penrith_quip1", speakerId:"eshay", portrait:"eshay_excited",
-        text:"Bra. Bra. We're in PENRITH adlay. There's a Coles right there. He's wearin' a HAT lad.",
+        text:"Bra. BRA. That's him adlay — over by the Coles. Akubra, flannie, big white Hilux. Gotta be Brett, I rang him meself bout the double perc. Pull up next to him lad, that's our man.",
         next:"macca_greet"
       },
       {
         id:"macca_greet", speakerId:"macca", portrait:"macca_default",
         text:"Gday mate! You must be the bloke from out east. Heard you been pingin' it through west syd. Pull up, grab a beer. The name's Brett. That there's the Hulix.",
         choices:[
-          {text:"Who told you we were comin', Brett?", next:"macca_news"},
           {text:"Nice rig, Brett.", next:"macca_truck"},
           {text:"Penrith isn't really the bush though.", next:"macca_country"}
         ]
@@ -2581,7 +2587,6 @@ const DIALOGUES = {
         text:"You roll in there upright first, I hand Brenno the spare double perc, no questions. You don't make it — bog the rig, roll it, give up — you owe me a slab of VB AND you shout the McChickens. Sound fair?",
         choices:[
           {text:"Castlereagh's not made for that. Doesn't matter — deal.", next:"macca_player_confident"},
-          {text:"Maccas to Maccas, I love it. Deal.", next:"macca_player_loose"},
           {text:"Brett — there'll be obstacles, won't there.", next:"macca_player_warned"}
         ]
       },
