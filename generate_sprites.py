@@ -875,15 +875,20 @@ PORTRAITS_AI = {
         "64x64 pixel art game portrait, the street-racing protagonist driver"
     ),
     "preet_default": (
-        "REALISTIC detailed portrait bust of an Indian Sikh Punjabi Australian man in his thirties, "
-        "warm wide friendly grin showing white teeth, kind crinkled brown eyes, brown skin, "
-        "full thick well-groomed black beard tied neatly under the chin, "
-        "bright royal blue dastar turban neatly wrapped on his head with crisp folds, "
-        "kara steel bracelet visible on wrist, white kurta shirt collar with subtle gold embroidery, "
-        "bright fluorescent green UberEats food delivery thermal backpack strap visible over shoulder, "
+        "REALISTIC detailed portrait bust of an Indian Sikh Punjabi Australian man in his late twenties, "
+        "MATCHING THE rahul_greet SCENE LOOK — warm friendly slight smile, kind crinkled brown eyes, "
+        "warm brown skin with detailed pore-level texture, "
+        "FULL THICK well-groomed JET-BLACK BEARD (proper Sikh kesh — dense, neat, joining the "
+        "moustache), "
+        "BRIGHT ROYAL BLUE DASTAR TURBAN neatly wrapped on his head with crisp visible fabric folds, "
+        "wearing a CRISP LIGHT-BLUE BUTTON-UP COLLARED SHIRT with the collar open at the neck "
+        "(NOT a white kurta, NOT a green vest, NOT a t-shirt — a proper light-blue dress shirt), "
+        "a thin steel KARA bangle just visible on the wrist at the shoulder line, "
+        "absolutely NO green UberEats backpack or strap in this portrait crop, "
         "PLAIN SOLID DARK NAVY BACKGROUND behind the character, no scenery, "
-        "close-up face and shoulders, highly detailed pixel art, "
-        "64x64 pixel art game portrait, Harris Park lovable food-loving mainy king Rahul"
+        "close-up face and shoulders bust, heavy multi-tone gritty pixel shading, highly detailed "
+        "pixel art (Moey/Khoa NPC realism tier), "
+        "64x64 pixel art game portrait, Harris Park mainy king Rahul Singh"
     ),
     "macca_default": (
         "REALISTIC detailed portrait bust of a young white Australian country boy in his late twenties, "
@@ -2838,57 +2843,41 @@ BEAT_PROMPTS = {
     # mitcho_greet — "OI! Adlay! Bra, BRA... me Beemer is absolutely
     # cooked." First sight of Brenno gesturing wildly at his broken E36.
     "brenno_beemer_intro": (
-        # FRONT-ON FULL-BODY canonical carpark composition (Michael's
-        # preferred framing): Brenno standing centre, full body head to
-        # slides, two cars flanking him, Maccas + dusk behind. The ONLY
-        # fix from the restored _old.gif is the OUTFIT — the old render
-        # put him in a BLACK TANK TOP, he must be in the MUSTARD YELLOW
-        # CREWNECK JUMPER per the character style guide. Heavy anti-
-        # tank-top / anti-singlet guard below.
-        "pixel art WIDE FULL-BODY FRONT-ON establishing shot of Blacktown Maccas drive-thru "
-        "carpark at dusk, centred in the frame is " + BRENNO_SCENE_DESC + ", "
-        "Brenno stands FRONT-ON to camera in the centre of the carpark, FULL BODY visible "
-        "head to white-slides occupying about 75 percent of frame height (proper adult lad "
-        "proportions, NOT chibi NOT anime NOT child-sized), "
-        "ABSOLUTELY CRITICAL OUTFIT — Brenno wears a BAGGY MUSTARD YELLOW CREWNECK PULLOVER "
-        "SWEATSHIRT covering his ENTIRE TORSO and BOTH ARMS down to the wrists (this is the "
-        "single most important detail: he is NOT wearing a black tank top, NOT a singlet, NOT "
-        "a sleeveless top, NOT a dark shirt, NOT bare-armed — his arms and torso are FULLY "
-        "COVERED by the bright school-bus-yellow jumper, and the yellow MUST read as bright "
-        "yellow even in the dusk light, lit warm by the streetlamps + golden arches glow), "
-        "the NAVY BLUE NIKE TN CAP tilted UP on his head with the yellow swoosh on the side "
-        "panel, the long thin RED RAT-TAIL dangling from under the cap onto his shoulder, "
-        "the black NIKE crossbody bumbag strap running diagonally across the yellow jumper, "
-        "navy tracksuit pants tucked into white tube socks, white rubber slides, "
-        "Brenno's BODY angled slightly with BOTH ARMS held out / gesturing toward his "
-        "broken-down car in an animated frustrated 'WHAT DO YA RECKON BRA' stance, mouth open "
-        "mid-rant on his masculine adult freckled face, "
-        "to the LEFT of Brenno a small parked BMW E36 and to the RIGHT another parked car "
-        "(both cropped at frame edges, flanking him), "
-        "the main BROKEN-DOWN DEEP BLUE BMW E36 sedan parked just behind-left of Brenno with "
-        "its BONNET PROPPED FULLY OPEN and a THICK PLUME of DRAMATIC WHITE-GREY ENGINE STEAM "
-        "billowing up out of the engine bay (the focal animation element — the steam rises + "
-        "curls), the E36 is faded Cosmos blue paint with scuffs + a dented front quarter "
-        "panel, slammed coilovers, black multi-spoke aftermarket wheels, M-Sport rear lip "
-        "spoiler, looks WELL cooked, "
-        "BACKGROUND: a NSW Maccas drive-thru restaurant facade visible in the middle ground — DO NOT "
-        "render any text or letters on the building, instead show just the iconic LARGE BRIGHT "
-        "YELLOW DOUBLE-ARCH 'M' LOGO standing on a tall metal pole glowing warm yellow against the "
-        "dusk sky (no readable words, just the recognisable golden-arches silhouette), the restaurant "
-        "is a low-slung brown brick building with lit dining-room windows visible, drive-thru lane "
-        "marker, "
-        "to the far right edge a small LEBANESE KEBAB SHOP next door with a glimpse of a magenta neon "
-        "kebab-spit silhouette (NO readable text on the signs — just a stylised kebab-on-spit icon), "
-        "DRAMATIC dusk sky — deep red and burnt orange gradient on the horizon transitioning up to "
-        "navy at the top of the frame, a few early stars appearing, distant scrubby gum-tree "
-        "silhouettes along the back fence, "
-        "warm amber streetlamps just starting to come on with soft pools on the asphalt, "
-        "painted white parking bay lines on the asphalt, faded oil stains, "
-        "16-bit pixel art wide composition with HIGH DETAIL on Brenno's realistic body language + "
-        "the smoking Beemer bonnet + the gold-M arches silhouette, "
-        "REALISTIC PROPORTIONS — Brenno's body and face should look proportioned like the Moey/Khoa "
-        "established characters, not chibi/anime, the iconic 'WHAT DO YA RECKON BRA' opening moment, "
-        "Western Sydney late-arvo carpark drama, NO TEXT/LETTERS rendered on any signage"
+        # CINEMATIC SIDE-ON SUNSET SCENE (the 'ollece' reference Michael
+        # loved): faded blue E36 facing left, bonnet propped open, Brenno
+        # bent into the engine bay from the front-right, dropped tools on
+        # the asphalt, dramatic pink/orange sunset behind. Figure driven by
+        # BRENNO_SCENE_DESC. Back-3/4 view keeps the face out of focus so
+        # no face drift; the yellow jumper + cap + rat-tail still read.
+        "pixel art WIDE CINEMATIC SIDE-ON ATMOSPHERIC shot of a Western Sydney Maccas carpark "
+        "at golden-hour DUSK, the composition centred on a faded COSMOS-BLUE BMW E36 sedan "
+        "parked SIDE-ON facing LEFT with its BONNET PROPPED FULLY OPEN on a metal stay, the "
+        "M52 engine bay exposed, "
+        "leaning into the open engine bay from the front-right of the car is " + BRENNO_SCENE_DESC + ", "
+        "Brenno is BENT FORWARD AT THE WAIST reaching both hands DOWN INTO the engine bay, his "
+        "BACK and right side toward the camera (face turned away into the engine bay — only the "
+        "back of the navy TN cap, the orange rat-tail on his neck, and the bright yellow jumper "
+        "across his back are visible), his navy trackies + white socks + slides planted on the "
+        "asphalt, the mustard YELLOW JUMPER is the warm colour anchor catching the sunset light, "
+        "the E36 is faded blue paint with light scuffs, slammed coilover stance, black "
+        "multi-spoke aftermarket wheels, M-Sport front bumper, twin round headlights, the iconic "
+        "BMW kidney grille at the front-left, a small front number plate reading 'KH 1726', "
+        "SCATTERED ON THE ASPHALT around the car's front — a chrome RING-SPANNER lying flat, a "
+        "tipped-over BUNDABERG drink can, an upright energy-drink can, a discarded oily rag (the "
+        "late-night-diagnostics story props), "
+        "BACKGROUND: a low-slung NSW Maccas drive-thru restaurant in the middle ground with the "
+        "iconic golden ARCHES 'M' silhouette glowing on a tall pole (NO readable text), a tall "
+        "streetlamp on a pole to the left and another to the right, a low fence line and scrubby "
+        "tree silhouettes along the back, "
+        "DRAMATIC SUNSET SKY — deep magenta + hot-pink + burnt-orange gradient low on the horizon "
+        "with a glowing setting sun, transitioning up to deep dusty-purple and navy at the top, a "
+        "faint pixel-dither scanline texture across the sky, "
+        "warm amber light from the low sun raking across the scene from the right, soft cool "
+        "purple shadows on the asphalt, painted white + yellow parking-bay lines, "
+        "16-bit pixel art ATMOSPHERIC CINEMATIC composition with HEAVY multi-tone shading, rich "
+        "gritty hand-painted detail (Moey/Khoa NPC realism tier — NOT chibi, NOT anime, NOT "
+        "cartoon), the quiet 'me Beemer is cooked, have a look would ya' dusk diagnostics moment, "
+        "NO TEXT/LETTERS on signage except the small KH 1726 number plate"
     ),
     # waiting_alone (Harris Park) — "You sit alone in the driver's seat.
     # Engine ticking down. Distant Punjabi music drifts from a sari shop
@@ -3549,46 +3538,31 @@ BEAT_PROMPTS = {
     # I run with the Mexican Hoon Cartel..." Brenno SMACK TALKING /
     # bullshitting hard, full BS bravado mode.
     "brenno_bullshitting": (
-        # COMPOSITION: matches the canonical Brenno reference Michael
-        # provided — full-body front-on standing pose in a Maccas-style
-        # carpark at night, two parked cars flanking him, concrete barrier
-        # behind. Neutral relaxed pose with hands at sides (NOT smack-talk
-        # action). Suits the introspective backstory dialogue 'Mum works
-        # at Coles, Dad's at Long Bay'. Wide framing = face is small in
-        # frame so PixelLab can't drift.
-        "pixel art WIDE FULL-BODY CHARACTER COMPOSITION at night — "
-        "central foreground shows " + BRENNO_SCENE_DESC + ", "
-        "FULL BODY visible head to slides occupying the centre of the frame (about 80 percent "
-        "of frame height — the figure is tall and the face is intentionally small so face "
-        "rendering doesn't matter, the OUTFIT does the storytelling), "
-        "Brenno is standing FRONT-ON to camera in a NEUTRAL RELAXED pose — feet shoulder-width "
-        "apart with weight slightly on one leg in subtle eshay slouch, "
-        "BOTH ARMS HANGING DOWN AT HIS SIDES (NOT raised, NOT gesticulating — relaxed at "
-        "his sides with hands visible), shoulders slightly slouched but not hunched, head "
-        "tilted forward slightly, a subtle slight smirk on his masculine adult face, "
-        "BLINDINGLY OBVIOUS OUTFIT — the BAGGY MUSTARD YELLOW CREWNECK PULLOVER SWEATSHIRT "
-        "is the dominant visual element covering his entire upper body, the cuffs of the "
-        "yellow jumper visible at his wrists (do NOT render the jumper as dark or muted — "
-        "it must read CLEARLY as BRIGHT MUSTARD YELLOW even in the night lighting), "
-        "the NAVY BLUE NIKE TN CAP tilted UP at the back of his head with the YELLOW NIKE "
-        "SWOOSH clearly visible on the side panel, "
-        "the black NIKE crossbody bumbag strap runs diagonally over the yellow jumper, "
-        "navy tracksuit pants (relaxed fit, slightly baggy, cuffs visible at the ankles), "
-        "white tube socks pulled up to mid-calf, white rubber slides on his feet, "
-        "BRIGHT ORANGE-RED hair visible under and around the cap with a faint long thin "
-        "orange rat-tail dangling onto his shoulder, "
-        "SCENE SETTING — Brenno stands in the middle of a Maccas-style carpark at night, "
-        "behind him a CONCRETE WALL / barrier dividing the carpark from the road beyond, "
-        "to the LEFT a small parked HATCHBACK car (compact, white or pale) facing toward "
-        "camera, to the RIGHT a larger parked SUV / MPV (grey or dark) also facing camera, "
-        "both cars cropped at frame edges (Brenno is the focal subject, the cars frame him), "
-        "YELLOW painted parking bay lines on the dark asphalt visible at his feet, "
-        "deep navy night sky above the concrete barrier, "
-        "AMBIENT LIGHTING — warm amber streetlamp glow casting soft pools on the asphalt, "
-        "the yellow jumper catches the streetlamp warmly so it READS as YELLOW, "
-        "16-bit pixel art GRITTY REALISTIC adult NPC style with HEAVY multi-tone shading "
-        "(NOT chibi, NOT anime, NOT cartoon — Moey/Khoa NPC realism), the canonical "
-        "Brenno character composition for backstory dialogue moments"
+        # WAIST-UP MACCAS-AT-NIGHT portrait (Michael's preferred reference):
+        # Brenno cropped mid-thigh up, hands in pockets, looking off, the lit
+        # Maccas restaurant + golden-arches pole sign + a parked car behind.
+        # Suits the 'Big Brenno onerske, that's me brand' backstory beat.
+        "pixel art ATMOSPHERIC WAIST-UP three-quarter portrait of " + BRENNO_SCENE_DESC + ", "
+        "the figure is cropped from MID-THIGH UP and fills the centre of the frame (a "
+        "medium portrait shot — not full-body, not a tight face close-up), standing front-on "
+        "but turned very slightly so he is gazing OFF to one side past the camera with a "
+        "calm slightly-cocky expression on his masculine adult freckled face, "
+        "BOTH HANDS TUCKED INTO THE FRONT POCKETS of his navy tracksuit pants, shoulders "
+        "relaxed in a subtle eshay slouch, "
+        "the BAGGY MUSTARD YELLOW CREWNECK PULLOVER is the dominant warm colour element "
+        "covering his whole torso + arms, cuffs visible at the wrists (must read CLEARLY as "
+        "bright mustard yellow against the dark night), the navy NIKE TN cap tilted up with "
+        "the yellow swoosh, bright orange hair + thin orange rat-tail on his neck, "
+        "BACKGROUND: a lit-up NSW Maccas drive-thru restaurant at night fills the middle "
+        "ground behind him — low brown-brick building with warm interior glow through the "
+        "windows, the tall MACCAS POLE SIGN to one side with the glowing golden double-arch "
+        "'M' logo lit yellow (NO readable letters), a parked car at the right edge of frame, "
+        "a tall streetlamp, deep navy night sky, painted parking-bay lines on the asphalt, "
+        "AMBIENT LIGHTING — cool blue night air with warm amber spill from the restaurant + "
+        "streetlamps catching the yellow jumper and the side of his face, "
+        "16-bit pixel art ATMOSPHERIC GRITTY REALISTIC adult NPC style with HEAVY multi-tone "
+        "shading (NOT chibi, NOT anime, NOT cartoon — Moey/Khoa realism tier), the relaxed "
+        "'Big Brenno onerske, that's me brand' Maccas-at-night character moment"
     ),
     # engine_diag_wires — "HAHA yeah the wires are FUCKED. But that's
     # just how I left em adlay, they been like that for ages."
@@ -3798,42 +3772,30 @@ BEAT_PROMPTS = {
     # player_offer — "Alright. Hop in. ... Coles is closer though, that'd
     # do, yeah?" YOU offers the ride.
     "player_offer_hop_in": (
-        # DRIVER-POV INTERIOR per Michael's reference — over-the-shoulder
-        # view from BEHIND the player's seat looking forward, showing the
-        # player's hand on the gear lever / steering wheel, the dashboard
-        # with mounted phone GPS, the gauge cluster. Focal is the cockpit
-        # vibe, not the character. Atmospheric realistic pixel art.
-        "pixel art REALISTIC ATMOSPHERIC OVER-THE-SHOULDER interior shot of the player's "
-        "Mitsubishi Evo IX cockpit at dusk, "
-        "camera positioned BEHIND the driver's seat looking FORWARD over the player's right "
-        "shoulder toward the dashboard — we see the BACK of the player's head and shoulders "
-        "in the foreground (NOT his face — face turned away from camera), "
-        "FOREGROUND — the player visible from behind in the driver's seat: short cropped dark "
-        "brown hair on the back of his head, BLACK ZIP-UP HOODIE on his shoulders, his RIGHT "
-        "HAND resting on the BLACK AFTERMARKET GEAR LEVER / shift knob in the centre console "
-        "(the gear lever is a focal detail — chunky black aftermarket knob in the player's "
-        "palm), his LEFT HAND on the steering wheel at the 9-o-clock position, a watch strap "
-        "visible at his left wrist, "
-        "MIDDLE GROUND — the EVO IX DASHBOARD fills the centre of the frame: "
-        "twin round analogue GAUGES (speedo on the left, tacho on the right) with warm "
-        "orange-amber needle glow visible behind the steering wheel, the BLACK MOMO-style "
-        "steering wheel partially in shot at the bottom, "
-        "a SMARTPHONE MOUNTED in a phone-mount on the dashboard centre showing a stylised GPS "
-        "MAP screen — dark navy map with a bright glowing yellow route line + small icon "
-        "pins, the phone is in portrait orientation (the focal screen-tech detail), "
-        "below the phone the dashboard centre console has stylised circular AC dials, a "
-        "small button cluster, "
-        "warm AMBER DASHBOARD GLOW illuminating the player's hands + the interior trim, "
-        "BACKGROUND through the WINDSCREEN — a faint dusk view of an empty suburban street "
-        "with a single streetlamp glowing amber, distant gum-tree silhouettes against a "
-        "deep-purple-to-navy sky, the road stretching ahead, "
-        "the side windows are dark at the edges of frame, the dome light is off, "
+        # DRIVER-POV THROUGH THE WINDSCREEN at Brenno standing in the street
+        # ahead (Michael's reference). The dashboard + steering-wheel rim
+        # frame the bottom; Brenno (style guide) stands centred on the road
+        # ahead facing the car. Daytime leafy Western-Sydney street.
+        "pixel art REALISTIC first-person DRIVER POV from the driver's seat looking FORWARD "
+        "THROUGH THE WINDSCREEN of the player's car, "
+        "the BOTTOM THIRD of the frame is the dark car interior — the top arc of a BLACK "
+        "steering wheel rim, the dashboard top with round air vents + a glimpse of the gauge "
+        "cluster, the rear-view mirror hanging at the top centre — framing the view ahead, "
+        "CENTRED IN THE WINDSCREEN, standing in the middle of the road a few metres ahead and "
+        "facing the car, is " + BRENNO_SCENE_DESC + ", "
+        "Brenno stands FRONT-ON full-body (head to slides visible through the glass), the "
+        "bright MUSTARD YELLOW CREWNECK JUMPER the obvious focal colour, navy TN cap tilted up "
+        "with yellow swoosh, orange hair + rat-tail, hands relaxed, looking toward the car with "
+        "a hopeful expression on his masculine adult freckled face, "
+        "BACKGROUND through the windscreen — a leafy WESTERN SYDNEY residential street in "
+        "daylight: red-brick terrace / townhouse facades lining both sides, green leafy street "
+        "trees, a footpath, a power pole, the road stretching ahead with lane markings, a bright "
+        "blue sky with soft clouds, "
+        "warm natural daylight on the street outside contrasting with the darker car interior "
+        "in the foreground, subtle windscreen reflection sheen across the glass, "
         "16-bit pixel art ATMOSPHERIC REALISTIC GRITTY style with HEAVY multi-tone shading "
-        "and warm-cool colour contrast (warm interior amber against cool dusk navy outside), "
-        "REALISTIC pixel art (NOT chibi, NOT anime, NOT cartoon) — Moey/Khoa NPC realism, "
-        "the QUIET COCKPIT MOMENT of 'Alright. Hop in.' told through the dashboard tech + "
-        "the player's hand on the gear lever, no speech bubbles, no overlay icons, just "
-        "the cabin at dusk"
+        "(NOT chibi, NOT anime, NOT cartoon — Moey/Khoa NPC realism), the 'Alright. Hop in.' "
+        "moment seen from the driver's seat, no speech bubbles, no overlay icons"
     ),
     # mitcho_curry_uber — "She's already chopped the onions bra. Onions
     # don't wait. And the boys at Westfield are busy. You're me last

@@ -905,6 +905,40 @@ body {
   background: rgba(0,0,0,0.55);
 }
 
+/* ===== UBEREATS DELIVERY SCREEN ===== */
+#ubereats-screen { flex-direction: column; background: #06070d; }
+#ubereats-canvas { display: block; width: 390px; flex: 1; min-height: 0; image-rendering: pixelated; background: #0b0b16; }
+#ubereats-hud {
+  position: absolute; top: 10px; left: 10px; right: 10px; height: 40px;
+  pointer-events: none; font-family: var(--font-header); color: #3fdf6f;
+  font-size: 13px; letter-spacing: 1px; display: flex;
+  justify-content: space-between; align-items: center; z-index: 5;
+}
+#ubereats-controls {
+  flex-shrink: 0; height: 120px; display: flex; gap: 14px;
+  padding: 12px 20px; background: #0a0a14; border-top: 2px solid #1e7a3f88;
+}
+.ubereats-btn {
+  flex: 1; height: 88px; background: rgba(63,223,111,0.10);
+  border: 2px solid #1e7a3fcc; color: #6ee89a;
+  font-family: var(--font-header); font-size: 40px; cursor: pointer;
+  touch-action: none; user-select: none; -webkit-user-select: none;
+  transition: background 0.05s, transform 0.05s;
+}
+.ubereats-btn:active { background: rgba(63,223,111,0.42); transform: scale(0.97); }
+#ubereats-countdown {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 120px; display: none;
+  align-items: center; justify-content: center;
+  font-family: var(--font-header); font-size: 96px;
+  color: #3fdf6f; text-shadow: 0 0 30px #1e7a3fcc; pointer-events: none; z-index: 10;
+}
+#ubereats-result {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 120px; display: none;
+  flex-direction: column; align-items: center; justify-content: center;
+  font-family: var(--font-header); background: rgba(6,7,13,0.92); z-index: 10;
+  text-align: center; padding: 0 24px;
+}
+
 /* ===== END SCREEN ===== */
 #end-screen {
   justify-content:center; align-items:center; gap:20px;
@@ -1103,6 +1137,18 @@ body {
     </div>
     <div id="hill-countdown"></div>
     <div id="hill-result"></div>
+  </div>
+
+  <!-- ===== UBEREATS DELIVERY SCREEN (Rahul's 4.94-star night gig) ===== -->
+  <div class="screen" id="ubereats-screen">
+    <canvas id="ubereats-canvas" width="390" height="724"></canvas>
+    <div id="ubereats-hud"></div>
+    <div id="ubereats-controls">
+      <button class="ubereats-btn" id="ubereats-left-btn">&#9664;</button>
+      <button class="ubereats-btn" id="ubereats-right-btn">&#9654;</button>
+    </div>
+    <div id="ubereats-countdown"></div>
+    <div id="ubereats-result"></div>
   </div>
 
   <!-- ===== END SCREEN ===== -->
@@ -1979,7 +2025,7 @@ const DIALOGUES = {
       {
         id:"brenno_grocer", speakerId:"eshay", portrait:"eshay_excited",
         stage:{hideCar:true, hideChar:true},
-        sceneImage:"beat_evo_gps_penrith_route",
+        sceneImage:"beat_brenno_grocer_dash",
         text:"Alright bra, I'm duckin' in. Curry powder, garam masala, plus two more Mum tacked on while we were drivin'. Won't be ten minutes adlay. ESHAYS. Hold the fort.",
         next:"brenno_leaves"
       },
@@ -2044,7 +2090,31 @@ const DIALOGUES = {
         id:"preet_backstory", speakerId:"preet", portrait:"preet_default",
         sceneImage:"beat_rahul_ubereats_camry",
         text:"My taya-ji has a mechanic shop on Marion Street, taught me everything from twelve years old. Distributors, carbies, the lot. UberEats by night — green bag never comes off, 4.94 star rating, untouchable on the app. Two kids at home, wife Simran is a literal angel. She tells the school mums her husband has not lost a race in twelve years. The other dads believe her now bhai. They have stopped trying.",
-        next:"preet_mainy_intro"
+        next:"preet_ubereats_offer"
+      },
+      {
+        // UberEats delivery mini-game offer — Rahul gets a ping mid-yarn.
+        id:"preet_ubereats_offer", speakerId:"preet", portrait:"preet_happy",
+        sceneImage:"beat_rahul_ubereats_camry",
+        text:"Arre — order just dropped on the app! Butter chicken to Westmead, eight minutes or it's cold. You want to see how the 4.94 is EARNED bhai? Jump in Chamkili, I'll talk you through it. Weave the traffic, don't spill the gravy, keep my stars. This is the real Harris Park nightlife my friend.",
+        choices:[
+          {text:"Let's run it. Green bag life.", triggerEvent:"start_ubereats_delivery"},
+          {text:"Nah, tell me more about you.", next:"preet_mainy_intro"}
+        ]
+      },
+      {
+        // Returned here by finishUbereats() on a 5-star delivery.
+        id:"preet_ubereats_back_win", speakerId:"preet", portrait:"preet_happy",
+        sceneImage:"beat_rahul_ubereats_camry",
+        text:"FIVE STARS! Hot and on time yaar, did you SEE that weave?! 'Quick, polite, food perfect' she'll write. This is why Chamkili and me never lose — every night is practice bhai. Okay okay, enough delivering. You came here to race. Ask me anything else, or say the word.",
+        next:"preet_greet"
+      },
+      {
+        // Returned here by finishUbereats() on a botched delivery.
+        id:"preet_ubereats_back_lose", speakerId:"preet", portrait:"preet_sad",
+        sceneImage:"beat_rahul_ubereats_camry",
+        text:"Ohhh nooo bhai, the gravy! The GRAVY! Four-point-eight now, that one star will haunt me for a month yaar. But hey — now you understand. The street does not forgive. Neither does Chamkili. Come, ask me more, or let's just race and you can lose with dignity.",
+        next:"preet_greet"
       },
       {
         id:"preet_mainy_intro", speakerId:"preet", portrait:"preet_default",
@@ -2848,6 +2918,7 @@ const gameProgress = {
   penrithUnlocked:    false, penrithBeaten:     false,  // Macca @ country edge
   liverpoolUnlocked:  false, liverpoolBeaten:   false,  // Moey @ Liverpool
   easterncreekUnlocked: false, easterncreekBeaten: false, // Sgt Snout @ Eastern Creek drags
+  ubereatsDone: false,  // optional 5-star UberEats delivery mini-game w/ Rahul
   // Reward / trophy items the player has earned. Synced from beaten flags
   // in syncRewards() (called from showSuburbSelect and trophy modal open).
   rewards: {
@@ -3574,7 +3645,7 @@ function bindTrophyPeek() {
 }
 bindTrophyPeek();
 
-function gotoDialogue(dialogueId) {
+function gotoDialogue(dialogueId, startNodeId) {
   currentGraph = DIALOGUES[dialogueId];
   // Pick the scene backdrop: dialogue-specific override, else suburb default
   currentDialogueBg = (currentGraph && currentGraph.sceneBg) || null;
@@ -3584,7 +3655,10 @@ function gotoDialogue(dialogueId) {
   drawDialogueScene();
   showScreen('dialogue-screen');
   if(!currentGraph) return;
-  startNode(currentGraph.defaultStartNodeId);
+  // Optional startNodeId lets a mini-game drop the player back into a
+  // specific node (e.g. the UberEats result) instead of replaying the
+  // whole conversation from its defaultStartNodeId.
+  startNode(startNodeId || currentGraph.defaultStartNodeId);
 }
 
 function gotoEnd(title, msg) {
@@ -3930,6 +4004,8 @@ function handleEvent(eventName) {
     setTimeout(() => gotoSuburb('EASTERN CREEK'), 1200);
   } else if(eventName === 'start_drag_easterncreek') {
     gotoDrag();
+  } else if(eventName === 'start_ubereats_delivery') {
+    gotoUbereats();
 
   // ---- Opening narrator → drive transition into Blacktown ----
   } else if(eventName === 'open_blacktown') {
@@ -6027,6 +6103,174 @@ function showHillResult(kind) {
     const quit = document.getElementById('hill-quit-btn');
     if(quit) quit.onclick = () => gotoDialogue('macca_post_lose');
   }, 0);
+}
+
+
+// =============================================
+//  RAHUL'S UBEREATS DELIVERY RUN
+//  Top-down night dash through Harris Park. Rahul's on the clock — a hot
+//  order's in the green bag and the customer's watching the app. Tap LEFT
+//  / RIGHT to weave the R32 between lanes, dodging parked cars, potholes
+//  and witch's hats. Each hit jostles the bag and drops the star rating.
+//  Reach the drop-off before the food goes cold (timer) with the rating
+//  still above 4.50 = 5-STAR DELIVERY. Too many hits or time-out = botched.
+// =============================================
+const UE_W = 390, UE_H = 724;
+const UE_LANES = [78, 195, 312];     // x-centres of the 3 lanes
+const UE_PLAYER_Y = 560;             // player car fixed near the bottom
+const UE_RUN_SECS = 26;              // seconds of food-still-hot before cold
+const UE_SCROLL_SPEED = 320;         // px/s the road scrolls (sense of speed)
+const UE_OB_SPEED = 320;             // px/s obstacles travel down (= scroll)
+const UE_SPAWN_MIN = 0.55, UE_SPAWN_MAX = 1.05;  // seconds between spawns
+const UE_START_RATING = 4.94;
+const UE_HIT_PENALTY = 0.20;         // stars lost per jolt
+const UE_FAIL_RATING = 4.50;         // below this on arrival = botched
+
+let ueActive=false, ueFinished=false, ueRAF=null, ueLastTs=null;
+let ueElapsed=0, ueRating=UE_START_RATING, ueHits=0;
+let uePlayerLane=1, uePlayerX=UE_LANES[1];
+let ueObstacles=[], ueScroll=0, ueSpawnT=0, ueFlash=0, ueResult=null;
+const UE_OB_KINDS=['car','car','pothole','cone'];
+
+function ueSetLane(dir){
+  if(!ueActive) return;
+  uePlayerLane = Math.max(0, Math.min(2, uePlayerLane + dir));
+}
+
+function gotoUbereats(){
+  showScreen('ubereats-screen');
+  ueActive=false; ueFinished=false; ueLastTs=null;
+  ueElapsed=0; ueRating=UE_START_RATING; ueHits=0;
+  uePlayerLane=1; uePlayerX=UE_LANES[1];
+  ueObstacles=[]; ueScroll=0; ueSpawnT=0.6; ueFlash=0; ueResult=null;
+  document.getElementById('ubereats-result').style.display='none';
+  const cd=document.getElementById('ubereats-countdown');
+  cd.style.display='flex'; cd.textContent='ORDER UP!';
+  setTimeout(()=>{ cd.style.display='none'; }, 1100);
+  document.getElementById('ubereats-left-btn').onpointerdown  = ()=>ueSetLane(-1);
+  document.getElementById('ubereats-right-btn').onpointerdown = ()=>ueSetLane(+1);
+  ueActive=true;
+  ueRAF=requestAnimationFrame(ueLoop);
+}
+
+function ueLoop(ts){
+  if(ueLastTs==null) ueLastTs=ts;
+  let dt=(ts-ueLastTs)/1000; ueLastTs=ts;
+  if(dt>0.05) dt=0.05;
+  const cv=document.getElementById('ubereats-canvas');
+  const ctx=cv.getContext('2d');
+
+  if(ueActive){
+    ueElapsed += dt;
+    ueScroll = (ueScroll + UE_SCROLL_SPEED*dt) % 48;
+    // smooth lane change
+    const tx=UE_LANES[uePlayerLane];
+    uePlayerX += (tx-uePlayerX) * Math.min(1, dt*10);
+    // spawn
+    ueSpawnT -= dt;
+    if(ueSpawnT<=0){
+      ueSpawnT = UE_SPAWN_MIN + Math.random()*(UE_SPAWN_MAX-UE_SPAWN_MIN);
+      const lane=Math.floor(Math.random()*3);
+      const kind=UE_OB_KINDS[Math.floor(Math.random()*UE_OB_KINDS.length)];
+      ueObstacles.push({lane, y:-60, kind, hit:false});
+    }
+    // move + collide
+    for(const ob of ueObstacles){
+      ob.y += UE_OB_SPEED*dt;
+      if(!ob.hit && ob.lane===uePlayerLane && Math.abs(ob.y-UE_PLAYER_Y)<48){
+        ob.hit=true; ueHits++; ueRating=Math.max(0, ueRating-UE_HIT_PENALTY);
+        ueFlash=0.35;
+      }
+    }
+    ueObstacles = ueObstacles.filter(o=>o.y<UE_H+60);
+    if(ueFlash>0) ueFlash-=dt;
+    // end conditions
+    if(ueHits>=4){ ueActive=false; finishUbereats(false,'SMASHED THE ORDER'); }
+    else if(ueElapsed>=UE_RUN_SECS){
+      ueActive=false;
+      const won = ueRating>=UE_FAIL_RATING;
+      finishUbereats(won, won?null:'FOOD WENT COLD');
+    }
+  }
+
+  // ---- render ----
+  ctx.clearRect(0,0,UE_W,UE_H);
+  // road
+  ctx.fillStyle='#15151f'; ctx.fillRect(0,0,UE_W,UE_H);
+  ctx.fillStyle='#0c2a14'; ctx.fillRect(0,0,28,UE_H); ctx.fillRect(UE_W-28,0,28,UE_H); // grass verges
+  ctx.fillStyle='#23232f'; ctx.fillRect(28,0,UE_W-56,UE_H);
+  // lane dashes
+  ctx.fillStyle='#c9b24a';
+  for(const lx of [136,254]){
+    for(let y=-48+ueScroll; y<UE_H; y+=48) ctx.fillRect(lx-2, y, 4, 26);
+  }
+  // obstacles
+  for(const ob of ueObstacles){
+    const x=UE_LANES[ob.lane];
+    if(ob.kind==='car'){
+      if(ob.hit){ ctx.globalAlpha=0.4; }
+      ctx.fillStyle='#7a3b3b'; ctx.fillRect(x-26,ob.y-40,52,80);
+      ctx.fillStyle='#b35858'; ctx.fillRect(x-26,ob.y-40,52,16);
+      ctx.fillStyle='#1a1a22'; ctx.fillRect(x-20,ob.y-24,40,18);
+      ctx.globalAlpha=1;
+    } else if(ob.kind==='pothole'){
+      ctx.fillStyle=ob.hit?'#333':'#0a0a0f'; ctx.beginPath();
+      ctx.ellipse(x,ob.y,24,15,0,0,Math.PI*2); ctx.fill();
+    } else { // cone
+      ctx.fillStyle=ob.hit?'#666':'#ff7a18'; ctx.beginPath();
+      ctx.moveTo(x,ob.y-20); ctx.lineTo(x-14,ob.y+14); ctx.lineTo(x+14,ob.y+14);
+      ctx.closePath(); ctx.fill();
+      ctx.fillStyle='#fff'; ctx.fillRect(x-10,ob.y-2,20,5);
+    }
+  }
+  // player car (R32 top-down sprite if loaded, else rect)
+  const pcar = (typeof SPRITES!=='undefined') ? SPRITES['car_silvia'] : null;
+  ctx.save();
+  if(ueFlash>0){ ctx.translate((Math.random()-0.5)*6, (Math.random()-0.5)*6); }
+  if(pcar && pcar.complete){
+    const w=58, h=92; ctx.drawImage(pcar, uePlayerX-w/2, UE_PLAYER_Y-h/2, w, h);
+  } else {
+    ctx.fillStyle='#dfe3ea'; ctx.fillRect(uePlayerX-26,UE_PLAYER_Y-42,52,84);
+    ctx.fillStyle='#9aa3b0'; ctx.fillRect(uePlayerX-26,UE_PLAYER_Y-42,52,16);
+  }
+  ctx.restore();
+  // green UberEats bag on the parcel shelf (bottom-left HUD chip)
+  ctx.fillStyle='#1e7a3f'; ctx.fillRect(12,UE_H-46,40,34);
+  ctx.fillStyle='#3fdf6f'; ctx.fillRect(12,UE_H-46,40,8);
+  ctx.fillStyle='#0b3d20'; ctx.font='bold 8px monospace'; ctx.fillText('EATS',16,UE_H-22);
+  // hit flash vignette
+  if(ueFlash>0){ ctx.fillStyle='rgba(255,40,40,'+(ueFlash*0.5)+')'; ctx.fillRect(0,0,UE_W,UE_H); }
+
+  // HUD
+  const hud=document.getElementById('ubereats-hud');
+  const pct=Math.min(1, ueElapsed/UE_RUN_SECS);
+  const coldLeft=Math.max(0, UE_RUN_SECS-ueElapsed);
+  hud.innerHTML = `<span>&#9733; ${ueRating.toFixed(2)}</span>`+
+                  `<span>DELIVERING&nbsp;${Math.round(pct*100)}%</span>`+
+                  `<span style="color:${coldLeft<6?'#ff5544':'#3fdf6f'}">HOT ${coldLeft.toFixed(0)}s</span>`;
+
+  if(ueActive) ueRAF=requestAnimationFrame(ueLoop);
+  else if(!ueFinished) ueRAF=requestAnimationFrame(ueLoop);
+}
+
+function finishUbereats(won, failMsg){
+  if(ueFinished) return;
+  ueFinished=true; ueActive=false;
+  cancelAnimationFrame(ueRAF); ueLastTs=null;
+  ueResult = won?'win':'lose';
+  const res=document.getElementById('ubereats-result');
+  res.style.display='flex';
+  if(won){
+    res.innerHTML = `<div style="color:#3fdf6f;font-size:52px;">5-STAR DROP</div>`+
+      `<div style="color:#d4d0c4;font-size:18px;margin-top:10px;">Hot, on time, &#9733;${ueRating.toFixed(2)}.<br>Untouchable on the app bhai.</div>`;
+  } else {
+    res.innerHTML = `<div style="color:#ff5544;font-size:46px;">${failMsg||'BOTCHED'}</div>`+
+      `<div style="color:#d4d0c4;font-size:18px;margin-top:10px;">Rating dropped to &#9733;${ueRating.toFixed(2)}.<br>Customer's filthy. Run it back.</div>`;
+  }
+  if(won) gameProgress.ubereatsDone = true;
+  setTimeout(()=>{
+    gotoDialogue('preet_intro', won ? 'preet_ubereats_back_win' : 'preet_ubereats_back_lose');
+  }, 2600);
 }
 
 
