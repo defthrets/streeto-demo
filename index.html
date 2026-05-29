@@ -1461,7 +1461,7 @@ const DIALOGUES = {
       {
         id:"start", speakerId:"narrator", portrait:null,
         stage:{hideCar:true, hideChar:true},
-        sceneImage:"opening",
+        sceneImage:"beat_beemer_install",
         text:"Saturday night. Western Sydney. You've got a fast car you can't really afford, half a tank of fuel, and an itch in your right foot that only goes away at three in the morning on an empty road.",
         next:"opening_2"
       },
@@ -1475,7 +1475,7 @@ const DIALOGUES = {
       {
         id:"opening_3", speakerId:"narrator", portrait:null,
         stage:{hideCar:true, hideChar:true},
-        sceneImage:"opening",
+        sceneImage:"beat_rahul_stereo_apna_time",
         text:"Around eight you decide to head out for a cruise. Might swing by Maccas, see who's about. Grab your keys and fire up the Evo...",
         triggerEvent:"open_blacktown"
       }
@@ -1979,7 +1979,7 @@ const DIALOGUES = {
       {
         id:"brenno_grocer", speakerId:"eshay", portrait:"eshay_excited",
         stage:{hideCar:true, hideChar:true},
-        sceneImage:"beat_brenno_grocer_alt",
+        sceneImage:"beat_evo_gps_penrith_route",
         text:"Alright bra, I'm duckin' in. Curry powder, garam masala, plus two more Mum tacked on while we were drivin'. Won't be ten minutes adlay. ESHAYS. Hold the fort.",
         next:"brenno_leaves"
       },
@@ -2023,7 +2023,7 @@ const DIALOGUES = {
         // every Rahul beat before committing to the race. The "You're on"
         // choice commits to preet_race_offer. Rahul's tone is consistently
         // cocky in every reply — he's convincing the player to race him.
-        id:"preet_greet", speakerId:"preet", portrait:"preet_happy",
+        id:"preet_greet", speakerId:"preet", portrait:"preet_default",
         sceneImage:"beat_rahul_greet_welcome",
         text:"Sat Sri Akal my friend! So YOU are the bloke Brenno's been hyping in the group chat — said you'd give Chamkili a real run. Yaar I have to tell you straight up: twelve years undefeated on this street, twelve years. Chamkili has not lost ONCE. But come, sit, eat, ask me anything bhai. Just so you know what you are walking into.",
         choices:[
@@ -2035,25 +2035,25 @@ const DIALOGUES = {
         ]
       },
       {
-        id:"preet_name", speakerId:"preet", portrait:"preet_happy",
+        id:"preet_name", speakerId:"preet", portrait:"preet_default",
         sceneImage:"beat_chamkili_nostalgic_flashback",
         text:"Rahul, my friend. Rahul Singh. Lived in Harris Park since I was tiny. Everyone round here knows me — half because of Chamkili, half because I'll talk to anyone for three hours about pakoras.",
         next:"preet_backstory"
       },
       {
-        id:"preet_backstory", speakerId:"preet", portrait:"preet_calm",
+        id:"preet_backstory", speakerId:"preet", portrait:"preet_default",
         sceneImage:"beat_rahul_ubereats_camry",
         text:"My taya-ji has a mechanic shop on Marion Street, taught me everything from twelve years old. Distributors, carbies, the lot. UberEats by night — green bag never comes off, 4.94 star rating, untouchable on the app. Two kids at home, wife Simran is a literal angel. She tells the school mums her husband has not lost a race in twelve years. The other dads believe her now bhai. They have stopped trying.",
         next:"preet_mainy_intro"
       },
       {
-        id:"preet_mainy_intro", speakerId:"preet", portrait:"preet_happy",
+        id:"preet_mainy_intro", speakerId:"preet", portrait:"preet_default",
         sceneImage:"beat_rahul_mainy_saturday",
         text:"And Saturday nights? Sacred bhai. App goes OFFLINE. Mainys around Westmead, Marion Street round, all three Parramatta circles. Tyres screaming. Cops never catch me — I know every gurdwara back lane from three years of food drops. You came on a Saturday night, to MY street, with a fast car. You came to lose my friend. You just don't know it yet.",
         next:"preet_music"
       },
       {
-        id:"preet_food", speakerId:"preet", portrait:"preet_happy",
+        id:"preet_food", speakerId:"preet", portrait:"preet_default",
         sceneImage:"beat_rahul_food_spread",
         text:"Aloo samosa from Apna Dera yaar, lifeblood. Sweet Punjab does the best paneer tikka, Billu's for dosa, Curry Hut biryani is unreal, kulfi at the end of Wigram St is THE best in west syd, no debate. After we race I'm shouting you a thali — loser eats too, that is the rule bhai. You're definitely losing by the way, so come hungry.",
         next:"preet_greet"
@@ -2115,7 +2115,7 @@ const DIALOGUES = {
     nodes:[
       {
         id:"start", speakerId:"preet", portrait:"preet_happy",
-        sceneImage:"beat_rahul_shock_amazed",
+        sceneImage:"beat_rahul_arrival_door_pick",
         text:"Arre wah! What driving my friend, what driving! Chamkili is in shock only, I am also in shock! First time she has lost in twelve years I am telling you.",
         choices:[
           {text:"GG, Rahul.", next:"preet_respect_back"},
@@ -2152,7 +2152,8 @@ const DIALOGUES = {
         next:"player_cabra_decide"
       },
       {
-        id:"player_cabra_decide", speakerId:"player", portrait:"player_default",
+        id:"player_cabra_decide",
+        sceneImage:"beat_evo_gps_penrith_route", speakerId:"player", portrait:"player_default",
         text:"Cabra. Khoa. Get you on. ... mate, I have NO idea what any of that means.",
         choices:[
           {text:"Tell me about Khoa.", next:"preet_credits_mitcho2"},
@@ -2162,17 +2163,20 @@ const DIALOGUES = {
         ]
       },
       {
-        id:"preet_credits_geton_explain", speakerId:"eshay", portrait:"eshay_excited",
+        id:"preet_credits_geton_explain",
+        sceneImage:"beat_evo_gps_penrith_route", speakerId:"eshay", portrait:"eshay_excited",
         text:"BRA come on adlay. Get on. Hook up. Bag o' green. Smoke. Punia. Whatever ya wanna call it. Khoa's the gatekeeper in Cabra adlay.",
         next:"preet_credits_mitcho2"
       },
       {
-        id:"preet_credits_priority", speakerId:"eshay", portrait:"eshay_nervous",
+        id:"preet_credits_priority",
+        sceneImage:"beat_evo_gps_penrith_route", speakerId:"eshay", portrait:"eshay_nervous",
         text:"It's tight bra but the curry holds if we MOVE. Cabra quick, in and out, then back through. I've timed this run bra, I've TIMED IT. Trust me.",
         next:"preet_credits_mitcho2"
       },
       {
-        id:"preet_credits_mitcho1", speakerId:"eshay", portrait:"eshay_excited",
+        id:"preet_credits_mitcho1",
+        sceneImage:"beat_evo_gps_penrith_route", speakerId:"eshay", portrait:"eshay_excited",
         text:"Also adlay — you just SMOKED Rahul. THE Rahul. In a Toyora Camree. The boys in Cabra are not gonna believe this.",
         next:"preet_credits_mitcho2"
       },
@@ -2182,7 +2186,8 @@ const DIALOGUES = {
         next:"preet_credits_mitcho3"
       },
       {
-        id:"preet_credits_mitcho3", speakerId:"eshay", portrait:"eshay_excited",
+        id:"preet_credits_mitcho3",
+        sceneImage:"beat_evo_gps_penrith_route", speakerId:"eshay", portrait:"eshay_excited",
         text:"And get this — his ma runs the best phở shop in Cabra. He's been doin' deals out the Maccas carpark on John St for years. NSW cops know it too apparently, so we'll have to time the meet up between cop laps bra. ESHAYS we just gotta be quick.",
         next:"preet_credits_mitcho4"
       },
@@ -2242,8 +2247,9 @@ const DIALOGUES = {
         next:"preet_retry"
       },
       {
-        id:"preet_retry", speakerId:"narrator", portrait:null,
-        sceneImage:"beat_rahul_king_harris_park",
+        id:"preet_retry",
+        portrait:"preet_default", speakerId:"narrator", portrait:null,
+        sceneImage:"beat_rahul_arrival_door_src",
         text:"Harris Park remains Rahul's. Come back when you've got more horsepower — and a louder stereo.",
         triggerEvent:"return_to_map"
       }
@@ -2260,7 +2266,8 @@ const DIALOGUES = {
         next:"khoa_greet"
       },
       {
-        id:"khoa_greet", speakerId:"khoa", portrait:"khoa_happy",
+        id:"khoa_greet",
+        sceneImage:"beat_khoa_humble_spotlight", speakerId:"khoa", portrait:"khoa_happy",
         text:"Ayyy! You're the one Brenno's been hyping up? Get over here bro, I was about to head out for phở. You want one? My shout. Cabramatta's got the best in the country, no debate.",
         choices:[
           {text:"That's a clean R32.", next:"khoa_explain"},
@@ -2282,7 +2289,7 @@ const DIALOGUES = {
       },
       {
         id:"khoa_geton_q", speakerId:"eshay", portrait:"eshay_excited",
-        sceneImage:"beat_brenno_yew_hype",
+        sceneImage:"beat_evo_gps_penrith_route",
         text:"YEEEEEEEEW! Q the boys up adlay! ESHAYS. That'll do us all weekend. Real ones get on at Cabra, NOT the city. Bra you're an icon.",
         next:"khoa_geton_done"
       },
@@ -2293,12 +2300,14 @@ const DIALOGUES = {
         next:"khoa_geton_done"
       },
       {
-        id:"khoa_geton_decline", speakerId:"khoa", portrait:"khoa_default",
+        id:"khoa_geton_decline",
+        sceneImage:"beat_khoa_humble_spotlight", speakerId:"khoa", portrait:"khoa_default",
         text:"Fair enough bro. Listen — Brenno NEEDS the get-on though, you saw him. He's gonna lose it if he doesn't get on. Let me at least sort him out, you don't even have to touch it.",
         next:"khoa_geton_done"
       },
       {
-        id:"khoa_geton_done", speakerId:"khoa", portrait:"khoa_serious",
+        id:"khoa_geton_done",
+        sceneImage:"beat_khoa_humble_spotlight", speakerId:"khoa", portrait:"khoa_serious",
         text:"Right. Stash it under the seat til you're home. Cops out tonight bro — there's a Highway Patrol Commodore doin' laps of the carpark. Look, we'll do this slick. Pull up beside me, six quick things — pop the boot, I show ya the bag, ya sniff it, weigh it, count cash, hand off. All in the cop's blind spots. Easy.",
         next:"khoa_deal_setup"
       },
@@ -2309,17 +2318,20 @@ const DIALOGUES = {
         triggerEvent:"start_sesh_cabramatta"
       },
       {
-        id:"khoa_backstory", speakerId:"khoa", portrait:"khoa_default",
+        id:"khoa_backstory",
+        sceneImage:"beat_khoa_humble_spotlight", speakerId:"khoa", portrait:"khoa_default",
         text:"Born here bro. Both my parents came from Vietnam in '79, boat people. Started a phở shop two streets down, still runnin' it today. I grew up doin' homework behind the counter while mum's choppin' coriander.",
         next:"khoa_backstory_2"
       },
       {
-        id:"khoa_backstory_2", speakerId:"khoa", portrait:"khoa_happy",
+        id:"khoa_backstory_2",
+        sceneImage:"beat_khoa_slick_celebration", speakerId:"khoa", portrait:"khoa_happy",
         text:"Did my apprenticeship as a panel beater at uncle's shop in Bonnyrigg. Sundays were all about cars yeah, the boys, the music, the late night carparks. Cabra car culture runs deep bro.",
         next:"khoa_family"
       },
       {
-        id:"khoa_family", speakerId:"khoa", portrait:"khoa_default",
+        id:"khoa_family",
+        sceneImage:"beat_khoa_old_pacific_pick", speakerId:"khoa", portrait:"khoa_default",
         text:"Found the R32 sittin' in a shed out in Auburn, 1991 BNR32 GT-R, original RB26DETT still in it. Took me two years to bring her back. Dad reckoned I should've bought a Camree. He didn't get it. He gets it now.",
         choices:[
           {text:"What's it running now?", next:"khoa_explain"},
@@ -2333,7 +2345,8 @@ const DIALOGUES = {
         next:"khoa_food_2"
       },
       {
-        id:"khoa_food_2", speakerId:"khoa", portrait:"khoa_default",
+        id:"khoa_food_2",
+        sceneImage:"beat_khoa_humble_spotlight", speakerId:"khoa", portrait:"khoa_default",
         text:"Anyway. Brenno said you're cool, you wanna get on for the boys. Let's do it bro — pull up beside me, slick deal, cop's doin' laps but we'll time it.",
         next:"khoa_geton_intro"
       },
@@ -2350,7 +2363,8 @@ const DIALOGUES = {
         next:"khoa_geton_intro"
       },
       {
-        id:"khoa_respect", speakerId:"khoa", portrait:"khoa_serious",
+        id:"khoa_respect",
+        sceneImage:"beat_khoa_humble_spotlight", speakerId:"khoa", portrait:"khoa_serious",
         text:"Respect bro, no chit chat. I like that. Let's sort Brenno out then — cop's circlin', we'll time it.",
         next:"khoa_geton_intro"
       }
@@ -2377,7 +2391,7 @@ const DIALOGUES = {
       },
       {
         id:"khoa_humble", speakerId:"khoa", portrait:"khoa_serious",
-        sceneImage:"beat_khoa_humble_spotlight",
+        sceneImage:"beat_khoa_slick_celebration_pick",
         text:"Tell me about it bro. HWP's been doin' this loop every Saturday. We just gotta read the spotlight — once ya see the rhythm, easy. You did good.",
         next:"brenno_ongbay_realize"
       },
@@ -4166,6 +4180,10 @@ const SPRITES = {};
 // <img> elements appended to the document so the browser animates them.
 // Used for full-scene takeover backdrops like the dodgy M52 engine bay.
 const SCENE_IMAGE_SRCS = {
+  beat_rahul_arrival_door_src: 'sprites/beat_rahul_arrival_door_src.png',  // picker-added
+  beat_khoa_old_pacific_pick: 'sprites/beat_khoa_old_pacific_pick.gif',  // picker-added
+  beat_rahul_arrival_door_pick: 'sprites/beat_rahul_arrival_door_pick.gif',  // picker-added
+  beat_khoa_slick_celebration_pick: 'sprites/beat_khoa_slick_celebration_pick.gif',  // picker-added
   beat_bong_panic_alt: 'sprites/beat_bong_panic_alt.gif',  // picker-added
   beat_brenno_grocer_alt: 'sprites/beat_brenno_grocer_alt.gif',  // picker-added
   engine_bay:       'sprites/engine_bay.gif',
