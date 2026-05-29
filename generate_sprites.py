@@ -2838,39 +2838,39 @@ BEAT_PROMPTS = {
     # mitcho_greet — "OI! Adlay! Bra, BRA... me Beemer is absolutely
     # cooked." First sight of Brenno gesturing wildly at his broken E36.
     "brenno_beemer_intro": (
-        # ARTISTIC FRAMING: rear-3/4 over-the-shoulder angle so we see the
-        # BACK/SIDE of Brenno, not his face. This (a) avoids face drift
-        # across regens, (b) prominently displays the BRIGHT RED RAT-TAIL
-        # which is Brenno's iconic visual hook, (c) makes the smoking
-        # Beemer the focal element with Brenno in the foreground as a
-        # silhouette frame. Michael's directive: don't focus on faces.
-        "pixel art CINEMATIC OVER-THE-SHOULDER REAR-THREE-QUARTER establishing shot of "
-        "Blacktown Maccas drive-thru carpark at dusk, the figure in foreground is "
-        + BRENNO_SCENE_DESC + ", "
-        "the camera is positioned BEHIND-AND-TO-THE-LEFT of Brenno looking PAST him toward "
-        "his broken-down BMW E36 sedan — so we see the BACK of Brenno's head and the LEFT "
-        "side of his body (FACE TURNED AWAY from camera, only a sliver of profile visible), "
-        "Brenno fills the LEFT third of the frame in foreground (about 70 percent frame "
-        "height), the smoking E36 fills the centre-right middle-ground, "
-        "CRITICAL OUTFIT VISIBILITY UNDER THE DUSK LIGHTING (do NOT render the yellow jumper "
-        "as dark/black/navy just because it's evening — the MUSTARD YELLOW CREWNECK "
-        "PULLOVER SWEATSHIRT must read clearly as YELLOW even in the dusk light, lit by warm "
-        "amber streetlamp glow + the golden arches glow that catches it from the right side, "
-        "Brenno's BACK is FULLY VISIBLE wearing the bright yellow jumper — the yellow is the "
-        "second most visually dominant element after the red rat-tail), "
-        "the NAVY BLUE NIKE TN BASEBALL CAP is CLEARLY PRESENT on his head tilted UP at the "
-        "back showing the yellow Nike swoosh on the side panel (NOT hatless — the cap is "
-        "always on his head no matter what), the LONG THIN RED RAT-TAIL dangles down from "
-        "under the cap onto his shoulder as the iconic visual hook, "
-        "Brenno's RIGHT ARM (the one visible to camera) is THROWN OUT WIDE in animated "
-        "frustrated gesture toward the smoking Beemer, palm upturned, the 'WHAT DO YA RECKON "
-        "BRA' stance, shoulders hunched forward, "
-        "to the RIGHT of Brenno his parked broken-down DEEP BLUE BMW E36 sedan taking up the right "
-        "half of the frame — BONNET PROPPED FULLY OPEN above the engine bay, a THICK PLUME of "
-        "DRAMATIC WHITE-GREY ENGINE STEAM billowing up out of the engine bay (the focal animation "
-        "element — the steam plume rises and curls), the E36 is faded Cosmos blue paint with "
-        "scuffs + a dented front quarter panel, slammed coilovers, black multi-spoke aftermarket "
-        "wheels, M-Sport rear lip spoiler, looks WELL cooked, "
+        # FRONT-ON FULL-BODY canonical carpark composition (Michael's
+        # preferred framing): Brenno standing centre, full body head to
+        # slides, two cars flanking him, Maccas + dusk behind. The ONLY
+        # fix from the restored _old.gif is the OUTFIT — the old render
+        # put him in a BLACK TANK TOP, he must be in the MUSTARD YELLOW
+        # CREWNECK JUMPER per the character style guide. Heavy anti-
+        # tank-top / anti-singlet guard below.
+        "pixel art WIDE FULL-BODY FRONT-ON establishing shot of Blacktown Maccas drive-thru "
+        "carpark at dusk, centred in the frame is " + BRENNO_SCENE_DESC + ", "
+        "Brenno stands FRONT-ON to camera in the centre of the carpark, FULL BODY visible "
+        "head to white-slides occupying about 75 percent of frame height (proper adult lad "
+        "proportions, NOT chibi NOT anime NOT child-sized), "
+        "ABSOLUTELY CRITICAL OUTFIT — Brenno wears a BAGGY MUSTARD YELLOW CREWNECK PULLOVER "
+        "SWEATSHIRT covering his ENTIRE TORSO and BOTH ARMS down to the wrists (this is the "
+        "single most important detail: he is NOT wearing a black tank top, NOT a singlet, NOT "
+        "a sleeveless top, NOT a dark shirt, NOT bare-armed — his arms and torso are FULLY "
+        "COVERED by the bright school-bus-yellow jumper, and the yellow MUST read as bright "
+        "yellow even in the dusk light, lit warm by the streetlamps + golden arches glow), "
+        "the NAVY BLUE NIKE TN CAP tilted UP on his head with the yellow swoosh on the side "
+        "panel, the long thin RED RAT-TAIL dangling from under the cap onto his shoulder, "
+        "the black NIKE crossbody bumbag strap running diagonally across the yellow jumper, "
+        "navy tracksuit pants tucked into white tube socks, white rubber slides, "
+        "Brenno's BODY angled slightly with BOTH ARMS held out / gesturing toward his "
+        "broken-down car in an animated frustrated 'WHAT DO YA RECKON BRA' stance, mouth open "
+        "mid-rant on his masculine adult freckled face, "
+        "to the LEFT of Brenno a small parked BMW E36 and to the RIGHT another parked car "
+        "(both cropped at frame edges, flanking him), "
+        "the main BROKEN-DOWN DEEP BLUE BMW E36 sedan parked just behind-left of Brenno with "
+        "its BONNET PROPPED FULLY OPEN and a THICK PLUME of DRAMATIC WHITE-GREY ENGINE STEAM "
+        "billowing up out of the engine bay (the focal animation element — the steam rises + "
+        "curls), the E36 is faded Cosmos blue paint with scuffs + a dented front quarter "
+        "panel, slammed coilovers, black multi-spoke aftermarket wheels, M-Sport rear lip "
+        "spoiler, looks WELL cooked, "
         "BACKGROUND: a NSW Maccas drive-thru restaurant facade visible in the middle ground — DO NOT "
         "render any text or letters on the building, instead show just the iconic LARGE BRIGHT "
         "YELLOW DOUBLE-ARCH 'M' LOGO standing on a tall metal pole glowing warm yellow against the "
