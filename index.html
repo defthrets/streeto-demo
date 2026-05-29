@@ -1762,7 +1762,7 @@ const DIALOGUES = {
       },
       {
         id:"mitcho_greet", speakerId:"eshay", portrait:"eshay_default",
-        sceneImage:"beat_brenno_beemer_intro",
+        sceneImage:"beat_beemer_install",
         text:"OI! Adlay! Bra, BRA, aye brah howyagoeen lad, oi listen, me Beemer is absolutely cooked. Coil pack's gone I reckon. But she's smokin' aswell so I'm not sure. Have a look would ya? Tell me what YOU see.",
         choices:[
           {text:"Who even are you?", next:"mitcho_intro_self"},
@@ -1772,18 +1772,19 @@ const DIALOGUES = {
       },
       {
         id:"mitcho_intro_self", speakerId:"eshay", portrait:"eshay_excited",
-        sceneImage:"beat_brenno_bullshitting",
+        sceneImage:"beat_bong_panic",
         text:"Big Brenno onerske adlay. That's me name, that's me brand. I always come first, in races, in graff, in fights. Mostly fights. Too many ogdays around these parts bra I tell ya.",
         next:"mitcho_intro_2"
       },
       {
         id:"mitcho_intro_2", speakerId:"eshay", portrait:"eshay_default",
-        sceneImage:"beat_brenno_bullshitting",
+        sceneImage:"beat_bong_panic",
         text:"Mum works at Coles. Dad's doin' a stint at Long Bay, free the boys. I run with the Mexican Hoon Cartel when they let me, I swear ay.",
         next:"engine_inspect_lead"
       },
       {
-        id:"mitcho_pls_inspect", speakerId:"eshay", portrait:"eshay_nervous",
+        id:"mitcho_pls_inspect",
+        sceneImage:"beat_beemer_install", speakerId:"eshay", portrait:"eshay_nervous",
         text:"Nah neither am I lad, that's why I need a second pair of eyes. Just glance at it bra, tell me what looks wrong. I'll show ya.",
         next:"engine_inspect_lead"
       },
@@ -1792,7 +1793,7 @@ const DIALOGUES = {
         text:"Yeah but anyway come walk over with me brah. I pulled the dead M52 out an E36 wreck on Marketplace meself last summer. Bit of a project brah. Have a squiz under the bonnet adlay. Tell me what jumps out.",
         // sceneImage overrides the dialogue scene with the engine bay GIF
         // for this node onwards until the player picks a diagnosis.
-        sceneImage:"engine_bay",
+        sceneImage:"beat_beemer_install",
         next:"engine_inspect"
       },
       {
@@ -1851,7 +1852,7 @@ const DIALOGUES = {
       },
       {
         id:"mitcho_real_ask", speakerId:"eshay", portrait:"eshay_nervous",
-        sceneImage:"beat_brenno_card_declined",
+        sceneImage:"beat_bong_panic_alt",
         text:"Nah bra. Card declined three times this week. Fukin cenno ain't come in yet, I only got enough for a stick AND Mum needs curry powder for dinner — like RIGHT now, she's started cooking already. Harris Park's got the proper Punjabi grocer. I told her I'd get it lad.",
         next:"player_offer"
       },
@@ -1866,13 +1867,14 @@ const DIALOGUES = {
         ]
       },
       {
-        id:"mitcho_curry_coles", speakerId:"eshay", portrait:"eshay_excited",
+        id:"mitcho_curry_coles",
+        sceneImage:"beat_bong_panic", speakerId:"eshay", portrait:"eshay_excited",
         text:"COLES?! Bra Coles curry powder is BEIGE. Mum will whack me with the wooden spoon. Has to be Harris Park, Wigram St adlay. The real stuff. Trust me.",
         next:"player_harris_commit"
       },
       {
         id:"mitcho_curry_uber", speakerId:"eshay", portrait:"eshay_sad",
-        sceneImage:"beat_brenno_onions_dont_wait",
+        sceneImage:"beat_bong_panic",
         text:"She's already chopped the onions bra. Onions don't wait. And the boys at Westfield are busy. You're me last hope adlay.",
         next:"player_harris_commit"
       },
@@ -1884,7 +1886,7 @@ const DIALOGUES = {
       },
       {
         id:"mitcho_curry_yes", speakerId:"eshay", portrait:"eshay_excited",
-        sceneImage:"beat_brenno_yew_legend",
+        sceneImage:"beat_player_route_commit",
         text:"YEW LEGEND adlay! ESHAYS! Wigram St, full thing. Mum will love ya. Let's roll bra.",
         triggerEvent:"unlock_parramatta_brenno"
       }
@@ -1899,7 +1901,8 @@ const DIALOGUES = {
     id:"bazza_post_win", defaultStartNodeId:"start",
     nodes:[
       {
-        id:"start", speakerId:"eshay", portrait:"eshay_default",
+        id:"start",
+        sceneImage:"beat_evo_gps_penrith_route", speakerId:"eshay", portrait:"eshay_default",
         text:"Bra... what are we doin' back at Maccas adlay. We sussed the engine. We worked out it's the coil pack. Mum's curry's gonna burn if we don't get to Harris Park soon. Why are we sittin' in the carpark again ESHAYS.",
         choices:[
           {text:"Just checking in. You good?", next:"mitcho_chillin"},
@@ -1908,17 +1911,20 @@ const DIALOGUES = {
         ]
       },
       {
-        id:"mitcho_chillin", speakerId:"eshay", portrait:"eshay_excited",
+        id:"mitcho_chillin",
+        sceneImage:"beat_evo_gps_penrith_route", speakerId:"eshay", portrait:"eshay_excited",
         text:"I'm sweet bra. Sittin' on the kerb. Beemer's still cooked. Mum's still cookin'. The boys at Westfield are still cookin'. Whole world's cookin' except me poor Beemer. Let's get to Harris Park yeah.",
         next:"mitcho_unlock"
       },
       {
-        id:"mitcho_maccas", speakerId:"eshay", portrait:"eshay_excited",
+        id:"mitcho_maccas",
+        sceneImage:"beat_evo_gps_penrith_route", speakerId:"eshay", portrait:"eshay_excited",
         text:"BRA. Quarter pounder, large fries, frozen Coke, two soft serves. Wait — no money. Card declined twice this week. Just take me to Harris Park, mum's curry will feed the both of us anyway. ESHAYS.",
         next:"mitcho_unlock"
       },
       {
-        id:"mitcho_unlock", speakerId:"narrator", portrait:null,
+        id:"mitcho_unlock",
+        sceneImage:"beat_evo_gps_penrith_route", speakerId:"narrator", portrait:null,
         text:"Brenno hops back in. Harris Park's twenty minutes down the M4. Mum's curry powder isn't gonna grab itself.",
         triggerEvent:"unlock_parramatta"
       }
@@ -1940,17 +1946,20 @@ const DIALOGUES = {
         ]
       },
       {
-        id:"mitcho_excuses", speakerId:"eshay", portrait:"eshay_nervous",
+        id:"mitcho_excuses",
+        sceneImage:"beat_beemer_install", speakerId:"eshay", portrait:"eshay_nervous",
         text:"That's the spirit lad. ESHAYS. Take it from the top.",
         next:"mitcho_retry"
       },
       {
-        id:"mitcho_sad", speakerId:"eshay", portrait:"eshay_sad",
+        id:"mitcho_sad",
+        sceneImage:"beat_beemer_install", speakerId:"eshay", portrait:"eshay_sad",
         text:"All sweet bra. I'll be on the kerb when ya wanna pick this up.",
         next:"mitcho_retry"
       },
       {
-        id:"mitcho_retry", speakerId:"narrator", portrait:null,
+        id:"mitcho_retry",
+        sceneImage:"beat_beemer_install", speakerId:"narrator", portrait:null,
         text:"Blacktown carpark stays loud. Brenno's Beemer still smokin'.",
         triggerEvent:"return_to_map"
       }
@@ -1970,7 +1979,7 @@ const DIALOGUES = {
       {
         id:"brenno_grocer", speakerId:"eshay", portrait:"eshay_excited",
         stage:{hideCar:true, hideChar:true},
-        sceneImage:"beat_brenno_grocer_dash",
+        sceneImage:"beat_brenno_grocer_alt",
         text:"Alright bra, I'm duckin' in. Curry powder, garam masala, plus two more Mum tacked on while we were drivin'. Won't be ten minutes adlay. ESHAYS. Hold the fort.",
         next:"brenno_leaves"
       },
@@ -4157,6 +4166,8 @@ const SPRITES = {};
 // <img> elements appended to the document so the browser animates them.
 // Used for full-scene takeover backdrops like the dodgy M52 engine bay.
 const SCENE_IMAGE_SRCS = {
+  beat_bong_panic_alt: 'sprites/beat_bong_panic_alt.gif',  // picker-added
+  beat_brenno_grocer_alt: 'sprites/beat_brenno_grocer_alt.gif',  // picker-added
   engine_bay:       'sprites/engine_bay.gif',
   opening:          'sprites/bg_opening.png',     // 400x400 dusk driveway — opening_intro
   rahul_burnout:    'sprites/rahul_burnout.gif',  // Camree's 720 mainy entrance at Harris Park
